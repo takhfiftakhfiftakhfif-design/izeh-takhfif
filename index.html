@@ -36,7 +36,6 @@
         .blink-banner { margin: 20px; padding: 18px; background: #fff; border: 2px dashed var(--main); border-radius: 15px; text-align: center; font-weight: bold; color: var(--main); animation: flash 1s infinite linear; }
         @keyframes flash { 50% { opacity: 0.4; } }
 
-        /* استایل جدید برای نگهدارنده کارت و بج تخفیف */
         .card-container { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; height: 200px; position: relative; }
         .card-container img { width: 100%; height: 140px; object-fit: cover; }
         .card-name { padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
@@ -44,28 +43,22 @@
         .off-badge {
             position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff;
             padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold;
-            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.2); direction: ltr;
+            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.3); direction: ltr;
         }
 
         #storyModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
-        
         .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; pointer-events: none; }
         .p-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
         .p-fill { height: 100%; background: #fff; width: 0%; }
-
         .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.3); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10002; cursor: pointer; }
-        
         .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
         .touch-zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 9999; }
         .touch-prev { left: 0; }
         .touch-next { right: 0; }
-
         .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
         #st-name { font-size: 17px; margin: 0 0 5px 0; font-weight: bold; color: #000; }
         #st-desc { font-size: 13px; color: #222; line-height: 1.5; margin-bottom: 12px; font-weight: bold; }
-        
         #st-btns { display: flex; gap: 6px; }
         .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
     </style>
@@ -99,23 +92,9 @@
     <div id="storyModal">
         <div class="prog-container" id="prog-bars"></div>
         <button class="close-modal" onclick="closeMe()">✕</button>
-        
-        <div class="touch-zone touch-prev" 
-             onclick="changeSlide(-1)" 
-             ontouchstart="pauseTimer()" 
-             ontouchend="resumeTimer()"
-             onmousedown="pauseTimer()"
-             onmouseup="resumeTimer()"></div>
-             
-        <div class="touch-zone touch-next" 
-             onclick="changeSlide(1)" 
-             ontouchstart="pauseTimer()" 
-             ontouchend="resumeTimer()"
-             onmousedown="pauseTimer()"
-             onmouseup="resumeTimer()"></div>
-
+        <div class="touch-zone touch-prev" onclick="changeSlide(-1)"></div>
+        <div class="touch-zone touch-next" onclick="changeSlide(1)"></div>
         <div class="media-box" id="media-view"></div>
-        
         <div class="info-box">
             <h2 id="st-name"></h2>
             <div id="st-desc"></div>
@@ -145,19 +124,21 @@
             sDiv.innerHTML = ''; cDiv.innerHTML = '';
 
             stories.forEach(item => {
-                const thumb = Array.isArray(item.slides) ? item.slides[0] : item.src;
+                // اگر src نبود از اولین اسلاید استفاده کن
+                const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
                 sDiv.innerHTML += `<div class="story-circle" onclick="openMe(${item.id})"><img src="${thumb}"><br><span style="font-size:11px; font-weight:bold">${item.name}</span></div>`;
             });
 
             offers.forEach(item => {
-                // نمایش بج تخفیف فقط در صورت وجود مقدار off در فایل json
                 const offTag = item.off ? `<div class="off-badge">${item.off}% OFF</div>` : '';
+                // اگر src نبود از اولین اسلاید استفاده کن
+                const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
                 
                 cDiv.innerHTML += `
                     <div class="swiper-slide">
                         <div class="card-container" onclick="openMe(${item.id})">
                             ${offTag}
-                            <img src="${item.src}">
+                            <img src="${thumb}">
                             <div class="card-name">${item.name}</div>
                         </div>
                     </div>`;
@@ -222,23 +203,9 @@
             else showSlide();
         }
 
-        function pauseTimer() { 
-            isPaused = true; 
-            const v = document.getElementById('st-video'); 
-            if(v) v.pause(); 
-        }
-
-        function resumeTimer() { 
-            isPaused = false; 
-            const v = document.getElementById('st-video'); 
-            if(v) v.play(); 
-        }
-
-        function closeMe() { 
-            const v = document.getElementById('st-video'); if(v) v.pause();
-            document.getElementById('storyModal').style.display = 'none'; 
-            clearInterval(timer); 
-        }
+        function pauseTimer() { isPaused = true; const v = document.getElementById('st-video'); if(v) v.pause(); }
+        function resumeTimer() { isPaused = false; const v = document.getElementById('st-video'); if(v) v.play(); }
+        function closeMe() { const v = document.getElementById('st-video'); if(v) v.pause(); document.getElementById('storyModal').style.display = 'none'; clearInterval(timer); }
 
         async function shareApp(n) {
             try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ویژه ${n}`, url: window.location.href }); } catch (err) {}
