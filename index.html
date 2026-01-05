@@ -18,11 +18,9 @@
         :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.95); }
         body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
 
-        /* بنر نصب */
         #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
         #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
 
-        /* متن روان */
         .marquee-container { background: #000; color: #fff; padding: 10px 0; overflow: hidden; border-bottom: 2px solid var(--main); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee-scroll 25s linear infinite; font-weight: bold; }
         @keyframes marquee-scroll { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
@@ -30,7 +28,6 @@
         .top-nav { text-align: center; background: #fff; padding: 20px 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .search-mini { width: 85%; padding: 12px; border-radius: 25px; border: 1.5px solid #ddd; outline: none; margin-top: 15px; text-align: center; }
         
-        /* استوری بار */
         .story-bar { display: flex; gap: 15px; padding: 20px; background: #fff; overflow-x: auto; scrollbar-width: none; }
         .story-bar::-webkit-scrollbar { display: none; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
@@ -43,35 +40,27 @@
         .card-container img { width: 100%; height: 140px; object-fit: cover; }
         .card-name { padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
 
-        /* مودال استوری */
         #storyModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
         
-        .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; }
+        .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; pointer-events: none; }
         .p-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
         .p-fill { height: 100%; background: #fff; width: 0%; }
 
         .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.3); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10002; cursor: pointer; }
         
-        .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        /* مناطق لمس فعال */
-        .touch-zone { position: absolute; top: 0; bottom: 0; width: 45%; z-index: 10000; }
+        .touch-zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 9999; }
         .touch-prev { left: 0; }
         .touch-next { right: 0; }
 
-        /* باکس اطلاعات */
         .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
         #st-name { font-size: 17px; margin: 0 0 5px 0; font-weight: bold; color: #000; }
         #st-desc { font-size: 13px; color: #222; line-height: 1.5; margin-bottom: 12px; font-weight: bold; }
         
-        /* دکمه‌های مینیمال در یک ردیف */
         #st-btns { display: flex; gap: 6px; }
-        .btn-link { 
-            flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; 
-            text-decoration: none; font-size: 11px; border: none; cursor: pointer; 
-            display: flex; align-items: center; justify-content: center; gap: 3px;
-        }
+        .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -104,10 +93,21 @@
         <div class="prog-container" id="prog-bars"></div>
         <button class="close-modal" onclick="closeMe()">✕</button>
         
-        <div class="touch-zone touch-prev" onclick="changeSlide(-1)"></div>
-        <div class="touch-zone touch-next" onclick="changeSlide(1)"></div>
+        <div class="touch-zone touch-prev" 
+             onclick="changeSlide(-1)" 
+             ontouchstart="pauseTimer()" 
+             ontouchend="resumeTimer()"
+             onmousedown="pauseTimer()"
+             onmouseup="resumeTimer()"></div>
+             
+        <div class="touch-zone touch-next" 
+             onclick="changeSlide(1)" 
+             ontouchstart="pauseTimer()" 
+             ontouchend="resumeTimer()"
+             onmousedown="pauseTimer()"
+             onmouseup="resumeTimer()"></div>
 
-        <div class="media-box" id="media-view" ontouchstart="pauseTimer()" ontouchend="resumeTimer()"></div>
+        <div class="media-box" id="media-view"></div>
         
         <div class="info-box">
             <h2 id="st-name"></h2>
@@ -130,7 +130,7 @@
                 document.getElementById('text-marq').innerText = Array.isArray(conf.marqueeText) ? conf.marqueeText.join(" ⚡ ") : conf.marqueeText;
                 allItems = [...stor, ...off];
                 render(stor, off);
-            } catch (e) { console.log("خطا"); }
+            } catch (e) { console.log("خطا در دریافت فایل‌ها"); }
         }
 
         function render(stories, offers) {
@@ -168,7 +168,7 @@
 
             const view = document.getElementById('media-view');
             if (src.toLowerCase().endsWith('.mp4')) {
-                view.innerHTML = `<video id="st-video" autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
+                view.innerHTML = `<video id="st-video" autoplay playsinline muted><source src="${src}" type="video/mp4"></video>`;
                 const v = document.getElementById('st-video');
                 v.onloadedmetadata = () => startTimer(v.duration * 1000);
             } else {
@@ -179,7 +179,6 @@
             document.getElementById('st-name').innerText = currentItem.name;
             document.getElementById('st-desc').innerText = currentItem.desc;
             
-            // دکمه‌های مینیمال
             let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444">📤 اشتراک</button>`;
             if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71">📞 تماس</a>`;
             if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main)">📸 اینستا</a>`;
@@ -192,7 +191,7 @@
                 if (!isPaused) {
                     progress += (100 / (duration / 100));
                     let f = document.getElementById(`fill-${slideIndex}`);
-                    if(f) f.style.width = progress + '%';
+                    if(f) f.style.width = Math.min(progress, 100) + '%';
                     if (progress >= 100) changeSlide(1);
                 }
             }, 100);
@@ -206,8 +205,17 @@
             else showSlide();
         }
 
-        function pauseTimer() { isPaused = true; const v = document.getElementById('st-video'); if(v) v.pause(); }
-        function resumeTimer() { isPaused = false; const v = document.getElementById('st-video'); if(v) v.play(); }
+        function pauseTimer() { 
+            isPaused = true; 
+            const v = document.getElementById('st-video'); 
+            if(v) v.pause(); 
+        }
+
+        function resumeTimer() { 
+            isPaused = false; 
+            const v = document.getElementById('st-video'); 
+            if(v) v.play(); 
+        }
 
         function closeMe() { 
             const v = document.getElementById('st-video'); if(v) v.pause();
