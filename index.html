@@ -16,7 +16,7 @@
     
     <style>
         :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.95); }
-        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
 
         #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
         #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
@@ -45,30 +45,26 @@
         .card-container img { width: 100%; height: 140px; object-fit: cover; }
         .card-name { padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
         
-        .off-badge {
-            position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff;
-            padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold;
-            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.2); direction: ltr;
-        }
+        .off-badge { position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold; z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.2); direction: ltr; }
 
-        #storyModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
+        #storyModal, #bizModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
+        #bizModal { background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow-y: auto; z-index: 10005; }
+        
         .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; pointer-events: none; }
         .p-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
         .p-fill { height: 100%; background: #fff; width: 0%; }
         .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.3); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10002; cursor: pointer; }
+        
         .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .touch-zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 9999; }
-        .touch-prev { left: 0; }
-        .touch-next { right: 0; }
-        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
         
+        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
         #viewing-tag { font-size: 11px; color: #d35400; background: rgba(211, 84, 0, 0.1); padding: 4px 10px; border-radius: 10px; display: inline-block; margin-bottom: 8px; font-weight: bold; }
+        
+        .biz-float-btn { position: fixed; bottom: 20px; left: 15px; right: 15px; background: linear-gradient(45deg, #1a1a1a, #444); color: #fff; padding: 12px 20px; border-radius: 50px; z-index: 999; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 2px solid #ffd700; cursor: pointer; animation: bounceIn 1s; }
+        @keyframes bounceIn { from { transform: translateY(100px); } to { transform: translateY(0); } }
 
-        #st-name { font-size: 17px; margin: 0 0 5px 0; font-weight: bold; color: #000; }
-        #st-desc { font-size: 13px; color: #222; line-height: 1.5; margin-bottom: 12px; font-weight: bold; }
-        #st-btns { display: flex; gap: 6px; }
-        .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
+        .biz-feature { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 4px solid #ffd700; text-align: right; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -102,15 +98,58 @@
         </div>
     </div>
 
+    <div class="biz-float-btn" onclick="openBizModal()">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 22px;">💎</span>
+            <div style="text-align: right;">
+                <div style="font-size: 13px; font-weight: bold;">صاحب کسب‌وکار هستید؟</div>
+                <div style="font-size: 10px; color: #ffd700;">جای شما در ویترین ایذه خالیست!</div>
+            </div>
+        </div>
+        <div style="background: #ffd700; color: #000; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold;">ثبت تبلیغ</div>
+    </div>
+
+    <div id="bizModal">
+        <div style="padding: 30px 20px;">
+            <button class="close-modal" onclick="closeBizModal()">✕</button>
+            <div style="text-align: center; margin-top: 50px;">
+                <h1 style="color: #ffd700; font-size: 24px;">تبلیغات هوشمند در ایذه 🚀</h1>
+                <p style="color: #ccc; font-size: 14px; line-height: 1.6;">کسب‌وکارتان را مستقیماً به گوشی هزاران همشهری ببرید</p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <div class="biz-feature">
+                    <h4 style="margin: 0; color: #ffd700;">📈 بازدید تضمینی</h4>
+                    <p style="margin: 5px 0 0; font-size: 12px; color: #aaa;">نمایش تبلیغ شما به بیش از ۱,۵۰۰ کاربر فعال روزانه در ایذه.</p>
+                </div>
+                <div class="biz-feature" style="border-right-color: #2ecc71;">
+                    <h4 style="margin: 0; color: #2ecc71;">🔗 لینک مستقیم</h4>
+                    <p style="margin: 5px 0 0; font-size: 12px; color: #aaa;">اتصال مستقیم مشتری به اینستاگرام، واتس‌اپ و تماس تلفنی مغازه شما.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; background: rgba(255,215,0,0.1); padding: 20px; border-radius: 20px; border: 1px dashed #ffd700;">
+                <p style="color: #fff; font-size: 14px; margin-bottom: 15px;">جهت مشاوره و رزرو جایگاه آگهی:</p>
+                <a href="tel:09220730628" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #ffd700; color: #000; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; margin-bottom: 10px;">
+                    <span>📞</span> تماس تلفنی: 09220730628
+                </a>
+                <a href="https://wa.me/989220730628" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #25d366; color: #fff; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold;">
+                    <span>💬</span> پیام در واتس‌اپ
+                </a>
+                <p style="font-size: 11px; color: #fff; margin-top: 15px;">مدیریت تبلیغات: نادری</p>
+            </div>
+        </div>
+    </div>
+
     <div id="storyModal">
         <div class="prog-container" id="prog-bars"></div>
         <button class="close-modal" onclick="closeMe()">✕</button>
-        <div class="touch-zone touch-prev" onclick="changeSlide(-1)"></div>
-        <div class="touch-zone touch-next" onclick="changeSlide(1)"></div>
+        <div class="touch-zone" style="left:0; position: absolute; width: 50%; height: 100%; top: 0; z-index: 9999;" onclick="changeSlide(-1)"></div>
+        <div class="touch-zone" style="right:0; position: absolute; width: 50%; height: 100%; top: 0; z-index: 9999;" onclick="changeSlide(1)"></div>
         <div class="media-box" id="media-view"></div>
         <div class="info-box">
             <div id="viewing-tag">🔥 <span id="view-count"></span> نفر درحال دیدن این مورد</div>
-            <h2 id="st-name"></h2>
+            <h2 id="st-name" style="margin:0; color:#000"></h2>
             <div id="st-desc"></div>
             <div id="st-btns"></div>
         </div>
@@ -132,7 +171,7 @@
                 render(stor, off);
                 updateOnlineStatus();
                 setInterval(updateOnlineStatus, 8000);
-            } catch (e) { console.log("خطا در دریافت فایل‌ها"); }
+            } catch (e) { console.log("خطا در بارگذاری"); }
         }
 
         function updateOnlineStatus() {
@@ -140,97 +179,59 @@
             const hour = new Date().getHours();
             let min = (hour >= 22 || hour < 8) ? 7 : 1150;
             let max = (hour >= 22 || hour < 8) ? 19 : 1980;
-            
-            let current = parseInt(el.innerText.replace(/,/g, '')) || Math.floor(Math.random() * (max - min + 1) + min);
-            let drift = (hour >= 22 || hour < 8) ? Math.floor(Math.random() * 5) - 2 : Math.floor(Math.random() * 17) - 8;
+            let current = parseInt(el.innerText) || Math.floor(Math.random() * (max - min) + min);
+            let drift = (hour >= 22 || hour < 8) ? Math.floor(Math.random()*3)-1 : Math.floor(Math.random()*15)-7;
             let next = current + drift;
-            
             if (next < min) next = min; if (next > max) next = max;
-            el.innerText = next.toLocaleString('en-US');
+            el.innerText = next.toLocaleString();
         }
 
         function render(stories, offers) {
             const sDiv = document.getElementById('story-render'), cDiv = document.getElementById('card-render');
             sDiv.innerHTML = ''; cDiv.innerHTML = '';
-
             stories.forEach(item => {
-                const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
+                const thumb = item.src || (item.slides ? item.slides[0] : '');
                 sDiv.innerHTML += `<div class="story-circle" onclick="openMe(${item.id})"><img src="${thumb}"><br><span style="font-size:11px; font-weight:bold">${item.name}</span></div>`;
             });
-
             offers.forEach(item => {
-                const offTag = item.off ? `<div class="off-badge">${item.off}% OFF</div>` : '';
-                const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
-                
-                cDiv.innerHTML += `
-                    <div class="swiper-slide">
-                        <div class="card-container" onclick="openMe(${item.id})">
-                            ${offTag}
-                            <img src="${thumb}">
-                            <div class="card-name">${item.name}</div>
-                        </div>
-                    </div>`;
+                const thumb = item.src || (item.slides ? item.slides[0] : '');
+                cDiv.innerHTML += `<div class="swiper-slide"><div class="card-container" onclick="openMe(${item.id})">${item.off ? `<div class="off-badge">${item.off}% OFF</div>`:''}<img src="${thumb}"><div class="card-name">${item.name}</div></div></div>`;
             });
-
             if (swiperInstance) swiperInstance.destroy();
             swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
-        // تابع اصلاح شده برای هماهنگی با ساعت شب
         function openMe(id) {
             currentItem = allItems.find(x => x.id === id);
             if(!currentItem) return;
-
             const hour = new Date().getHours();
-            let count;
-
-            // اگر شب باشد (ساعت 10 شب تا 8 صبح)
-            if (hour >= 22 || hour < 8) {
-                count = Math.floor(Math.random() * 5) + 1; // عددی بین 1 تا 6 نفر
-            } 
-            // اگر روز باشد
-            else {
-                const isOffer = currentItem.id >= 200;
-                // برای تبلیغات ویژه عدد بزرگتر (20 تا 35)، برای استوری‌ها کمتر (4 تا 12)
-                count = isOffer ? Math.floor(Math.random() * 16) + 20 : Math.floor(Math.random() * 9) + 4;
-            }
-
+            let count = (hour >= 22 || hour < 8) ? Math.floor(Math.random()*5)+1 : (currentItem.id >= 200 ? Math.floor(Math.random()*15)+20 : Math.floor(Math.random()*8)+4);
             document.getElementById('view-count').innerText = count;
-
-            slideIndex = 0;
-            document.getElementById('storyModal').style.display = 'block';
+            slideIndex = 0; document.getElementById('storyModal').style.display = 'block';
             showSlide();
         }
 
         function showSlide() {
             const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src];
             const src = slides[slideIndex];
-            
-            document.getElementById('prog-bars').innerHTML = slides.map((_, i) => `
-                <div class="p-bar"><div class="p-fill" id="fill-${i}" style="width:${i < slideIndex ? '100%' : '0%'}"></div></div>
-            `).join('');
-
+            document.getElementById('prog-bars').innerHTML = slides.map((_, i) => `<div class="p-bar"><div class="p-fill" id="fill-${i}" style="width:${i < slideIndex ? '100%' : '0%'}"></div></div>`).join('');
             const view = document.getElementById('media-view');
             if (src.toLowerCase().endsWith('.mp4')) {
                 view.innerHTML = `<video id="st-video" autoplay playsinline muted><source src="${src}" type="video/mp4"></video>`;
-                const v = document.getElementById('st-video');
-                v.onloadedmetadata = () => startTimer(v.duration * 1000);
+                const v = document.getElementById('st-video'); v.onloadedmetadata = () => startTimer(v.duration * 1000);
             } else {
-                view.innerHTML = `<img src="${src}">`;
-                startTimer(5000);
+                view.innerHTML = `<img src="${src}">`; startTimer(5000);
             }
-
             document.getElementById('st-name').innerText = currentItem.name;
             document.getElementById('st-desc').innerText = currentItem.desc;
-            
-            let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444">📤 اشتراک</button>`;
-            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71">📞 تماس</a>`;
-            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main)">📸 اینستا</a>`;
+            let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444; flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; border: none; font-size: 11px;">📤 اشتراک</button>`;
+            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71; flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; display: flex; align-items: center; justify-content: center;">📞 تماس</a>`;
+            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main); flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; display: flex; align-items: center; justify-content: center;">📸 اینستا</a>`;
             document.getElementById('st-btns').innerHTML = btns;
         }
 
         function startTimer(duration) {
-            progress = 0; isPaused = false; clearInterval(timer);
+            progress = 0; clearInterval(timer);
             timer = setInterval(() => {
                 if (!isPaused) {
                     progress += (100 / (duration / 100));
@@ -249,14 +250,10 @@
             else showSlide();
         }
 
-        function pauseTimer() { isPaused = true; const v = document.getElementById('st-video'); if(v) v.pause(); }
-        function resumeTimer() { isPaused = false; const v = document.getElementById('st-video'); if(v) v.play(); }
         function closeMe() { const v = document.getElementById('st-video'); if(v) v.pause(); document.getElementById('storyModal').style.display = 'none'; clearInterval(timer); }
-
-        async function shareApp(n) {
-            try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ویژه ${n}`, url: window.location.href }); } catch (err) {}
-        }
-
+        function openBizModal() { document.getElementById('bizModal').style.display = 'block'; }
+        function closeBizModal() { document.getElementById('bizModal').style.display = 'none'; }
+        async function shareApp(n) { try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ویژه ${n}`, url: window.location.href }); } catch (err) {} }
         function filterContent() {
             const val = document.getElementById('searchInput').value.toLowerCase();
             render(allItems.filter(i => i.id < 200 && i.name.toLowerCase().includes(val)), allItems.filter(i => i.id >= 200 && i.name.toLowerCase().includes(val)));
