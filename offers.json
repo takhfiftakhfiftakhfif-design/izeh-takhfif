@@ -1,11 +1,17 @@
 [
   {
     "id": 200,
-    "name": "پوشاک فوکس",
-    "off": 35,
+    "name": "لباس ارزون",
+    "off": 50,
     "desc": "تاپایان هفته",
     "phone": "09370214819",
     "link": "https://www.instagram.com/boutique.fox8?igsh=MWlvenlpbHBxNXRzag==",
-    "src": "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg"
+    "slides": [
+      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
+      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
+      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
+      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
+      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg"
+    ]
   }
 ]
