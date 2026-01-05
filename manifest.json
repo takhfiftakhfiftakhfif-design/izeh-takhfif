@@ -1,6 +1,5 @@
 
 
-
 {
   "name": "تخفیفات ایذه",
   "short_name": "ایذه تخفیف",
@@ -10,7 +9,7 @@
   "theme_color": "#ff3e3e",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/726/726448.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/8796/8796880.png",
       "sizes": "192x192",
       "type": "image/png"
     }
