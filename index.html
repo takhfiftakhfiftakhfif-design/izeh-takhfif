@@ -36,9 +36,16 @@
         .blink-banner { margin: 20px; padding: 18px; background: #fff; border: 2px dashed var(--main); border-radius: 15px; text-align: center; font-weight: bold; color: var(--main); animation: flash 1s infinite linear; }
         @keyframes flash { 50% { opacity: 0.4; } }
 
-        .card-container { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; height: 200px; }
+        /* استایل جدید برای نگهدارنده کارت و بج تخفیف */
+        .card-container { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; height: 200px; position: relative; }
         .card-container img { width: 100%; height: 140px; object-fit: cover; }
         .card-name { padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
+        
+        .off-badge {
+            position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff;
+            padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold;
+            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.2); direction: ltr;
+        }
 
         #storyModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
         
@@ -143,7 +150,17 @@
             });
 
             offers.forEach(item => {
-                cDiv.innerHTML += `<div class="swiper-slide"><div class="card-container" onclick="openMe(${item.id})"><img src="${item.src}"><div class="card-name">${item.name}</div></div></div>`;
+                // نمایش بج تخفیف فقط در صورت وجود مقدار off در فایل json
+                const offTag = item.off ? `<div class="off-badge">${item.off}% OFF</div>` : '';
+                
+                cDiv.innerHTML += `
+                    <div class="swiper-slide">
+                        <div class="card-container" onclick="openMe(${item.id})">
+                            ${offTag}
+                            <img src="${item.src}">
+                            <div class="card-name">${item.name}</div>
+                        </div>
+                    </div>`;
             });
 
             if (swiperInstance) swiperInstance.destroy();
