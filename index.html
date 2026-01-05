@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تخفیفات ایذه</title>
+    <title>تخفیفات ایذه | مرجع تبلیغات هوشمند</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
@@ -15,16 +15,15 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <style>
-        :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.98); }
+        :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.98); --vip-blue: #00e5ff; }
         body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 95px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
 
-        #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
-        #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
-
+        /* نوار اطلاع‌رسانی متحرک */
         .marquee-container { background: #000; color: #fff; padding: 10px 0; overflow: hidden; border-bottom: 2px solid var(--main); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee-scroll 25s linear infinite; font-weight: bold; }
         @keyframes marquee-scroll { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
 
+        /* هدر و جستجو */
         .top-nav { text-align: center; background: #fff; padding: 20px 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .search-mini { width: 85%; padding: 12px; border-radius: 25px; border: 1.5px solid #ddd; outline: none; margin-top: 15px; text-align: center; }
         
@@ -33,6 +32,7 @@
         .online-dot::after { content: ''; position: absolute; width: 100%; height: 100%; background: #2ecc71; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
 
+        /* استوری بار */
         .story-bar { display: flex; gap: 15px; padding: 20px; background: #fff; overflow-x: auto; scrollbar-width: none; }
         .story-bar::-webkit-scrollbar { display: none; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
@@ -41,45 +41,44 @@
         .blink-banner { margin: 20px; padding: 18px; background: #fff; border: 2px dashed var(--main); border-radius: 15px; text-align: center; font-weight: bold; color: var(--main); animation: flash 1s infinite linear; }
         @keyframes flash { 50% { opacity: 0.4; } }
 
+        /* کارت‌های ویترین */
         .card-container { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; height: 200px; position: relative; }
         .card-container img { width: 100%; height: 140px; object-fit: cover; }
         .card-name { padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
-        
-        .off-badge { position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold; z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.2); direction: ltr; }
+        .off-badge { position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold; z-index: 5; direction: ltr; }
 
+        /* مودال‌ها */
         #storyModal, #bizModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
-        #bizModal { background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow-y: auto; z-index: 10005; }
+        #bizModal { background: rgba(0,0,0,0.96); backdrop-filter: blur(15px); overflow-y: auto; z-index: 10005; }
         
-        .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; pointer-events: none; }
+        .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; }
         .p-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
         .p-fill { height: 100%; background: #fff; width: 0%; }
         .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.3); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10002; cursor: pointer; }
         
-        .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
+        .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(15px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); }
-        #viewing-tag { font-size: 10px; color: #d35400; background: rgba(211, 84, 0, 0.1); padding: 3px 10px; border-radius: 10px; display: inline-block; margin-bottom: 8px; font-weight: bold; }
-        #st-name { color: #000 !important; font-weight: 900 !important; font-size: 18px; margin-bottom: 5px; }
-        #st-desc { color: #222 !important; font-weight: bold !important; font-size: 13px; margin-bottom: 15px; line-height: 1.4; }
+        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; color: #000; }
         
-        .biz-float-btn { position: fixed; bottom: 20px; left: 10px; right: 10px; background: linear-gradient(45deg, #111, #333); color: #fff; padding: 14px; border-radius: 15px; z-index: 999; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #ffd700; cursor: pointer; }
-        .biz-price-card { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid #ffd700; }
+        /* دکمه تبلیغات و تعرفه */
+        .biz-float-btn { position: fixed; bottom: 20px; left: 10px; right: 10px; background: linear-gradient(45deg, #111, #333); color: #fff; padding: 14px; border-radius: 15px; z-index: 999; display: flex; align-items: center; justify-content: center; border: 2px solid #ffd700; cursor: pointer; }
+        .biz-price-card { background: rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid #ffd700; }
         
-        .btn-row { display: flex; gap: 8px; justify-content: center; align-items: center; }
-        .small-btn { flex: 1; padding: 10px 5px; border-radius: 12px; color: #fff; font-weight: bold; text-decoration: none; font-size: 12px; border: none; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .share-btn-round { width: 45px; height: 45px; border-radius: 50%; background: #444; color: #fff; border: none; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        /* پاپ‌آپ هوشمند VIP */
+        #business-popup { position: fixed; bottom: -150px; left: 15px; right: 15px; background: linear-gradient(135deg, #222, #000); border: 2px solid #ffd700; border-radius: 20px; padding: 12px; z-index: 10006; display: flex; align-items: center; gap: 12px; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; }
+        #business-popup.active { bottom: 100px; }
+        #business-popup img { width: 55px; height: 55px; border-radius: 12px; border: 2px solid #ffd700; object-fit: cover; }
+        .pop-badge { background: #ffd700; color: #000; font-size: 9px; padding: 2px 6px; border-radius: 5px; font-weight: 900; }
+
+        .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+        .small-btn { flex: 1; padding: 12px; border-radius: 12px; color: #fff; font-weight: bold; text-decoration: none; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 5px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div id="pwa-banner">
-        <span>📲 نصب برنامه</span>
-        <button id="install-pwa">نصب</button>
-    </div>
-
     <div class="marquee-container">
-        <div class="marquee-content" id="text-marq">درحال بارگذاری...</div>
+        <div class="marquee-content" id="text-marq">در حال بارگذاری اخبار شهر...</div>
     </div>
 
     <div class="top-nav">
@@ -90,10 +89,11 @@
             <span style="font-size: 11px; color: #666; font-weight: bold;"><span id="online-number" style="color:#2ecc71">...</span> نفر آنلاین</span>
         </div>
         <br>
-        <input type="text" id="searchInput" class="search-mini" placeholder="جستجو..." onkeyup="filterContent()">
+        <input type="text" id="searchInput" class="search-mini" placeholder="جستجوی فروشگاه یا کالا..." onkeyup="filterContent()">
     </div>
 
     <div class="story-bar" id="story-render"></div>
+    
     <div class="blink-banner">🔥 پیشنهادهای داغ امروز 🔥</div>
 
     <div style="padding: 10px;">
@@ -102,71 +102,69 @@
         </div>
     </div>
 
+    <div id="business-popup" onclick="openVipFromPop()">
+        <img id="pop-biz-img" src="" alt="">
+        <div style="flex:1">
+            <span class="pop-badge">پیشنهاد ویژه مدیریت</span>
+            <h4 id="pop-biz-name" style="margin:0; color:#ffd700; font-size:13px;"></h4>
+            <p id="pop-biz-desc" style="margin:3px 0 0; color:#fff; font-size:11px;"></p>
+        </div>
+        <div style="color: #ffd700;">👈</div>
+    </div>
+
     <div class="biz-float-btn" onclick="openBizModal()">
         <div style="text-align: center;">
-            <div style="font-size: 13px; font-weight: bold; color: #fff;">کسب و کار و محصولت رو جلوی چشم هزاران ایذه ای بزار</div>
-            <div style="font-size: 10px; color: #ffd700; margin-top: 4px;">🎯 تعرفه جدید تبلیغات (کلیک کنید)</div>
+            <div style="font-size: 13px; font-weight: bold;">کسب و کارت رو جلوی چشم هزاران ایذه ای بزار</div>
+            <div style="font-size: 10px; color: #ffd700;">🚀 تعرفه جدید پکیج‌های VIP ایذه</div>
         </div>
     </div>
 
     <div id="bizModal">
         <div style="padding: 20px;">
             <button class="close-modal" onclick="closeBizModal()">✕</button>
-            
             <div style="text-align: center; margin-top: 50px; margin-bottom: 25px;">
-                <h2 style="color: #ffd700; margin-bottom: 5px;">تبلیغات در ایذه 🚀</h2>
+                <h2 style="color: #ffd700; margin-bottom: 5px;">تبلیغات هوشمند در ایذه 💎</h2>
                 <div style="font-size: 12px; color: #ccc;">بازدید روزانه: +۱۴,۰۰۰ همشهری فعال</div>
             </div>
 
             <div class="biz-price-card" style="border-right-color: #ff3e3e;">
-                <div>
-                    <div style="font-weight: bold; font-size: 14px;">ثبت استوری (۲۴ ساعت)</div>
-                    <div style="font-size: 11px; color: #aaa;">نمایش در استوری‌های سایت</div>
-                </div>
-                <div style="text-align: left;">
-                    <div style="color: #ffd700; font-weight: bold;">۳۵,۰۰۰</div>
-                    <div style="font-size: 9px; color: #ccc;">تومان</div>
-                </div>
+                <div><div style="font-weight: bold; font-size: 14px;">۱. ثبت استوری (۲۴ ساعت)</div><div style="font-size: 10px; color: #aaa;">• نوار دایره‌ای بالای سایت</div></div>
+                <div style="text-align: left;"><div style="color: #ffd700; font-weight: bold;">۳۵,۰۰۰</div><div style="font-size: 9px; color: #ccc;">تومان</div></div>
             </div>
 
             <div class="biz-price-card" style="border-right-color: #ffd700;">
+                <div><div style="font-weight: bold; font-size: 14px;">۲. ویترین پیشنهادات (۴۸ ساعت)</div><div style="font-size: 10px; color: #aaa;">• لیست کارت‌های داغ صفحه اصلی</div></div>
+                <div style="text-align: left;"><div style="color: #ffd700; font-weight: bold;">۵۰,۰۰۰</div><div style="font-size: 9px; color: #ccc;">تومان</div></div>
+            </div>
+
+            <div class="biz-price-card" style="border-right-color: #ffffff;">
+                <div><div style="font-weight: bold; font-size: 14px;">۳. تبلیغ در متن روان</div><div style="font-size: 10px; color: #aaa;">• نوار متحرک بالای سایت</div></div>
+                <div style="text-align: left;"><div style="color: #ffd700; font-weight: bold;">۲۰,۰۰۰</div><div style="font-size: 9px; color: #ccc;">تومان</div></div>
+            </div>
+
+            <div class="biz-price-card" style="border-right-color: var(--vip-blue); background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.3);">
                 <div>
-                    <div style="font-weight: bold; font-size: 14px;">تبلیغ ویژه (۴۸ ساعت)</div>
-                    <div style="font-size: 11px; color: #aaa;">نمایش در ویترین اصلی (کارت)</div>
+                    <div style="font-weight: bold; font-size: 14px; color: var(--vip-blue);">۴. پاپ‌آپ هوشمند VIP ✨</div>
+                    <div style="font-size: 10px; color: #aaa;">• بازشدن خودکار تبلیغ روی گوشی همه</div>
                 </div>
                 <div style="text-align: left;">
-                    <div style="color: #ffd700; font-weight: bold;">۵۰,۰۰۰</div>
+                    <div style="color: var(--vip-blue); font-weight: bold;">۴۵,۰۰۰</div>
                     <div style="font-size: 9px; color: #ccc;">تومان</div>
                 </div>
             </div>
 
-            <div class="biz-price-card" style="border-right-color: #fff;">
-                <div>
-                    <div style="font-weight: bold; font-size: 14px;">تبلیغ در متن روان</div>
-                    <div style="font-size: 11px; color: #aaa;">نوار متحرک بالای سایت</div>
-                </div>
-                <div style="text-align: left;">
-                    <div style="color: #ffd700; font-weight: bold;">۲۰,۰۰۰</div>
-                    <div style="font-size: 9px; color: #ccc;">تومان</div>
-                </div>
+            <div style="background: linear-gradient(45deg, #ffd700, #ffae00); padding: 18px; border-radius: 20px; color: #000; text-align: center; margin: 25px 0; box-shadow: 0 10px 25px rgba(255,215,0,0.4); border: 2px solid #fff; position: relative; overflow: hidden;">
+                <div style="font-weight: 900; font-size: 18px;">🌟 پکیج کامل مدیریت (VIP+)</div>
+                <div style="font-size: 10px; font-weight: bold; margin-bottom: 10px;">استوری + ویترین + متن روان + پاپ‌آپ هوشمند</div>
+                <div style="font-size: 26px; font-weight: 900; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 8px;">۸۹,۰۰۰ تومان</div>
+                <div style="font-size: 10px; font-weight: bold; opacity: 0.8;">(ارزش واقعی خدمات: ۱۵۰,۰۰۰ تومان)</div>
+                <div style="position: absolute; top: 5px; right: -25px; background: #ff3e3e; color: #fff; padding: 5px 30px; transform: rotate(45deg); font-size: 9px; font-weight: bold;">ویژه</div>
             </div>
 
-            <div style="background: linear-gradient(45deg, #ffd700, #ffae00); padding: 15px; border-radius: 15px; color: #000; text-align: center; margin: 15px 0; box-shadow: 0 5px 15px rgba(255,215,0,0.3);">
-                <div style="font-weight: 900; font-size: 16px;">🌟 پکیج کامل (VIP)</div>
-                <div style="font-size: 11px; font-weight: bold;">استوری + ویژه + متن روان</div>
-                <div style="font-size: 20px; font-weight: 900; margin-top: 5px;">۸۹,۰۰۰ تومان</div>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <p style="font-size: 13px; margin-bottom: 15px;">ارسال آگهی و مشاوره:</p>
-                <a href="https://wa.me/989220730628?text=سلام%20جناب%20نادری%20وقت%20بخیر%20من%20یک%20آگهی%20برای%20ثبت%20در%20سایت%20دارم%20لطفا%20راهنمایی%20کنید" 
-                   style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #25d366; color: #fff; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; margin-bottom: 12px;">
-                    <span>💬</span> پیام در واتس‌اپ
-                </a>
-                <a href="tel:09220730628" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #fff; color: #000; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold;">
-                    <span>📞</span> تماس: 09220730628
-                </a>
-                <p style="font-size: 11px; color: #aaa; margin-top: 20px;">مدیریت تبلیغات: نادری</p>
+            <div style="text-align: center;">
+                <a href="https://wa.me/989220730628?text=سلام%20پکیج%20تبلیغات%20VIP%20میخواستم" 
+                   style="display: block; background: #25d366; color: #fff; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; margin-bottom: 10px;">💬 سفارش در واتس‌اپ</a>
+                <a href="tel:09220730628" style="display: block; background: #fff; color: #000; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold;">📞 تماس فوری</a>
             </div>
         </div>
     </div>
@@ -174,19 +172,17 @@
     <div id="storyModal">
         <div class="prog-container" id="prog-bars"></div>
         <button class="close-modal" onclick="closeMe()">✕</button>
-        <div style="position: absolute; top: 0; left: 0; width: 50%; height: 70%; z-index: 9999;" onclick="changeSlide(-1)"></div>
-        <div style="position: absolute; top: 0; right: 0; width: 50%; height: 70%; z-index: 9999;" onclick="changeSlide(1)"></div>
         <div class="media-box" id="media-view"></div>
         <div class="info-box">
-            <div id="viewing-tag">🔥 <span id="view-count"></span> نفر درحال دیدن این مورد</div>
-            <h2 id="st-name"></h2>
-            <div id="st-desc"></div>
+            <div style="font-size: 10px; color: #d35400;">🔥 <span id="view-count"></span> نفر در حال مشاهده</div>
+            <h2 id="st-name" style="margin:5px 0; font-size:18px;"></h2>
+            <div id="st-desc" style="font-size:13px; line-height:1.4;"></div>
             <div id="st-btns" class="btn-row"></div>
         </div>
     </div>
 
     <script>
-        let allItems = [], swiperInstance, timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0;
+        let allItems = [], swiperInstance, timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0, currentVipId = null;
 
         async function startup() {
             try {
@@ -201,17 +197,8 @@
                 render(stor, off);
                 updateOnlineStatus();
                 setInterval(updateOnlineStatus, 8000);
-            } catch (e) { console.log("خطا"); }
-        }
-
-        function updateOnlineStatus() {
-            const el = document.getElementById('online-number');
-            const hour = new Date().getHours();
-            let min = (hour >= 22 || hour < 8) ? 7 : 1150;
-            let max = (hour >= 22 || hour < 8) ? 19 : 1980;
-            let current = parseInt(el.innerText) || 1200;
-            let next = current + (Math.random() * 20 - 10);
-            el.innerText = Math.floor(Math.max(min, Math.min(max, next))).toLocaleString();
+                setTimeout(showBusinessPopup, 10000);
+            } catch (e) { console.error("Load Error"); }
         }
 
         function render(stories, offers) {
@@ -229,10 +216,29 @@
             swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
+        function showBusinessPopup() {
+            const vips = allItems.filter(i => i.vip === true || i.id >= 200);
+            if (vips.length === 0) return;
+            const target = vips[Math.floor(Math.random() * vips.length)];
+            currentVipId = target.id;
+            document.getElementById('pop-biz-img').src = target.src || (target.slides ? target.slides[0] : '');
+            document.getElementById('pop-biz-name').innerText = target.name;
+            document.getElementById('pop-biz-desc').innerText = target.desc.substring(0, 35) + "...";
+            const el = document.getElementById('business-popup');
+            el.classList.add('active');
+            setTimeout(() => { el.classList.remove('active'); }, 8000);
+            setTimeout(showBusinessPopup, 60000);
+        }
+
+        function openVipFromPop() {
+            if(currentVipId) openMe(currentVipId);
+            document.getElementById('business-popup').classList.remove('active');
+        }
+
         function openMe(id) {
             currentItem = allItems.find(x => x.id === id);
             if(!currentItem) return;
-            document.getElementById('view-count').innerText = Math.floor(Math.random()*15)+10;
+            document.getElementById('view-count').innerText = Math.floor(Math.random()*20)+15;
             slideIndex = 0; document.getElementById('storyModal').style.display = 'block';
             showSlide();
         }
@@ -250,10 +256,9 @@
             }
             document.getElementById('st-name').innerText = currentItem.name;
             document.getElementById('st-desc').innerText = currentItem.desc;
-            
-            let btns = `<button onclick="shareApp('${currentItem.name}')" class="share-btn-round">🚀</button>`;
+            let btns = `<button onclick="shareApp('${currentItem.name}')" style="background:#444" class="small-btn">🚀 اشتراک</button>`;
             if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="small-btn" style="background:#2ecc71">📞 تماس</a>`;
-            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="small-btn" style="background:var(--main)">📸 اینستا</a>`;
+            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="small-btn" style="background:var(--main)">📸 اینستاگرام</a>`;
             document.getElementById('st-btns').innerHTML = btns;
         }
 
@@ -277,10 +282,19 @@
             else showSlide();
         }
 
+        function updateOnlineStatus() {
+            const el = document.getElementById('online-number');
+            const hour = new Date().getHours();
+            let min = (hour >= 22 || hour < 8) ? 7 : 1150, max = (hour >= 22 || hour < 8) ? 19 : 1980;
+            let current = parseInt(el.innerText) || 1200;
+            el.innerText = Math.floor(Math.max(min, Math.min(max, current + (Math.random()*20-10)))).toLocaleString();
+        }
+
         function closeMe() { const v = document.getElementById('st-video'); if(v) v.pause(); document.getElementById('storyModal').style.display = 'none'; clearInterval(timer); }
         function openBizModal() { document.getElementById('bizModal').style.display = 'block'; }
         function closeBizModal() { document.getElementById('bizModal').style.display = 'none'; }
-        async function shareApp(n) { try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ویژه ${n}`, url: window.location.href }); } catch (err) {} }
+        async function shareApp(n) { try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ${n}`, url: window.location.href }); } catch (e) {} }
+        
         function filterContent() {
             const val = document.getElementById('searchInput').value.toLowerCase();
             render(allItems.filter(i => i.id < 200 && i.name.toLowerCase().includes(val)), allItems.filter(i => i.id >= 200 && i.name.toLowerCase().includes(val)));
