@@ -193,11 +193,16 @@
                     fetch('offers.json' + t).then(r => r.json())
                 ]);
                 document.getElementById('text-marq').innerText = Array.isArray(conf.marqueeText) ? conf.marqueeText.join(" ⚡ ") : conf.marqueeText;
-                allItems = [...stor, ...off];
-                render(stor, off);
+                
+                // برچسب گذاری برای جلوگیری از تداخل آیدی ها
+                const sData = stor.map(i => ({...i, type: 'story'}));
+                const oData = off.map(i => ({...i, type: 'offer'}));
+                
+                allItems = [...sData, ...oData];
+                render(sData, oData);
                 updateOnlineStatus();
                 setInterval(updateOnlineStatus, 8000);
-                setTimeout(showBusinessPopup, 10000);
+                setTimeout(showBusinessPopup, 5000);
             } catch (e) { console.error("Load Error"); }
         }
 
@@ -206,56 +211,76 @@
             sDiv.innerHTML = ''; cDiv.innerHTML = '';
             stories.forEach(item => {
                 const thumb = item.src || (item.slides ? item.slides[0] : '');
-                sDiv.innerHTML += `<div class="story-circle" onclick="openMe(${item.id})"><img src="${thumb}"><br><span style="font-size:11px; font-weight:bold">${item.name}</span></div>`;
+                sDiv.innerHTML += `<div class="story-circle" onclick="openMe(${item.id}, 'story')"><img src="${thumb}"><br><span style="font-size:11px; font-weight:bold">${item.name}</span></div>`;
             });
             offers.forEach(item => {
                 const thumb = item.src || (item.slides ? item.slides[0] : '');
-                cDiv.innerHTML += `<div class="swiper-slide"><div class="card-container" onclick="openMe(${item.id})">${item.off ? `<div class="off-badge">${item.off}% OFF</div>`:''}<img src="${thumb}"><div class="card-name">${item.name}</div></div></div>`;
+                cDiv.innerHTML += `<div class="swiper-slide"><div class="card-container" onclick="openMe(${item.id}, 'offer')">${item.off ? `<div class="off-badge">${item.off}% OFF</div>`:''}<img src="${thumb}"><div class="card-name">${item.name}</div></div></div>`;
             });
             if (swiperInstance) swiperInstance.destroy();
             swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
         function showBusinessPopup() {
-            const vips = allItems.filter(i => i.vip === true || i.id >= 200);
+            const vips = allItems.filter(i => i.vip === true);
             if (vips.length === 0) return;
             const target = vips[Math.floor(Math.random() * vips.length)];
             currentVipId = target.id;
-            document.getElementById('pop-biz-img').src = target.src || (target.slides ? target.slides[0] : '');
+            
+            // نمایش پیش‌نمایش تصویر در پاپ آپ کوچک
+            const thumb = target.src || (target.slides ? target.slides[0] : '');
+            document.getElementById('pop-biz-img').src = thumb.toLowerCase().endsWith('.mp4') ? 'https://cdn-icons-png.flaticon.com/512/1179/1179069.png' : thumb;
             document.getElementById('pop-biz-name').innerText = target.name;
             document.getElementById('pop-biz-desc').innerText = target.desc.substring(0, 35) + "...";
+            
             const el = document.getElementById('business-popup');
             el.classList.add('active');
-            setTimeout(() => { el.classList.remove('active'); }, 8000);
+            setTimeout(() => { el.classList.remove('active'); }, 12000);
             setTimeout(showBusinessPopup, 60000);
         }
 
         function openVipFromPop() {
-            if(currentVipId) openMe(currentVipId);
-            document.getElementById('business-popup').classList.remove('active');
+            if(currentVipId) {
+                // پیدا کردن آگهی VIP دقیق
+                const vipItem = allItems.find(x => x.id == currentVipId && x.vip === true);
+                if(vipItem) openMe(vipItem.id, vipItem.type);
+                document.getElementById('business-popup').classList.remove('active');
+            }
         }
 
-        function openMe(id) {
-            currentItem = allItems.find(x => x.id === id);
+        function openMe(id, type) {
+            // اصلاح جستجو بر اساس ID و نوع (Type) برای جلوگیری از تداخل
+            currentItem = allItems.find(x => x.id == id && x.type == type);
             if(!currentItem) return;
-            document.getElementById('view-count').innerText = Math.floor(Math.random()*20)+15;
-            slideIndex = 0; document.getElementById('storyModal').style.display = 'block';
+            
+            document.getElementById('view-count').innerText = Math.floor(Math.random()*20)+30;
+            slideIndex = 0; 
+            document.getElementById('storyModal').style.display = 'block';
             showSlide();
         }
 
         function showSlide() {
             const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src];
             const src = slides[slideIndex];
+            
             document.getElementById('prog-bars').innerHTML = slides.map((_, i) => `<div class="p-bar"><div class="p-fill" id="fill-${i}" style="width:${i < slideIndex ? '100%' : '0%'}"></div></div>`).join('');
+            
             const view = document.getElementById('media-view');
+            
+            // منطق هوشمند پخش ویدیو
             if (src.toLowerCase().endsWith('.mp4')) {
-                view.innerHTML = `<video id="st-video" autoplay playsinline muted><source src="${src}" type="video/mp4"></video>`;
-                const v = document.getElementById('st-video'); v.onloadedmetadata = () => startTimer(v.duration * 1000);
+                view.innerHTML = `<video id="st-video" autoplay playsinline muted style="width:100%; height:100%; object-fit:contain;"><source src="${src}" type="video/mp4"></video>`;
+                const v = document.getElementById('st-video');
+                v.onloadedmetadata = () => startTimer(v.duration * 1000);
+                v.onerror = () => startTimer(5000); // اگر ویدیو لود نشد بعد از ۵ ثانیه رد شود
             } else {
-                view.innerHTML = `<img src="${src}">`; startTimer(5000);
+                view.innerHTML = `<img src="${src}" style="width:100%; height:100%; object-fit:contain;">`;
+                startTimer(5000);
             }
+            
             document.getElementById('st-name').innerText = currentItem.name;
             document.getElementById('st-desc').innerText = currentItem.desc;
+            
             let btns = `<button onclick="shareApp('${currentItem.name}')" style="background:#444" class="small-btn">🚀 اشتراک</button>`;
             if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="small-btn" style="background:#2ecc71">📞 تماس</a>`;
             if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="small-btn" style="background:var(--main)">📸 اینستاگرام</a>`;
@@ -269,7 +294,10 @@
                     progress += (100 / (duration / 100));
                     let f = document.getElementById(`fill-${slideIndex}`);
                     if(f) f.style.width = Math.min(progress, 100) + '%';
-                    if (progress >= 100) changeSlide(1);
+                    if (progress >= 100) {
+                        clearInterval(timer);
+                        changeSlide(1);
+                    }
                 }
             }, 100);
         }
@@ -282,22 +310,31 @@
             else showSlide();
         }
 
+        function closeMe() { 
+            const v = document.getElementById('st-video'); 
+            if(v) { v.pause(); v.removeAttribute('src'); v.load(); } 
+            document.getElementById('storyModal').style.display = 'none'; 
+            clearInterval(timer); 
+        }
+
         function updateOnlineStatus() {
             const el = document.getElementById('online-number');
             const hour = new Date().getHours();
-            let min = (hour >= 22 || hour < 8) ? 7 : 1150, max = (hour >= 22 || hour < 8) ? 19 : 1980;
-            let current = parseInt(el.innerText) || 1200;
-            el.innerText = Math.floor(Math.max(min, Math.min(max, current + (Math.random()*20-10)))).toLocaleString();
+            let min = (hour >= 22 || hour < 8) ? 15 : 1200;
+            let max = (hour >= 22 || hour < 8) ? 45 : 2100;
+            let current = parseInt(el.innerText.replace(/,/g, '')) || 1400;
+            el.innerText = Math.floor(Math.max(min, Math.min(max, current + (Math.random()*30-15)))).toLocaleString();
         }
 
-        function closeMe() { const v = document.getElementById('st-video'); if(v) v.pause(); document.getElementById('storyModal').style.display = 'none'; clearInterval(timer); }
         function openBizModal() { document.getElementById('bizModal').style.display = 'block'; }
         function closeBizModal() { document.getElementById('bizModal').style.display = 'none'; }
         async function shareApp(n) { try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ${n}`, url: window.location.href }); } catch (e) {} }
         
         function filterContent() {
             const val = document.getElementById('searchInput').value.toLowerCase();
-            render(allItems.filter(i => i.id < 200 && i.name.toLowerCase().includes(val)), allItems.filter(i => i.id >= 200 && i.name.toLowerCase().includes(val)));
+            const fStor = allItems.filter(i => i.type == 'story' && i.name.toLowerCase().includes(val));
+            const fOff = allItems.filter(i => i.type == 'offer' && i.name.toLowerCase().includes(val));
+            render(fStor, fOff);
         }
 
         window.onload = startup;
