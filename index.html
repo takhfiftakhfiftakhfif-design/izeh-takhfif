@@ -54,6 +54,9 @@
         .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.5); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 100005; cursor: pointer; }
         #mute-btn { position: absolute; top: 25px; right: 15px; z-index: 100005; background: rgba(0,0,0,0.5); border: none; width: 40px; height: 40px; border-radius: 50%; color: white; display: none; font-size: 18px; }
 
+        /* آمار بازدید زنده در استوری */
+        .live-views { position: absolute; top: 60px; right: 15px; background: rgba(255,62,62,0.8); padding: 4px 10px; border-radius: 10px; font-size: 11px; font-weight: bold; z-index: 100005; display: flex; align-items: center; gap: 5px; }
+
         .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
@@ -64,7 +67,6 @@
         #business-popup.active { bottom: 100px; }
         #business-popup img { width: 55px; height: 55px; border-radius: 12px; border: 2px solid #ffd700; object-fit: cover; }
         
-        /* استایل کارت های پنل تبلیغات */
         .price-item { background: #1a1a1a; border: 1px solid #333; padding: 15px; border-radius: 15px; margin-bottom: 15px; text-align: right; }
         .price-item h3 { margin: 0 0 10px; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
         .price-item p { margin: 0; font-size: 12px; color: #bbb; line-height: 1.6; }
@@ -101,6 +103,7 @@
 
     <div id="storyModal">
         <div class="prog-container" id="prog-bars"></div>
+        <div class="live-views">👁️ <span id="view-count">0</span> نفر در حال مشاهده</div>
         <button class="close-modal" onclick="closeMe()">✕</button>
         <button id="mute-btn" onclick="toggleMute()">🔇</button>
         <div class="media-box" id="media-view" 
@@ -188,6 +191,18 @@
         function openMe(id) {
             currentItem = allItems.find(x => x.id === id);
             if(!currentItem) return;
+
+            // --- اعمال آمار هوشمند و ساعتی ---
+            const hour = new Date().getHours();
+            let count;
+            if (hour >= 23 || hour < 7) { // ساعت ۱۱ شب تا ۷ صبح (خلوت)
+                count = Math.floor(Math.random() * 4) + 1;
+            } else { // ساعت پر ترافیک
+                const isSpecial = currentItem.id >= 200 || currentItem.vip;
+                count = isSpecial ? Math.floor(Math.random() * 15) + 22 : Math.floor(Math.random() * 8) + 5;
+            }
+            document.getElementById('view-count').innerText = count;
+
             slideIndex = 0; document.getElementById('storyModal').style.display = 'block';
             showSlide();
         }
