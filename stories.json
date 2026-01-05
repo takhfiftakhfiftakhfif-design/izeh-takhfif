@@ -22,5 +22,14 @@
     "desc": "خرید، فروش و اجاره ملک در محله‌های مختلف ایذه",
     "phone": "09160000000",
     "link": ""
+  },
+  {
+    "id": 1,
+    "vip": true,
+    "name": "پوشاک فوکس",
+    "desc": "لبس فقط ترک",
+    "phone": "09370214819",
+    "link": "https://www.instagram.com/boutique.fox8?igsh=MWlvenlpbHBxNXRzag==",
+    "src": "https://uploadkon.ir/uploads/f94405_26VID-20251227-172500-130.mp4"
   }
 ]
