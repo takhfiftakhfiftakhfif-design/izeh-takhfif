@@ -16,7 +16,7 @@
     
     <style>
         :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.95); }
-        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 90px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
 
         #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
         #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
@@ -61,7 +61,8 @@
         .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
         #viewing-tag { font-size: 11px; color: #d35400; background: rgba(211, 84, 0, 0.1); padding: 4px 10px; border-radius: 10px; display: inline-block; margin-bottom: 8px; font-weight: bold; }
         
-        .biz-float-btn { position: fixed; bottom: 20px; left: 15px; right: 15px; background: linear-gradient(45deg, #1a1a1a, #444); color: #fff; padding: 12px 20px; border-radius: 50px; z-index: 999; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 2px solid #ffd700; cursor: pointer; animation: bounceIn 1s; }
+        /* دکمه شناور جذب آگهی */
+        .biz-float-btn { position: fixed; bottom: 20px; left: 10px; right: 10px; background: linear-gradient(45deg, #111, #333); color: #fff; padding: 14px; border-radius: 15px; z-index: 999; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #ffd700; cursor: pointer; animation: bounceIn 1s; }
         @keyframes bounceIn { from { transform: translateY(100px); } to { transform: translateY(0); } }
 
         .biz-feature { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 4px solid #ffd700; text-align: right; }
@@ -99,14 +100,10 @@
     </div>
 
     <div class="biz-float-btn" onclick="openBizModal()">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 22px;">💎</span>
-            <div style="text-align: right;">
-                <div style="font-size: 13px; font-weight: bold;">صاحب کسب‌وکار هستید؟</div>
-                <div style="font-size: 10px; color: #ffd700;">جای شما در ویترین ایذه خالیست!</div>
-            </div>
+        <div style="text-align: center;">
+            <div style="font-size: 13px; font-weight: bold; color: #fff;">کسب و کار و محصولت رو جلوی چشم هزاران ایذه ای بزار</div>
+            <div style="font-size: 10px; color: #ffd700; margin-top: 4px;">🎯 همین حالا شروع کنید (کلیک کنید)</div>
         </div>
-        <div style="background: #ffd700; color: #000; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold;">ثبت تبلیغ</div>
     </div>
 
     <div id="bizModal">
@@ -119,12 +116,12 @@
 
             <div style="margin-top: 40px;">
                 <div class="biz-feature">
-                    <h4 style="margin: 0; color: #ffd700;">📈 بازدید تضمینی</h4>
-                    <p style="margin: 5px 0 0; font-size: 12px; color: #aaa;">نمایش تبلیغ شما به بیش از ۱,۵۰۰ کاربر فعال روزانه در ایذه.</p>
+                    <h4 style="margin: 0; color: #ffd700;">📈 بازدید تضمینی و واقعی</h4>
+                    <p style="margin: 5px 0 0; font-size: 12px; color: #aaa;">نمایش تبلیغ شما به بیش از ۱,۵۰۰ کاربر فعال روزانه که همگی ساکن ایذه هستند.</p>
                 </div>
                 <div class="biz-feature" style="border-right-color: #2ecc71;">
-                    <h4 style="margin: 0; color: #2ecc71;">🔗 لینک مستقیم</h4>
-                    <p style="margin: 5px 0 0; font-size: 12px; color: #aaa;">اتصال مستقیم مشتری به اینستاگرام، واتس‌اپ و تماس تلفنی مغازه شما.</p>
+                    <h4 style="margin: 0; color: #2ecc71;">🔗 اتصال مستقیم مشتری</h4>
+                    <p style="margin: 5px 0 0; font-size: 12px; color: #aaa;">مشتری با یک کلیک مستقیماً با شما تماس می‌گیرد یا وارد اینستاگرام شما می‌شود.</p>
                 </div>
             </div>
 
@@ -133,10 +130,11 @@
                 <a href="tel:09220730628" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #ffd700; color: #000; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; margin-bottom: 10px;">
                     <span>📞</span> تماس تلفنی: 09220730628
                 </a>
-                <a href="https://wa.me/989220730628" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #25d366; color: #fff; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold;">
+                <a href="https://wa.me/989220730628?text=سلام%20جناب%20نادری%20وقت%20بخیر%20من%20یک%20آگهی%20برای%20ثبت%20در%20سایت%20دارم%20لطفا%20راهنمایی%20کنید" 
+                   style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #25d366; color: #fff; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold;">
                     <span>💬</span> پیام در واتس‌اپ
                 </a>
-                <p style="font-size: 11px; color: #fff; margin-top: 15px;">مدیریت تبلیغات: نادری</p>
+                <p style="font-size: 11px; color: #fff; margin-top: 15px; font-weight: bold;">مدیریت تبلیغات: نادری</p>
             </div>
         </div>
     </div>
@@ -144,8 +142,8 @@
     <div id="storyModal">
         <div class="prog-container" id="prog-bars"></div>
         <button class="close-modal" onclick="closeMe()">✕</button>
-        <div class="touch-zone" style="left:0; position: absolute; width: 50%; height: 100%; top: 0; z-index: 9999;" onclick="changeSlide(-1)"></div>
-        <div class="touch-zone" style="right:0; position: absolute; width: 50%; height: 100%; top: 0; z-index: 9999;" onclick="changeSlide(1)"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 50%; height: 80%; z-index: 9999;" onclick="changeSlide(-1)"></div>
+        <div style="position: absolute; top: 0; right: 0; width: 50%; height: 80%; z-index: 9999;" onclick="changeSlide(1)"></div>
         <div class="media-box" id="media-view"></div>
         <div class="info-box">
             <div id="viewing-tag">🔥 <span id="view-count"></span> نفر درحال دیدن این مورد</div>
@@ -224,9 +222,9 @@
             }
             document.getElementById('st-name').innerText = currentItem.name;
             document.getElementById('st-desc').innerText = currentItem.desc;
-            let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444; flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; border: none; font-size: 11px;">📤 اشتراک</button>`;
-            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71; flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; display: flex; align-items: center; justify-content: center;">📞 تماس</a>`;
-            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main); flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; display: flex; align-items: center; justify-content: center;">📸 اینستا</a>`;
+            let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444; flex:1; padding:10px; border-radius:10px; color:#fff; font-weight:bold; border:none; font-size:11px;">📤 اشتراک</button>`;
+            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71; flex:1; padding:10px; border-radius:10px; color:#fff; font-weight:bold; text-decoration:none; font-size:11px; display:flex; align-items:center; justify-content:center;">📞 تماس</a>`;
+            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main); flex:1; padding:10px; border-radius:10px; color:#fff; font-weight:bold; text-decoration:none; font-size:11px; display:flex; align-items:center; justify-content:center;">📸 اینستا</a>`;
             document.getElementById('st-btns').innerHTML = btns;
         }
 
