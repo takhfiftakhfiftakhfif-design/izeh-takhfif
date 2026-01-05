@@ -112,17 +112,132 @@
         </div>
     </div>
 
-    <div id="bizModal">
-        <button class="close-modal" onclick="closeBizModal()">✕</button>
-        <div style="margin-top:60px; text-align:center;">
-            <h2 style="color:#ffd700;">تعرفه‌های تبلیغات ایذه 💎</h2>
-            <div class="price-card"><strong>۱. استوری طلایی (۳۵,۰۰۰ ت)</strong><p>مشاهده در نوار بالای سایت با بیشترین کلیک</p></div>
-            <div class="price-card" style="border-color:#00e5ff;"><strong>۲. ویترین داغ (۵۰,۰۰۰ ت)</strong><p>قرارگیری در بخش کارت‌های صفحه اصلی</p></div>
-            <div class="price-card" style="border-color:#ffd700;"><strong>۳. پاپ‌آپ VIP (۴۵,۰۰۰ ت)</strong><p>باز شدن خودکار تبلیغ روی گوشی همه کاربران</p></div>
-            <div style="background:linear-gradient(45deg, #ffd700, #ff8c00); padding:20px; border-radius:20px; color:#000; font-weight:bold; margin:20px 0;">🌟 پکیج بمب تبلیغاتی (۸۹,۰۰۰ ت)</div>
-            <a href="tel:09220730628" style="display:block; background:#2ecc71; color:#fff; padding:16px; border-radius:15px; text-decoration:none; font-weight:bold;">📞 سفارش و تماس</a>
+<div id="bizModal">
+    <style>
+        .biz-content { padding: 20px; text-align: center; direction: rtl; }
+        .biz-header { margin-bottom: 25px; position: relative; }
+        .biz-header h2 { color: #ffd700; font-size: 24px; text-shadow: 0 2px 10px rgba(255,215,0,0.3); margin-bottom: 5px; }
+        .biz-header p { color: #ccc; font-size: 13px; }
+        
+        .coin-icon { color: #ffd700; font-size: 18px; margin-left: 5px; }
+        
+        .premium-card { 
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a); 
+            border-radius: 20px; padding: 20px; margin-bottom: 20px; 
+            border: 1px solid #333; position: relative; overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .premium-card:active { transform: scale(0.98); }
+
+        .pkg-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .pkg-title strong { font-size: 18px; color: #fff; }
+        .pkg-price { color: #ffd700; font-size: 16px; font-weight: bold; }
+
+        .pkg-desc { text-align: right; color: #bbb; font-size: 12px; line-height: 1.8; margin-bottom: 15px; }
+        .pkg-desc span { display: block; margin-bottom: 4px; }
+        
+        .wa-order-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: #25d366; color: #fff; padding: 12px; border-radius: 12px;
+            text-decoration: none; font-weight: bold; font-size: 14px;
+            transition: 0.3s; border-bottom: 3px solid #128c7e;
+        }
+        
+        .special-bundle {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            padding: 2px; border-radius: 22px; margin-top: 30px;
+        }
+        .bundle-inner {
+            background: #000; padding: 20px; border-radius: 20px; position: relative; overflow: hidden;
+        }
+        .card-tag { 
+            position: absolute; top: 10px; left: -30px; background: #ff3e3e; 
+            color: #fff; font-size: 10px; padding: 5px 30px; transform: rotate(-45deg); 
+            font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+    </style>
+
+    <button class="close-modal" onclick="closeBizModal()">✕</button>
+    
+    <div class="biz-content">
+        <div class="biz-header">
+            <h2>پنل‌تخفیفات‌ایذه 💎</h2>
+            <p>تبلیغ هدفمند</p>
         </div>
-    </div>
+
+        <div class="premium-card" style="border-right: 4px solid #e0e0e0;">
+            <div class="pkg-title">
+                <strong style="color:#e0e0e0;"><span class="coin-icon" style="color:#e0e0e0;">🪙</span>متن روان (Marquee)</strong>
+                <span class="pkg-price">۱۵,۰۰۰ ت</span>
+            </div>
+            <div class="pkg-desc">
+                <span>✅ درج جمله تبلیغاتی شما در نوار متحرک بالای سایت</span>
+                <span>✅ اولین چیزی که کاربر هنگام ورود مشاهده می‌کند</span>
+                <span>✅ مناسب برای فراخوان‌های فوری و اطلاع‌رسانی‌ها</span>
+            </div>
+            <a href="https://wa.me/989220730628?text=سلام،+قصد+رزرو+تبلیغ+در+بخش+متن+روان+را+دارم" class="wa-order-btn" style="background:#607d8b; border-bottom-color:#37474f;">
+                <span>سفارش متن روان</span>
+            </a>
+        </div>
+
+        <div class="premium-card">
+            <div class="pkg-title">
+                <strong><span class="coin-icon">🪙</span>استوری طلایی</strong>
+                <span class="pkg-price">۳۵,۰۰۰ ت</span>
+            </div>
+            <div class="pkg-desc">
+                <span>✅ نمایش در بخش دایره‌های بالای سایت</span>
+                <span>✅ قابلیت درج لینک مستقیم اینستاگرام و دکمه تماس</span>
+                <span>✅ بازدهی سریع و کلیک‌خور بسیار بالا</span>
+            </div>
+            <a href="https://wa.me/989220730628?text=سلام،+قصد+رزرو+پکیج+استوری+طلایی+را+دارم" class="wa-order-btn">
+                <span>سفارش استوری طلایی</span>
+            </a>
+        </div>
+
+        <div class="premium-card" style="border-right: 4px solid #00e5ff;">
+            <div class="pkg-title">
+                <strong style="color:#00e5ff;"><span class="coin-icon" style="color:#00e5ff;">💎</span>ویترین داغ</strong>
+                <span class="pkg-price">۵۰,۰۰۰ ت</span>
+            </div>
+            <div class="pkg-desc">
+                <span>✅ قرارگیری در لیست اصلی (کارت‌های پایین)</span>
+                <span>✅ ماندگاری بالا در ذهن مخاطب</span>
+                <span>✅ مناسب برای فروش محصولات خاص و حراجی‌ها</span>
+            </div>
+            <a href="https://wa.me/989220730628?text=سلام،+قصد+رزرو+پکیج+ویترین+داغ+را+دارم" class="wa-order-btn" style="background:#00bcd4; border-bottom-color:#00838f;">
+                <span>سفارش ویترین داغ</span>
+            </a>
+        </div>
+
+        <div class="premium-card" style="border-right: 4px solid #ffd700;">
+            <div class="pkg-title">
+                <strong style="color:#ffd700;"><span class="coin-icon">👑</span>پاپ‌آپ VIP</strong>
+                <span class="pkg-price">۴۵,۰۰۰ ت</span>
+            </div>
+            <div class="pkg-desc">
+                <span>✅ نمایش خودکار به محض ورود کاربر به سایت</span>
+                <span>✅ تضمین مشاهده توسط ۱۰۰٪ بازدیدکنندگان</span>
+                <span>✅ بمب اتم تبلیغاتی برای برندینگ سریع</span>
+            </div>
+            <a href="https://wa.me/989220730628?text=سلام،+قصد+رزرو+پکیج+پاپ‌آپ+VIP+را+دارم" class="wa-order-btn" style="background:#f39c12; border-bottom-color:#a66b00;">
+                <span>سفارش پاپ‌آپ VIP</span>
+            </a>
+        </div>
+
+        <div class="special-bundle">
+            <div class="bundle-inner">
+                <div class="card-tag">پیشنهاد ویژه</div>
+                <h3 style="color:#ffd700; margin-top:0;">🌟 پکیج بمب تبلیغاتی (کامل)</h3>
+                <div class="pkg-desc" style="text-align:center;">
+                    <span>شامل تمام تبلیغات: استوری + ویترین + پاپ‌آپ + متن روان</span>
+                    <p style="font-size:14px; color:#fff;">فقط <span style="text-decoration: line-through; color:#ff3e3e;">۱۴۵,۰۰۰</span> 👈 <strong>۸۹,۰۰۰ تومان</strong></p>
+                </div>
+                <a href="https://wa.me/989220730628?text=سلام،+قصد+رزرو+پکیج+کامل+بمب+تبلیغاتی+(شامل+همه+موارد)+را+دارم" class="wa-order-btn" style="background:#fff; color:#000; border-bottom-color:#ccc;">
+                    <span>🚀 تبلیغات هزینه نیست</span>
+                </a>
+            </div>
+        </div>
 
     <script>
         let allItems = [], timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0, currentVipId = null;
@@ -228,4 +343,4 @@
         window.onload = startup;
     </script>
 </body>
-        </html>
+    </html>
