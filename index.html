@@ -28,7 +28,6 @@
         .top-nav { text-align: center; background: #fff; padding: 20px 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .search-mini { width: 85%; padding: 12px; border-radius: 25px; border: 1.5px solid #ddd; outline: none; margin-top: 15px; text-align: center; }
         
-        /* استایل آنلاین */
         .online-status-bar { display: inline-flex; align-items: center; gap: 6px; background: #f0f0f0; padding: 4px 12px; border-radius: 15px; margin-top: 10px; border: 1px solid #e0e0e0; }
         .online-dot { width: 7px; height: 7px; background: #2ecc71; border-radius: 50%; position: relative; }
         .online-dot::after { content: ''; position: absolute; width: 100%; height: 100%; background: #2ecc71; border-radius: 50%; animation: pulse 2s infinite; }
@@ -49,7 +48,7 @@
         .off-badge {
             position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff;
             padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold;
-            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.3); direction: ltr;
+            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.2); direction: ltr;
         }
 
         #storyModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
@@ -64,7 +63,6 @@
         .touch-next { right: 0; }
         .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
         
-        /* استایل بازدید لحظه‌ای تبلیغ */
         #viewing-tag { font-size: 11px; color: #d35400; background: rgba(211, 84, 0, 0.1); padding: 4px 10px; border-radius: 10px; display: inline-block; margin-bottom: 8px; font-weight: bold; }
 
         #st-name { font-size: 17px; margin: 0 0 5px 0; font-weight: bold; color: #000; }
@@ -137,7 +135,6 @@
             } catch (e) { console.log("خطا در دریافت فایل‌ها"); }
         }
 
-        // سیستم هوشمند آنلاین
         function updateOnlineStatus() {
             const el = document.getElementById('online-number');
             const hour = new Date().getHours();
@@ -179,13 +176,25 @@
             swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
+        // تابع اصلاح شده برای هماهنگی با ساعت شب
         function openMe(id) {
             currentItem = allItems.find(x => x.id === id);
             if(!currentItem) return;
 
-            // نمایش بازدید لحظه‌ای (بزرگتر برای تبلیغات ویژه)
-            const isOffer = currentItem.id >= 200;
-            const count = isOffer ? Math.floor(Math.random() * 11) + 20 : Math.floor(Math.random() * 9) + 4;
+            const hour = new Date().getHours();
+            let count;
+
+            // اگر شب باشد (ساعت 10 شب تا 8 صبح)
+            if (hour >= 22 || hour < 8) {
+                count = Math.floor(Math.random() * 5) + 1; // عددی بین 1 تا 6 نفر
+            } 
+            // اگر روز باشد
+            else {
+                const isOffer = currentItem.id >= 200;
+                // برای تبلیغات ویژه عدد بزرگتر (20 تا 35)، برای استوری‌ها کمتر (4 تا 12)
+                count = isOffer ? Math.floor(Math.random() * 16) + 20 : Math.floor(Math.random() * 9) + 4;
+            }
+
             document.getElementById('view-count').innerText = count;
 
             slideIndex = 0;
