@@ -1,35 +1,41 @@
 [
   {
     "id": 1,
-    "name": "رستوران و کافه",
-    "src": "https://img.icons8.com/fluency/200/restaurant.png",
-    "desc": "لیست بهترین رستوران‌ها، فست‌فودها و کافه‌های ایذه همراه با منو",
-    "phone": "09160000000",
-    "link": ""
+    "vip": true,
+    "name": "پوشاک فوکس",
+    "desc": "جدیدترین کالکشن لباس‌های ترک با کیفیت استثنایی 👔",
+    "phone": "09370214819",
+    "link": "https://www.instagram.com/boutique.fox8",
+    "src": "https://uploadkon.ir/uploads/f94405_26VID-20251227-172500-130.mp4"
   },
   {
     "id": 2,
-    "name": "پزشکان و سلامت",
-    "src": "https://img.icons8.com/fluency/200/medical-doctor.png",
-    "desc": "لیست پزشکان متخصص، داروخانه‌های شبانه‌روزی و مراکز درمانی",
-    "phone": "09160000000",
-    "link": ""
+    "vip": true,
+    "name": "پیتزا استار ایذه",
+    "desc": "طعم واقعی پیتزا ایتالیایی در محیطی دنج 🍕 (ارسال رایگان)",
+    "phone": "06143520000",
+    "link": "https://www.instagram.com/star_pizza",
+    "src": "https://uploadkon.ir/uploads/a10725_26pizza-sample.jpg"
   },
   {
     "id": 3,
-    "name": "املاک و مسکن",
-    "src": "https://img.icons8.com/fluency/200/home.png",
-    "desc": "خرید، فروش و اجاره ملک در محله‌های مختلف ایذه",
+    "vip": false,
+    "name": "گالری ساعت تیک‌تاک",
+    "desc": "فروش انواع ساعت‌های هوشمند و کلاسیک با گارانتی معتبر ⌚",
     "phone": "09160000000",
-    "link": ""
+    "link": "https://www.instagram.com/tictoc_izeh",
+    "src": "https://uploadkon.ir/uploads/b33104_26watch-sample.jpg"
   },
   {
-    "id": 1,
+    "id": 4,
     "vip": true,
-    "name": "پوشاک فوکس",
-    "desc": "لبس فقط ترک",
-    "phone": "09370214819",
-    "link": "https://www.instagram.com/boutique.fox8?igsh=MWlvenlpbHBxNXRzag==",
-    "src": "https://uploadkon.ir/uploads/f94405_26VID-20251227-172500-130.mp4"
+    "name": "کافه لند",
+    "desc": "بهترین قهوه‌های عربیکا در قلب ایذه ☕️",
+    "phone": "09380000000",
+    "link": "https://www.instagram.com/cafe_land",
+    "slides": [
+      "https://uploadkon.ir/uploads/c88210_26cafe1.jpg",
+      "https://uploadkon.ir/uploads/d99312_26cafe2.jpg"
+    ]
   }
 ]
