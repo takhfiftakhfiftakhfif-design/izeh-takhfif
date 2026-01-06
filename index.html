@@ -61,6 +61,20 @@
         #st-desc { font-size: 13px; color: #222; line-height: 1.5; margin-bottom: 12px; font-weight: bold; }
         #st-btns { display: flex; gap: 6px; }
         .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
+
+        /* پاپ آپ جدید */
+        #ad-popup {
+            position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%);
+            width: 160px; height: 90px; background: #fff; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 10005;
+            display: flex; flex-direction: column; overflow: hidden;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #eee; cursor: pointer;
+        }
+        #ad-popup.show { bottom: 30px; }
+        #ad-popup img { width: 100%; height: 60px; object-fit: cover; }
+        #ad-popup .ad-title { font-size: 10px; font-weight: bold; padding: 5px; text-align: center; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #ad-popup .close-ad { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.5); color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; z-index: 10; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -68,6 +82,12 @@
     <div id="pwa-banner">
         <span>📲 نصب برنامه</span>
         <button id="install-pwa">نصب</button>
+    </div>
+
+    <div id="ad-popup">
+        <button class="close-ad" onclick="event.stopPropagation(); closeAd()">✕</button>
+        <img id="ad-img" src="">
+        <div class="ad-title" id="ad-title">تبلیغ ویژه</div>
     </div>
 
     <div class="marquee-container">
@@ -142,7 +162,31 @@
                 document.getElementById('text-marq').innerText = Array.isArray(conf.marqueeText) ? conf.marqueeText.join(" ⚡ ") : conf.marqueeText;
                 allItems = [...stor, ...off];
                 render(stor, off);
+                
+                // بررسی وجود تبلیغ پاپ آپ
+                checkPopupAd(allItems);
             } catch (e) { console.log("خطا در دریافت فایل‌ها"); }
+        }
+
+        function checkPopupAd(items) {
+            const popupItem = items.find(item => item.isPopup === true);
+            if (popupItem) {
+                setTimeout(() => {
+                    const adBox = document.getElementById('ad-popup');
+                    const thumb = popupItem.src || (Array.isArray(popupItem.slides) ? popupItem.slides[0] : '');
+                    document.getElementById('ad-img').src = thumb;
+                    document.getElementById('ad-title').innerText = popupItem.name;
+                    adBox.classList.add('show');
+                    adBox.onclick = () => {
+                        closeAd();
+                        openMe(popupItem.id);
+                    };
+                }, 3000); // نمایش بعد از 3 ثانیه
+            }
+        }
+
+        function closeAd() {
+            document.getElementById('ad-popup').classList.remove('show');
         }
 
         function render(stories, offers) {
@@ -190,9 +234,15 @@
 
             const view = document.getElementById('media-view');
             if (src.toLowerCase().endsWith('.mp4')) {
-                view.innerHTML = `<video id="st-video" autoplay playsinline muted><source src="${src}" type="video/mp4"></video>`;
+                // صفت muted حذف شد تا ویدیو صدا داشته باشد
+                view.innerHTML = `<video id="st-video" autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
                 const v = document.getElementById('st-video');
                 v.onloadedmetadata = () => startTimer(v.duration * 1000);
+                // رفع مشکل بلاک شدن پخش خودکار توسط مرورگر
+                v.play().catch(() => {
+                    v.muted = true; // اگر مرورگر اجازه نداد، بی صدا پخش کن تا حداقل ویدیو نمایش داده شود
+                    v.play();
+                });
             } else {
                 view.innerHTML = `<img src="${src}">`;
                 startTimer(5000);
