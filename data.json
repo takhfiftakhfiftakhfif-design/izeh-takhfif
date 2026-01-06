@@ -1,0 +1,106 @@
+{
+  "marquee": {
+    "text": "🎉 به تخفیفات ایذه خوش آمدید! بهترین پیشنهادهای شهر را اینجا بیابید 🔥 تخفیف‌های ویژه هر روز به‌روزرسانی می‌شوند ⚡"
+  },
+  
+  "categories": ["غذایی", "پوشاک", "الکترونیک", "آرایشی", "خانگی", "سلامت", "خدمات"],
+  
+  "offers": [
+    {
+      "id": 1,
+      "name": "رستوران آذرخش",
+      "description": "غذای ایرانی و فرنگی با ۳۰٪ تخفیف ویژه",
+      "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "phone": "09123456789",
+      "discount": 30,
+      "categories": ["غذایی"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "بوتیک مد و زیبایی",
+      "description": "لباس‌های زنانه و مردانه با تخفیف ۴۰٪",
+      "image": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "phone": "09129876543",
+      "discount": 40,
+      "categories": ["پوشاک"],
+      "featured": true
+    },
+    {
+      "id": 3,
+      "name": "فروشگاه موبایل",
+      "description": "گوشی‌های موبایل با قیمت استثنایی",
+      "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "phone": "09351234567",
+      "discount": 25,
+      "categories": ["الکترونیک"],
+      "featured": true
+    },
+    {
+      "id": 4,
+      "name": "آرایشگاه مردانه",
+      "description": "کوتاهی مو و اصلاح با ۲۰٪ تخفیف",
+      "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "phone": "09107654321",
+      "discount": 20,
+      "categories": ["آرایشی", "خدمات"],
+      "featured": true
+    },
+    {
+      "id": 5,
+      "name": "لوازم خانگی",
+      "description": "یخچال، ماشین لباسشویی و گاز با تخفیف",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "phone": "09151234567",
+      "discount": 35,
+      "categories": ["خانگی"],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "name": "داروخانه سلامت",
+      "description": "مکمل‌های غذایی و داروهای گیاهی",
+      "image": "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "phone": "09161234567",
+      "discount": 15,
+      "categories": ["سلامت"],
+      "featured": false
+    }
+  ],
+  
+  "stories": [
+    {
+      "id": 1,
+      "name": "کافه کتاب",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "description": "کتاب‌خوانی با قهوه رایگان"
+    },
+    {
+      "id": 2,
+      "name": "سالن ورزشی",
+      "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "description": "عضویت رایگان یک ماهه"
+    },
+    {
+      "id": 3,
+      "name": "تعمیرگاه",
+      "image": "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "description": "تعمیرات خودرو با ۲۵٪ تخفیف"
+    },
+    {
+      "id": 4,
+      "name": "آتلیه عکاسی",
+      "image": "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+      "description": "عکاسی خانوادگی ویژه"
+    }
+  ],
+  
+  "popupAd": {
+    "show": true,
+    "title": "ویژه کسب‌وکارها",
+    "description": "کسب‌وکارت رو به کل شهر نشون بده! قیمت باورنکردنی",
+    "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    "action": "pricing",
+    "targetId": null
+  }
+}
