@@ -16,7 +16,7 @@
     
     <style>
         :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.95); }
-        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; user-select: none; }
+        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; user-select: none; }
 
         #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
         #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
@@ -54,7 +54,6 @@
         .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        /* اصلاح بخش تاچ برای تشخیص نگه‌داشتن */
         .touch-zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 9999; }
         .touch-prev { left: 0; }
         .touch-next { right: 0; }
@@ -77,6 +76,34 @@
         #ad-popup img { width: 100%; height: 65px; object-fit: cover; }
         #ad-popup .ad-title { font-size: 11px; font-weight: bold; padding: 6px; text-align: center; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         #ad-popup .close-ad { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
+
+        /* --- استایل جدید دکمه تپنده و پنل مخفی --- */
+        .pulse-btn {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #27ae60; color: #fff; padding: 12px 20px; border-radius: 30px;
+            font-weight: bold; font-size: 12px; border: none; z-index: 1000;
+            box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+            animation: pulse-animation 1.5s infinite; cursor: pointer;
+            width: 85%; max-width: 400px; text-align: center;
+        }
+        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); } 100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); } }
+
+        #pricePanel {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 20000; color: #fff; padding: 30px 20px;
+            box-sizing: border-box; overflow-y: auto; text-align: right;
+        }
+        .price-card { background: #222; border-radius: 15px; padding: 15px; margin-bottom: 10px; border-right: 4px solid var(--main); }
+        .price-card h3 { margin: 0; font-size: 16px; color: var(--main); }
+        .price-card p { font-size: 12px; margin: 8px 0; color: #ccc; line-height: 1.6; }
+        .price-card .cost { font-weight: bold; color: #fff; background: #444; padding: 2px 10px; border-radius: 5px; float: left; }
+        .package { background: linear-gradient(45deg, #ff3e3e, #ff8e2d); border: none; text-align: center; }
+        .package h2 { margin: 0; font-size: 20px; }
+
+        .contact-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .contact-btns a { flex: 1; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; color: white; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 14px; }
+        .btn-call { background: #2980b9; }
+        .btn-wa { background: #25d366; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -84,6 +111,44 @@
     <div id="pwa-banner">
         <span>📲 نصب برنامه</span>
         <button id="install-pwa">نصب</button>
+    </div>
+
+    <button class="pulse-btn" onclick="openPrices()">کسب کار و محصولت رو به هزااران ایذه ای نشون بده</button>
+
+    <div id="pricePanel">
+        <button onclick="closePrices()" style="float: left; background: #444; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; cursor: pointer;">✕</button>
+        <h2 style="text-align: center; margin-top: 10px;">💎 تعرفه تبلیغات (۲۴ ساعته)</h2>
+        <br>
+        <div class="price-card">
+            <span class="cost">۳۰,۰۰۰ ت</span>
+            <h3>کادر متن روان</h3>
+            <p>نام برند شما در نوار مشکی بالای سایت؛ اولین جایی که چشم کاربر می‌بیند.</p>
+        </div>
+        <div class="price-card">
+            <span class="cost">۴۵,۰۰۰ ت</span>
+            <h3>استوری تصویری/ویدیویی</h3>
+            <p>نمایش با صدا، قابلیت توقف و دکمه مستقیم تماس و اینستاگرام.</p>
+        </div>
+        <div class="price-card">
+            <span class="cost">۴۰,۰۰۰ ت</span>
+            <h3>کارت‌های تبلیغاتی</h3>
+            <p>ویترین دائمی در صفحه اصلی با تگ درصد تخفیف و قابلیت جستجو.</p>
+        </div>
+        <div class="price-card">
+            <span class="cost">۶۰,۰۰۰ ت</span>
+            <h3>تبلیغ پاپ‌آپ</h3>
+            <p>قدرتمندترین ابزار؛ نمایش خودکار به محض ورود هر کاربر به سایت.</p>
+        </div>
+        <div class="price-card package">
+            <h2>🎁 پکیج کامل (VIP)</h2>
+            <p>تمام موارد بالا به مدت ۲۴ ساعت با بیش از ۵۰٪ تخفیف</p>
+            <div style="font-size: 22px; font-weight: bold;">فقط ۸۹,۰۰۰ تومان</div>
+        </div>
+
+        <div class="contact-btns">
+            <a href="tel:09220730628" class="btn-call">📞 تماس مستقیم</a>
+            <a href="https://wa.me/989220730628?text=سلام،%20قصد%20رزرو%20تبلیغات%20در%20سایت%20تخفیفات%20ایذه%20را%20دارم.%20لطفا%20راهنمایی%20کنید." target="_blank" class="btn-wa">💬 واتس‌اپ</a>
+        </div>
     </div>
 
     <div id="ad-popup">
@@ -135,6 +200,9 @@
     <script>
         let allItems = [], swiperInstance, timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0;
         let deferredPrompt;
+
+        function openPrices() { document.getElementById('pricePanel').style.display = 'block'; }
+        function closePrices() { document.getElementById('pricePanel').style.display = 'none'; }
 
         // PWA Logic
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -252,8 +320,6 @@
 
         function startTimer(duration) {
             progress = 0; isPaused = false; clearInterval(timer);
-            // ذخیره طول مدت برای استفاده در زمان رزومه
-            currentItem._currentDuration = duration; 
             timer = setInterval(() => {
                 if (!isPaused) {
                     progress += (100 / (duration / 100));
@@ -272,12 +338,10 @@
             else showSlide();
         }
 
-        // --- توابع جدید توقف و ادامه ---
         function pauseTimer() { 
             isPaused = true; 
             const v = document.getElementById('st-video'); 
             if(v) v.pause(); 
-            // مخفی کردن دکمه‌ها و توضیحات برای دید بهتر محتوا هنگام نگه داشتن
             document.getElementById('info-box').style.opacity = '0';
         }
 
