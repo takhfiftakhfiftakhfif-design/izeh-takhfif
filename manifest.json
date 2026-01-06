@@ -1,22 +1,66 @@
 {
   "name": "تخفیفات ایذه",
-  "short_name": "تخفیف ایذه",
-  "start_url": "index.html",
+  "short_name": "تخفیفات",
+  "description": "بهترین تخفیفات و تبلیغات در شهر ایذه",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f7f7",
+  "background_color": "#ffffff",
   "theme_color": "#ff3e3e",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "fa",
+  "dir": "rtl",
+  "categories": ["shopping", "business", "lifestyle"],
+  
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/726/726448.png",
-      "sizes": "192x192",
+      "src": "https://img.icons8.com/color/96/000000/discount.png",
+      "sizes": "96x96",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/726/726448.png",
+      "src": "https://img.icons8.com/color/144/000000/discount.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/color/192/000000/discount.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/color/512/000000/discount.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "صفحه اصلی"
+    }
+  ],
+  
+  "related_applications": [],
+  "prefer_related_applications": false,
+  
+  "shortcuts": [
+    {
+      "name": "پیشنهادهای ویژه",
+      "short_name": "پیشنهادها",
+      "description": "مشاهده پیشنهادهای ویژه امروز",
+      "url": "/#offers"
+    },
+    {
+      "name": "تبلیغ کسب‌وکار",
+      "short_name": "تبلیغات",
+      "description": "تبلیغ کسب‌وکار خود",
+      "url": "/#pricing"
     }
   ]
 }
