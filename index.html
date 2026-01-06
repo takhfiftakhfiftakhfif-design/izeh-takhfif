@@ -2,221 +2,551 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تخفیفات ایذه | کی تو ایذه تخفیف گذاشته</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تخفیفات ایذه | تبلیغات ارزان</title>
+    
+    <!-- PWA Metadata -->
+    <meta name="theme-color" content="#ff3e3e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="تخفیفات ایذه">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/96/000000/discount.png">
+    <link rel="manifest" href="./manifest.json" crossorigin="use-credentials">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/discount.png">
+
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #ff4757;
-            --secondary-color: #3742fa;
-            --accent-color: #2ed573;
-            --dark-color: #2f3542;
-            --light-color: #f1f2f6;
-            --text-color: #333;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --border-radius: 12px;
-            --transition: all 0.3s ease;
+            --primary: #ff3e3e;
+            --primary-dark: #d63031;
+            --secondary: #0984e3;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --gray: #dfe6e9;
+            --shadow: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 20px;
+            --radius-sm: 12px;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #f9f9f9 100%);
+            color: var(--dark);
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: #f8f9fa;
-            padding-top: 80px;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+            min-height: 100vh;
         }
-
-        /* هدر */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 15px 20px;
+        
+        /* Install Banner */
+        #installBanner {
             position: fixed;
             top: 0;
-            left: 0;
             right: 0;
+            left: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(255, 62, 62, 0.3);
+            animation: slideDown 0.5s ease;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        #installBanner .banner-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+        
+        #installBanner .banner-text h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        #installBanner .banner-text p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        #installBanner .banner-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: none;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-primary:hover, .btn-outline:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow);
+            margin-top: 0;
+        }
+        
+        .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        
         .logo {
-            font-size: 2.2rem;
-            color: white;
-        }
-
-        .site-title h1 {
-            font-size: 1.4rem;
-            margin-bottom: 3px;
-        }
-
-        .site-title p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .refresh-btn {
-            background-color: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
-            transition: var(--transition);
+            gap: 12px;
         }
-
-        .refresh-btn:hover {
-            background-color: var(--light-color);
-            transform: scale(1.05);
-        }
-
-        .refresh-btn.loading {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        /* جستجو */
-        .search-container {
-            max-width: 800px;
-            margin: 25px auto;
-            padding: 0 15px;
-        }
-
-        .search-box {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 15px;
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 15px;
             display: flex;
-            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
         }
-
+        
+        .logo-text h1 {
+            font-size: 20px;
+            margin: 0;
+            color: var(--dark);
+            font-weight: 800;
+        }
+        
+        .logo-text p {
+            font-size: 12px;
+            margin: 5px 0 0;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .install-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(255, 62, 62, 0.2);
+        }
+        
+        /* Search */
+        .search-container {
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+        
         .search-input {
-            flex-grow: 1;
-            padding: 12px 18px;
-            border: 2px solid #e0e0e0;
-            border-radius: 30px;
-            font-size: 1rem;
-            transition: var(--transition);
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid var(--gray);
+            border-radius: 15px;
+            font-family: inherit;
+            font-size: 15px;
+            background: white;
+            transition: all 0.3s ease;
         }
-
+        
         .search-input:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 62, 62, 0.1);
         }
-
-        .search-btn {
-            background-color: var(--primary-color);
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+        }
+        
+        /* Marquee */
+        .marquee {
+            background: linear-gradient(90deg, var(--dark), #444);
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 12px 0;
+            overflow: hidden;
+            position: relative;
+            margin: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: marquee 25s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 20px 15px 10px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .section-title a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .categories-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 5px 0 15px;
+            scrollbar-width: none;
+        }
+        
+        .categories-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-item {
+            flex: 0 0 auto;
+            width: 80px;
+            text-align: center;
             cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
         }
-
-        .search-btn:hover {
-            background-color: #ff3838;
+        
+        .category-icon {
+            width: 65px;
+            height: 65px;
+            background: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-
-        /* تبلیغات گرید */
-        .ads-container {
-            max-width: 1200px;
-            margin: 0 auto 40px;
+        
+        .category-icon.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .category-icon i {
+            font-size: 24px;
+        }
+        
+        .category-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Featured Offers */
+        .featured-offers {
             padding: 0 15px;
         }
-
-        .ads-grid {
+        
+        .offers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
         }
-
-        /* کارت تبلیغات */
-        .ad-card {
-            background-color: white;
-            border-radius: var(--border-radius);
+        
+        .offer-card {
+            background: white;
+            border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            cursor: pointer;
             position: relative;
         }
-
-        .ad-card:hover {
+        
+        .offer-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
-
-        .ad-tag {
+        
+        .offer-badge {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: var(--accent-color);
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 10;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(255, 62, 62, 0.3);
         }
-
-        .ad-image {
-            height: 200px;
+        
+        .offer-image {
             width: 100%;
+            height: 140px;
             object-fit: cover;
             display: block;
         }
-
-        .ad-content {
-            padding: 20px;
+        
+        .offer-content {
+            padding: 15px;
         }
-
-        .ad-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-
-        .ad-description {
-            color: #666;
-            margin-bottom: 15px;
-            height: 60px;
+        
+        .offer-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+            line-height: 1.4;
+            height: 42px;
             overflow: hidden;
         }
-
-        .ad-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
+        
+        .offer-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            height: 40px;
+            overflow: hidden;
         }
-
-        .ad-actions {
+        
+        .offer-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--gray);
+            padding-top: 12px;
+        }
+        
+        .offer-phone {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .offer-actions {
             display: flex;
             gap: 8px;
         }
-
+        
         .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: var(--light);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Stories */
+        .stories-section {
+            padding: 20px 15px 10px;
+        }
+        
+        .stories-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0 20px;
+            scrollbar-width: none;
+        }
+        
+        .stories-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .story-item {
+            flex: 0 0 auto;
+            width: 85px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .story-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            padding: 3px;
+            background: white;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .story-item.has-video::after {
+            content: '▶';
+            position: absolute;
+            top: 0;
+            right: 15px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        
+        .story-item:hover .story-avatar {
+            transform: scale(1.05);
+            border-color: var(--primary-dark);
+        }
+        
+        .story-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Story Modal (شبیه اینستاگرام) */
+        .story-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: black;
+            z-index: 10001;
+        }
+        
+        .story-progress {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 10002;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        
+        .story-close {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -224,582 +554,965 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            transition: var(--transition);
+            z-index: 10002;
+            font-size: 20px;
         }
-
-        .call-btn {
-            background-color: var(--accent-color);
-        }
-
-        .share-btn {
-            background-color: var(--secondary-color);
-        }
-
-        .social-btn {
-            background-color: #3b5998;
-        }
-
-        .action-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* تگ‌ها */
-        .ad-tags {
+        
+        .story-media {
+            width: 100%;
+            height: 100%;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .story-media video,
+        .story-media img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .story-controls {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            cursor: pointer;
+            z-index: 10001;
+        }
+        
+        .story-prev {
+            right: 0;
+        }
+        
+        .story-next {
+            left: 0;
+        }
+        
+        .story-info {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            left: 20px;
+            color: white;
+            z-index: 10002;
+        }
+        
+        .story-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .story-info p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .story-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .story-action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
-            margin-top: 15px;
         }
-
-        .tag {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            padding: 5px 10px;
+        
+        /* Promotion Banner */
+        .promotion-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            margin: 20px 15px;
+            padding: 25px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 62, 62, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .promotion-banner:hover {
+            transform: scale(1.02);
+        }
+        
+        .promotion-banner h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .promotion-banner p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        /* Pricing Modal */
+        .pricing-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 10001;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .pricing-content {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            max-width: 500px;
+            margin: 20px auto;
+            position: relative;
+            animation: modalSlide 0.4s ease;
+        }
+        
+        @keyframes modalSlide {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .pricing-header h2 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--dark);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .pricing-card {
+            background: white;
             border-radius: 15px;
-            font-size: 0.8rem;
+            padding: 20px;
+            border: 2px solid var(--gray);
+            position: relative;
         }
-
-        /* پیام خالی */
-        .empty-message {
-            text-align: center;
-            padding: 60px 20px;
-            color: #777;
-            font-size: 1.2rem;
-            grid-column: 1 / -1;
+        
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #fff5f5, #fff);
         }
-
-        /* بارگذاری */
-        .loading-spinner {
-            text-align: center;
-            padding: 40px;
-            grid-column: 1 / -1;
+        
+        .pricing-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
         }
-
+        
+        .pricing-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .pricing-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pricing-features li i {
+            color: var(--success);
+        }
+        
+        .pricing-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-btn {
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+        
+        .call-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Loading */
+        .loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+        }
+        
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary-color);
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--light);
+            border-top: 5px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin-bottom: 20px;
         }
-
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* نصب روی موبایل */
-        .install-prompt {
+        
+        /* Main Action Button */
+        .main-action {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: white;
-            box-shadow: var(--shadow);
-            border-radius: var(--border-radius);
-            padding: 15px 20px;
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(135deg, var(--success), #00a085);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
+            cursor: pointer;
+            z-index: 999;
             display: flex;
             align-items: center;
-            gap: 15px;
-            z-index: 999;
-            display: none;
-        }
-
-        .install-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
-        .install-text {
-            flex-grow: 1;
-        }
-
-        .install-text h3 {
-            margin-bottom: 5px;
-        }
-
-        .install-btn {
-            background-color: var(--primary-color);
-            color: white;
+            justify-content: center;
+            gap: 12px;
             border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
+            font-family: inherit;
         }
-
-        .close-install {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #777;
-        }
-
-        /* فوتر */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        /* ریسپانسیو */
-        @media (max-width: 768px) {
-            .ads-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 15px;
-            }
-
-            .site-title h1 {
-                font-size: 1.1rem;
-            }
-
-            .ad-title {
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .ads-grid {
-                grid-template-columns: 1fr;
-            }
-
-            header {
-                padding: 10px 15px;
-            }
-
-            .search-box {
-                flex-direction: column;
-            }
-
-            .search-btn {
-                width: 100%;
-            }
-
-            body {
-                padding-top: 120px;
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .offers-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <!-- هدر سایت -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">
-                <i class="fas fa-percentage"></i>
-            </div>
-            <div class="site-title">
-                <h1>تخفیفات ایذه</h1>
-                <p>کی تو ایذه تخفیف گذاشته</p>
+    <!-- Install Banner -->
+    <div id="installBanner">
+        <div class="banner-content">
+            <div class="banner-text">
+                <h4>نصب اپلیکیشن</h4>
+                <p>برای تجربه بهتر، برنامه را نصب کنید</p>
             </div>
         </div>
-        <button class="refresh-btn" id="refreshBtn">
-            <i class="fas fa-sync-alt"></i>
-            رفرش عمیق
-        </button>
+        <div class="banner-actions">
+            <button id="installCancel" class="btn btn-outline">بعداً</button>
+            <button id="installConfirm" class="btn btn-primary">نصب</button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>در حال بارگذاری...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>تخفیفات ایذه</h1>
+                    <p>بهترین پیشنهادها در شهر شما</p>
+                </div>
+            </div>
+            <a href="#" id="installHeaderBtn" class="install-btn">
+                <i class="fas fa-download"></i>
+                نصب
+            </a>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="جستجوی محصول، خدمات یا فروشگاه...">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- بخش جستجو -->
-    <div class="search-container">
-        <div class="search-box">
-            <input type="text" class="search-input" id="searchInput" placeholder="جستجوی تخفیف در ایذه...">
-            <button class="search-btn" id="searchBtn">
-                <i class="fas fa-search"></i>
-                جستجو
-            </button>
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-content" id="marqueeText">
+            🎉 به تخفیفات ایذه خوش آمدید! 🎉 بهترین پیشنهادهای شهر را اینجا بیابید 🔥
         </div>
     </div>
 
-    <!-- نمایش تبلیغات -->
-    <div class="ads-container">
-        <div class="ads-grid" id="adsGrid">
-            <!-- تبلیغات از طریق JSON لود می‌شوند -->
-            <div class="loading-spinner">
-                <div class="spinner"></div>
-                <p>در حال بارگذاری تخفیفات...</p>
+    <!-- Categories -->
+    <section class="categories">
+        <div class="section-title">
+            <h2>دسته‌بندی‌ها</h2>
+            <a href="#" onclick="showAllOffers()">مشاهده همه</a>
+        </div>
+        <div class="categories-container" id="categoriesContainer">
+            <!-- Categories will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Featured Offers -->
+    <section class="featured-offers">
+        <div class="section-title">
+            <h2>پیشنهادهای ویژه</h2>
+            <a href="#" onclick="showAllOffers()">مشاهده بیشتر</a>
+        </div>
+        <div class="offers-grid" id="offersGrid">
+            <!-- Offers will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Stories -->
+    <section class="stories-section">
+        <div class="section-title">
+            <h2>استوری‌های امروز</h2>
+            <a href="#" onclick="showAllStories()">همه استوری‌ها</a>
+        </div>
+        <div class="stories-container" id="storiesContainer">
+            <!-- Stories will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Promotion Banner -->
+    <div class="promotion-banner" onclick="openPricingModal()">
+        <h3>🔥 کسب‌وکارت رو به کل شهر نشون بده!</h3>
+        <p>تبلیغات هدفمند با قیمت باورنکردنی</p>
+        <button class="btn btn-primary">مشاهده تعرفه‌ها</button>
+    </div>
+
+    <!-- Story Modal -->
+    <div class="story-modal" id="storyModal">
+        <div class="story-progress" id="storyProgress"></div>
+        <button class="story-close" onclick="closeStoryModal()">×</button>
+        
+        <div class="story-controls story-prev" onclick="prevStory()"></div>
+        <div class="story-controls story-next" onclick="nextStory()"></div>
+        
+        <div class="story-media" id="storyMedia">
+            <!-- Story media will be loaded here -->
+        </div>
+        
+        <div class="story-info" id="storyInfo">
+            <!-- Story info will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Pricing Modal -->
+    <div class="pricing-modal" id="pricingModal">
+        <div class="pricing-content">
+            <button class="pricing-close" onclick="closePricingModal()">×</button>
+            
+            <div class="pricing-header">
+                <h2>💎 تعرفه تبلیغات ویژه</h2>
+                <p>تبلیغات ۲۴ ساعته در اپلیکیشن تخفیفات ایذه</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Package 1 -->
+                <div class="pricing-card">
+                    <div class="pricing-title">نوار متنی روان</div>
+                    <div class="pricing-price">۳۰,۰۰۰ تومان</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> نمایش نام برند در نوار بالایی</li>
+                        <li><i class="fas fa-check"></i> اولین چیزی که کاربر می‌بیند</li>
+                        <li><i class="fas fa-check"></i> امکان لینک مستقیم</li>
+                    </ul>
+                </div>
+                
+                <!-- Package 2 -->
+                <div class="pricing-card">
+                    <div class="pricing-title">استوری تصویری/ویدیویی</div>
+                    <div class="pricing-price">۴۵,۰۰۰ تومان</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> استوری با قابلیت توقف</li>
+                        <li><i class="fas fa-check"></i> پخش ویدیو با صدا</li>
+                        <li><i class="fas fa-check"></i> نوار پیشرفت اینستاگرامی</li>
+                    </ul>
+                </div>
+                
+                <!-- Package 3 -->
+                <div class="pricing-card">
+                    <div class="pricing-title">کارت تبلیغاتی</div>
+                    <div class="pricing-price">۴۰,۰۰۰ تومان</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> نمایش در صفحه اصلی</li>
+                        <li><i class="fas fa-check"></i> تگ تخفیف ویژه</li>
+                        <li><i class="fas fa-check"></i> قابلیت جستجو</li>
+                    </ul>
+                </div>
+                
+                <!-- Package 4 - Featured -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">پیشنهاد ویژه</div>
+                    <div class="pricing-title">پکیج کامل VIP</div>
+                    <div class="pricing-price">۸۹,۰۰۰ تومان</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> تمامی موارد بالا</li>
+                        <li><i class="fas fa-check"></i> تبلیغ پاپ‌آپ اختصاصی</li>
+                        <li><i class="fas fa-check"></i> بیش از ۵۰٪ تخفیف</li>
+                        <li><i class="fas fa-check"></i> پشتیبانی ۲۴ ساعته</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pricing-contact" style="margin-top: 25px;">
+                <button class="contact-btn whatsapp-btn" onclick="contactViaWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> رزرو از طریق واتس‌اپ
+                </button>
+                <button class="contact-btn call-btn" onclick="contactViaCall()">
+                    <i class="fas fa-phone"></i> تماس مستقیم: ۰۹۲۲۰۷۳۰۶۲۸
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- قابلیت نصب روی موبایل -->
-    <div class="install-prompt" id="installPrompt">
-        <div class="install-icon">
-            <i class="fas fa-mobile-alt"></i>
-        </div>
-        <div class="install-text">
-            <h3>نصب اپلیکیشن تخفیفات ایذه</h3>
-            <p>برای دسترسی سریع‌تر، این سایت را روی موبایل خود نصب کنید</p>
-        </div>
-        <button class="install-btn" id="installBtn">نصب</button>
-        <button class="close-install" id="closeInstall">&times;</button>
-    </div>
-
-    <!-- فوتر -->
-    <footer>
-        <p>تخفیفات ایذه - کی تو ایذه تخفیف گذاشته</p>
-        <p>تمامی تخفیفات از طریق کسب‌وکارهای محلی تأیید شده‌اند</p>
-    </footer>
+    <!-- Main Action Button -->
+    <button class="main-action" onclick="openPricingModal()">
+        <i class="fas fa-bullhorn"></i>
+        کسب‌وکارت رو اینجا تبلیغ کن
+    </button>
 
     <script>
-        // تنظیمات سایت
-        const CONFIG = {
-            // آدرس فایل JSON در GitHub (این را با آدرس فایل خود جایگزین کنید)
-            JSON_URL: 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/ads.json',
-            // آدرس فایل JSON نمونه (اگر فایل اصلی در دسترس نبود)
-            SAMPLE_JSON_URL: 'sample-ads.json',
-            // کش زمان به ثانیه (1 ساعت)
-            CACHE_TIME: 3600
-        };
-
-        // متغیرهای اصلی
-        let allAds = [];
-        let filteredAds = [];
-        let deferredPrompt;
-
-        // المنت‌های DOM
-        const adsGrid = document.getElementById('adsGrid');
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const installPrompt = document.getElementById('installPrompt');
-        const installBtn = document.getElementById('installBtn');
-        const closeInstall = document.getElementById('closeInstall');
-
-        // بارگذاری داده‌ها از JSON در GitHub
-        async function loadAds(forceRefresh = false) {
-            try {
-                showLoading();
-                
-                // بررسی کش
-                const cacheKey = 'izheh-discounts-cache';
-                const cacheTimeKey = 'izheh-discounts-cache-time';
-                
-                if (!forceRefresh) {
-                    const cachedData = localStorage.getItem(cacheKey);
-                    const cacheTime = localStorage.getItem(cacheTimeKey);
-                    
-                    if (cachedData && cacheTime) {
-                        const now = Date.now();
-                        if (now - parseInt(cacheTime) < CONFIG.CACHE_TIME * 1000) {
-                            allAds = JSON.parse(cachedData);
-                            filteredAds = [...allAds];
-                            displayAds(filteredAds);
-                            return;
-                        }
-                    }
-                }
-                
-                // تلاش برای بارگذاری از GitHub
-                const response = await fetch(`${CONFIG.JSON_URL}?t=${Date.now()}`);
-                
-                if (!response.ok) {
-                    throw new Error(`خطا در بارگذاری: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                if (!data.ads || !Array.isArray(data.ads)) {
-                    throw new Error('فرمت JSON نامعتبر است');
-                }
-                
-                // ذخیره در کش
-                allAds = data.ads;
-                localStorage.setItem(cacheKey, JSON.stringify(allAds));
-                localStorage.setItem(cacheTimeKey, Date.now().toString());
-                
-                filteredAds = [...allAds];
-                displayAds(filteredAds);
-                
-                // نمایش پیام موفقیت
-                if (forceRefresh) {
-                    showNotification('تخفیفات با موفقیت به روز شد!');
-                }
-                
-            } catch (error) {
-                console.error('Error loading ads from GitHub:', error);
-                
-                // تلاش برای بارگذاری از نمونه
-                try {
-                    const fallbackResponse = await fetch(CONFIG.SAMPLE_JSON_URL);
-                    if (fallbackResponse.ok) {
-                        const fallbackData = await fallbackResponse.json();
-                        allAds = fallbackData.ads || [];
-                        filteredAds = [...allAds];
-                        displayAds(filteredAds);
-                        showNotification('در حال نمایش داده‌های نمونه');
-                    } else {
-                        throw new Error('نمونه هم بارگذاری نشد');
-                    }
-                } catch (fallbackError) {
-                    console.error('Fallback also failed:', fallbackError);
-                    showError('خطا در بارگذاری تخفیفات. لطفاً دوباره تلاش کنید.');
-                }
-            }
+        // متغیرهای سراسری
+        let appData = null;
+        let deferredPrompt = null;
+        let currentStories = [];
+        let currentStoryIndex = 0;
+        let storyTimer = null;
+        let storyProgressInterval = null;
+        let currentVideo = null;
+        
+        // ثبت Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker ثبت شد:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('خطا در ثبت ServiceWorker:', error);
+                    });
+            });
         }
-
-        // نمایش وضعیت بارگذاری
-        function showLoading() {
-            adsGrid.innerHTML = `
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <p>در حال بارگذاری تخفیفات...</p>
-                </div>
-            `;
-        }
-
-        // نمایش خطا
-        function showError(message) {
-            adsGrid.innerHTML = `
-                <div class="empty-message">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
-                    <h3>${message}</h3>
-                    <p style="margin-top: 10px;">لطفاً اتصال اینترنت خود را بررسی کنید</p>
-                    <button onclick="loadAds(true)" style="margin-top: 20px; padding: 10px 20px; background: var(--primary-color); color: white; border: none; border-radius: var(--border-radius); cursor: pointer;">
-                        تلاش مجدد
-                    </button>
-                </div>
-            `;
-        }
-
-        // نمایش تبلیغات در گرید
-        function displayAds(ads) {
-            if (ads.length === 0) {
-                adsGrid.innerHTML = '<div class="empty-message">هیچ تخفیفی یافت نشد. لطفاً عبارت جستجوی دیگری را امتحان کنید.</div>';
-                return;
-            }
-
-            adsGrid.innerHTML = ads.map(ad => `
-                <div class="ad-card">
-                    ${ad.tag ? `<div class="ad-tag">${ad.tag}</div>` : ''}
-                    <img src="${ad.image || 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'}" 
-                         alt="${ad.title}" 
-                         class="ad-image"
-                         onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'">
-                    <div class="ad-content">
-                        <h3 class="ad-title">${ad.title || 'بدون عنوان'}</h3>
-                        <p class="ad-description">${ad.description || 'بدون توضیحات'}</p>
-                        
-                        ${ad.tags && ad.tags.length > 0 ? `
-                            <div class="ad-tags">
-                                ${ad.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="ad-footer">
-                            <div class="ad-actions">
-                                ${ad.hasCall ? `
-                                    <button class="action-btn call-btn" onclick="callAd('${ad.phone}')" title="تماس">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                ` : ''}
-                                
-                                ${ad.hasShare ? `
-                                    <button class="action-btn share-btn" onclick="shareAd(${ad.id})" title="اشتراک‌گذاری">
-                                        <i class="fas fa-share-alt"></i>
-                                    </button>
-                                ` : ''}
-                                
-                                ${ad.hasSocial ? `
-                                    <button class="action-btn social-btn" onclick="showSocialLinks(${ad.id})" title="شبکه‌های اجتماعی">
-                                        <i class="fas fa-users"></i>
-                                    </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // جستجوی هوشمند
-        function searchAds() {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            
-            if (!searchTerm) {
-                filteredAds = [...allAds];
-            } else {
-                filteredAds = allAds.filter(ad => {
-                    // جستجو در عنوان، توضیحات و تگ‌ها
-                    const inTitle = ad.title?.toLowerCase().includes(searchTerm) || false;
-                    const inDescription = ad.description?.toLowerCase().includes(searchTerm) || false;
-                    const inTags = ad.tags && ad.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-                    const inTag = ad.tag?.toLowerCase().includes(searchTerm) || false;
-                    
-                    return inTitle || inDescription || inTags || inTag;
-                });
-            }
-            
-            displayAds(filteredAds);
-        }
-
-        // رفرش عمیق
-        async function deepRefresh() {
-            // نمایش انیمیشن رفرش
-            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال رفرش...';
-            refreshBtn.classList.add('loading');
-            refreshBtn.disabled = true;
-            
-            // بارگذاری مجدد از GitHub
-            await loadAds(true);
-            
-            // بازنشانی جستجو
-            searchInput.value = '';
-            
-            // بازگرداندن دکمه به حالت عادی
-            refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> رفرش عمیق';
-            refreshBtn.classList.remove('loading');
-            refreshBtn.disabled = false;
-        }
-
-        // عملکرد دکمه تماس
-        function callAd(phoneNumber) {
-            if (confirm(`آیا مایل به تماس با شماره ${phoneNumber} هستید؟`)) {
-                window.location.href = `tel:${phoneNumber}`;
-            }
-        }
-
-        // عملکرد اشتراک‌گذاری
-        function shareAd(adId) {
-            const ad = allAds.find(a => a.id === adId);
-            if (!ad) return;
-            
-            const shareText = `تخفیف جالب در ایذه: ${ad.title} - ${ad.description}`;
-            const shareUrl = window.location.href;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'تخفیفات ایذه',
-                    text: shareText,
-                    url: shareUrl
-                });
-            } else {
-                // کپی به کلیپ‌بورد برای دستگاه‌های قدیمی
-                navigator.clipboard.writeText(`${shareText} - ${shareUrl}`).then(() => {
-                    showNotification('لینک تبلیغ در کلیپ‌بورد کپی شد!');
-                });
-            }
-        }
-
-        // نمایش شبکه‌های اجتماعی
-        function showSocialLinks(adId) {
-            const ad = allAds.find(a => a.id === adId);
-            if (!ad || !ad.socialLinks) return;
-            
-            const socialNames = {
-                instagram: 'اینستاگرام',
-                telegram: 'تلگرام',
-                whatsapp: 'واتس‌اپ',
-                facebook: 'فیسبوک',
-                twitter: 'توییتر'
-            };
-            
-            let message = `شبکه‌های اجتماعی ${ad.title}:\n\n`;
-            
-            for (const [platform, url] of Object.entries(ad.socialLinks)) {
-                const platformName = socialNames[platform] || platform;
-                message += `${platformName}: ${url}\n`;
-            }
-            
-            alert(message);
-        }
-
-        // نمایش نوتیفیکیشن
-        function showNotification(message) {
-            // ایجاد عنصر نوتیفیکیشن
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background-color: var(--accent-color);
-                color: white;
-                padding: 15px 25px;
-                border-radius: var(--border-radius);
-                box-shadow: var(--shadow);
-                z-index: 1001;
-                font-weight: bold;
-                animation: fadeInOut 3s ease;
-            `;
-            
-            // اضافه کردن استایل انیمیشن
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeInOut {
-                    0% { opacity: 0; top: 0; }
-                    15% { opacity: 1; top: 20px; }
-                    85% { opacity: 1; top: 20px; }
-                    100% { opacity: 0; top: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            // حذف نوتیفیکیشن بعد از 3 ثانیه
-            setTimeout(() => {
-                notification.remove();
-                style.remove();
-            }, 3000);
-        }
-
-        // قابلیت نصب روی موبایل
+        
+        // نمایش بنر نصب PWA
         window.addEventListener('beforeinstallprompt', (e) => {
-            // جلوگیری از نمایش پیشفرض
             e.preventDefault();
-            // ذخیره event برای استفاده بعدی
             deferredPrompt = e;
             
-            // نمایش دکمه نصب بعد از 5 ثانیه
-            setTimeout(() => {
-                installPrompt.style.display = 'flex';
-            }, 5000);
+            // نمایش بنر
+            document.getElementById('installBanner').style.display = 'flex';
+            document.getElementById('installHeaderBtn').style.display = 'flex';
+            
+            // ذخیره در localStorage برای نمایش بعدی
+            localStorage.setItem('pwaPromptShown', 'true');
         });
-
-        // رویدادهای کلیک
-        searchBtn.addEventListener('click', searchAds);
-        searchInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') searchAds();
-        });
-        refreshBtn.addEventListener('click', deepRefresh);
         
-        // نصب اپلیکیشن
-        installBtn.addEventListener('click', async () => {
+        // رویدادهای دکمه نصب
+        document.getElementById('installConfirm').addEventListener('click', async () => {
             if (!deferredPrompt) return;
             
             deferredPrompt.prompt();
+            
             const { outcome } = await deferredPrompt.userChoice;
+            console.log(`کاربر ${outcome} را انتخاب کرد`);
             
             if (outcome === 'accepted') {
-                installPrompt.style.display = 'none';
-                showNotification('اپلیکیشن با موفقیت نصب شد!');
+                document.getElementById('installBanner').style.display = 'none';
+                document.getElementById('installHeaderBtn').style.display = 'none';
             }
             
             deferredPrompt = null;
         });
         
-        closeInstall.addEventListener('click', () => {
-            installPrompt.style.display = 'none';
+        document.getElementById('installCancel').addEventListener('click', () => {
+            document.getElementById('installBanner').style.display = 'none';
         });
-
-        // راه‌اندازی اولیه
-        document.addEventListener('DOMContentLoaded', () => {
-            loadAds();
+        
+        document.getElementById('installHeaderBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+            }
+        });
+        
+        // بارگذاری داده‌ها
+        async function loadAppData() {
+            try {
+                const response = await fetch('data.json?v=' + Date.now());
+                appData = await response.json();
+                
+                // تنظیم مارکی
+                if (appData.marquee) {
+                    document.getElementById('marqueeText').textContent = appData.marquee.text;
+                }
+                
+                // رندر دسته‌بندی‌ها
+                renderCategories();
+                
+                // رندر پیشنهادها
+                renderOffers();
+                
+                // رندر استوری‌ها
+                renderStories();
+                
+                // مخفی کردن loading
+                document.getElementById('loading').style.display = 'none';
+                
+            } catch (error) {
+                console.error('خطا در بارگذاری:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 60px; color: var(--primary); margin-bottom: 20px;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3 style="margin-bottom: 15px;">خطا در بارگذاری</h3>
+                        <button onclick="location.reload()" class="btn btn-primary">
+                            <i class="fas fa-redo"></i> تلاش مجدد
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        // رندر دسته‌بندی‌ها
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
             
-            // نمایش پیام خوش‌آمدگویی
-            setTimeout(() => {
-                showNotification('به تخفیفات ایذه خوش آمدید!');
-            }, 1000);
+            const categories = ['همه', 'غذایی', 'پوشاک', 'الکترونیک', 'آرایشی', 'خانگی'];
+            const icons = ['fas fa-star', 'fas fa-utensils', 'fas fa-tshirt', 'fas fa-laptop', 'fas fa-spa', 'fas fa-home'];
+            
+            categories.forEach((category, index) => {
+                const div = document.createElement('div');
+                div.className = 'category-item';
+                div.onclick = () => filterByCategory(category);
+                
+                div.innerHTML = `
+                    <div class="category-icon ${category === 'همه' ? 'active' : ''}">
+                        <i class="${icons[index]}"></i>
+                    </div>
+                    <div class="category-name">${category}</div>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+        
+        // فیلتر بر اساس دسته‌بندی
+        function filterByCategory(category) {
+            // فعال کردن آیکون دسته‌بندی
+            document.querySelectorAll('.category-icon').forEach(icon => {
+                icon.classList.remove('active');
+            });
+            event.currentTarget.querySelector('.category-icon').classList.add('active');
+            
+            renderOffers(category === 'همه' ? null : category);
+        }
+        
+        // رندر پیشنهادها
+        function renderOffers(category = null) {
+            const container = document.getElementById('offersGrid');
+            container.innerHTML = '';
+            
+            let offers = appData?.offers || [];
+            
+            // فیلتر بر اساس دسته‌بندی
+            if (category) {
+                offers = offers.filter(offer => 
+                    offer.categories && offer.categories.includes(category)
+                );
+            }
+            
+            // محدود کردن تعداد
+            offers = offers.slice(0, 6);
+            
+            offers.forEach(offer => {
+                const div = document.createElement('div');
+                div.className = 'offer-card';
+                
+                div.innerHTML = `
+                    ${offer.discount ? `<div class="offer-badge">${offer.discount}% تخفیف</div>` : ''}
+                    <img src="${offer.image || 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'}" 
+                         alt="${offer.name}" 
+                         class="offer-image"
+                         onerror="this.src='https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    <div class="offer-content">
+                        <h3 class="offer-title">${offer.name}</h3>
+                        <p class="offer-description">${offer.description || 'بدون توضیحات'}</p>
+                        <div class="offer-footer">
+                            ${offer.phone ? `<a href="tel:${offer.phone}" class="offer-phone">${formatPhone(offer.phone)}</a>` : '<span></span>'}
+                            <div class="offer-actions">
+                                <button class="action-btn" onclick="shareOffer(${offer.id})">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                div.onclick = () => openOffer(offer);
+                container.appendChild(div);
+            });
+        }
+        
+        // رندر استوری‌ها
+        function renderStories() {
+            const container = document.getElementById('storiesContainer');
+            container.innerHTML = '';
+            
+            const stories = appData?.stories || [];
+            
+            stories.forEach(story => {
+                const div = document.createElement('div');
+                div.className = `story-item ${story.isVideo ? 'has-video' : ''}`;
+                
+                div.innerHTML = `
+                    <img src="${story.thumbnail || story.image || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'}" 
+                         alt="${story.name}" 
+                         class="story-avatar"
+                         onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    <div class="story-name">${story.name}</div>
+                `;
+                
+                div.onclick = () => openStory(stories.indexOf(story));
+                container.appendChild(div);
+            });
+            
+            currentStories = stories;
+        }
+        
+        // باز کردن استوری (شبیه اینستاگرام)
+        function openStory(index) {
+            if (!currentStories[index]) return;
+            
+            currentStoryIndex = index;
+            document.getElementById('storyModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            loadStory(currentStoryIndex);
+        }
+        
+        // بارگذاری استوری
+        function loadStory(index) {
+            const story = currentStories[index];
+            if (!story) {
+                closeStoryModal();
+                return;
+            }
+            
+            // پاکسازی تایمر قبلی
+            clearTimeout(storyTimer);
+            clearInterval(storyProgressInterval);
+            
+            // ایجاد نوارهای پیشرفت
+            const progressContainer = document.getElementById('storyProgress');
+            progressContainer.innerHTML = '';
+            
+            currentStories.forEach((_, i) => {
+                const progressDiv = document.createElement('div');
+                progressDiv.className = 'progress-bar';
+                progressDiv.innerHTML = `<div class="progress-fill" id="progressFill${i}"></div>`;
+                progressContainer.appendChild(progressDiv);
+            });
+            
+            // نمایش مدیا
+            const mediaContainer = document.getElementById('storyMedia');
+            if (story.isVideo) {
+                mediaContainer.innerHTML = `
+                    <video id="storyVideo" playsinline autoplay muted style="width: 100%; height: 100%;">
+                        <source src="${story.videoUrl || story.image}" type="video/mp4">
+                        مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+                    </video>
+                `;
+                
+                currentVideo = document.getElementById('storyVideo');
+                currentVideo.onloadedmetadata = () => {
+                    startStoryTimer(currentVideo.duration * 1000, index);
+                    currentVideo.muted = false;
+                    currentVideo.play().catch(e => {
+                        console.log('خطا در پخش ویدیو:', e);
+                        currentVideo.muted = true;
+                        currentVideo.play();
+                    });
+                };
+                
+                currentVideo.onended = () => {
+                    nextStory();
+                };
+                
+            } else {
+                mediaContainer.innerHTML = `
+                    <img src="${story.image}" alt="${story.name}" style="width: 100%; height: 100%; object-fit: contain;">
+                `;
+                startStoryTimer(5000, index);
+            }
+            
+            // نمایش اطلاعات
+            const infoContainer = document.getElementById('storyInfo');
+            infoContainer.innerHTML = `
+                <h3>${story.name}</h3>
+                <p>${story.description || ''}</p>
+                <div class="story-actions">
+                    ${story.phone ? `<button class="story-action-btn" onclick="callNumber('${story.phone}')">
+                        <i class="fas fa-phone"></i> تماس
+                    </button>` : ''}
+                    ${story.link ? `<button class="story-action-btn" onclick="window.open('${story.link}', '_blank')" style="background: ${story.link.includes('instagram') ? '#E1306C' : '#0984e3'}">
+                        <i class="fas fa-external-link-alt"></i> ${story.link.includes('instagram') ? 'اینستاگرام' : 'مشاهده'}
+                    </button>` : ''}
+                </div>
+            `;
+            
+            // پر کردن نوار پیشرفت قبلی
+            for (let i = 0; i < index; i++) {
+                document.getElementById(`progressFill${i}`).style.width = '100%';
+            }
+        }
+        
+        // شروع تایمر استوری
+        function startStoryTimer(duration, index) {
+            const progressFill = document.getElementById(`progressFill${index}`);
+            let width = 0;
+            
+            storyProgressInterval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(storyProgressInterval);
+                    nextStory();
+                    return;
+                }
+                width += (100 / (duration / 100));
+                progressFill.style.width = width + '%';
+            }, 100);
+            
+            storyTimer = setTimeout(() => {
+                nextStory();
+            }, duration);
+        }
+        
+        // استوری بعدی
+        function nextStory() {
+            if (currentStoryIndex < currentStories.length - 1) {
+                currentStoryIndex++;
+                loadStory(currentStoryIndex);
+            } else {
+                closeStoryModal();
+            }
+        }
+        
+        // استوری قبلی
+        function prevStory() {
+            if (currentStoryIndex > 0) {
+                currentStoryIndex--;
+                loadStory(currentStoryIndex);
+            }
+        }
+        
+        // بستن استوری
+        function closeStoryModal() {
+            clearTimeout(storyTimer);
+            clearInterval(storyProgressInterval);
+            if (currentVideo) {
+                currentVideo.pause();
+                currentVideo = null;
+            }
+            document.getElementById('storyModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // باز کردن پیشنهاد
+        function openOffer(offer) {
+            alert(`${offer.name}\n\n${offer.description || 'بدون توضیحات'}\n\nتلفن: ${offer.phone || 'ندارد'}`);
+        }
+        
+        // اشتراک‌گذاری
+        function shareOffer(offerId) {
+            const offer = appData?.offers?.find(o => o.id === offerId);
+            if (!offer) return;
+            
+            const shareText = `پیشنهاد ویژه از تخفیفات ایذه:\n${offer.name}\n${offer.description || ''}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'تخفیفات ایذه',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(shareText);
+                alert('متن در کلیپ‌بورد کپی شد!');
+            }
+        }
+        
+        // نمایش همه پیشنهادها
+        function showAllOffers() {
+            alert('همه پیشنهادها در دست توسعه است...');
+        }
+        
+        // نمایش همه استوری‌ها
+        function showAllStories() {
+            alert('همه استوری‌ها در دست توسعه است...');
+        }
+        
+        // باز کردن پنل قیمت‌گذاری
+        function openPricingModal() {
+            document.getElementById('pricingModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // بستن پنل قیمت‌گذاری
+        function closePricingModal() {
+            document.getElementById('pricingModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // تماس از طریق واتس‌اپ
+        function contactViaWhatsApp() {
+            const phone = '989220730628';
+            const message = 'سلام، قصد رزرو تبلیغات در اپلیکیشن تخفیفات ایذه را دارم. لطفا راهنمایی کنید.';
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+        
+        // تماس تلفنی
+        function contactViaCall() {
+            window.location.href = 'tel:09220730628';
+        }
+        
+        // تماس با شماره
+        function callNumber(phone) {
+            window.location.href = `tel:${phone}`;
+        }
+        
+        // فرمت شماره تلفن
+        function formatPhone(phone) {
+            return phone.replace(/(\d{4})(\d{3})(\d{4})/, '$1 $2 $3');
+        }
+        
+        // جستجو
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            renderOffers();
+            
+            // فیلتر بیشتر اگر جستجو وجود دارد
+            if (searchTerm) {
+                const offers = document.querySelectorAll('.offer-card');
+                offers.forEach(offer => {
+                    const title = offer.querySelector('.offer-title').textContent.toLowerCase();
+                    const desc = offer.querySelector('.offer-description').textContent.toLowerCase();
+                    offer.style.display = title.includes(searchTerm) || desc.includes(searchTerm) ? '' : 'none';
+                });
+            }
         });
+        
+        // رویدادهای کیبورد
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeStoryModal();
+                closePricingModal();
+            }
+        });
+        
+        // کلیک خارج از مودال
+        document.getElementById('pricingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePricingModal();
+            }
+        });
+        
+        document.getElementById('storyModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeStoryModal();
+            }
+        });
+        
+        // بارگذاری اولیه
+        window.addEventListener('DOMContentLoaded', loadAppData);
     </script>
 </body>
     </html>
