@@ -50,7 +50,7 @@
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 90px;
+            padding-bottom: 100px;
             min-height: 100vh;
         }
         
@@ -180,24 +180,37 @@
             font-weight: 500;
         }
         
-        .install-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 10px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(255, 62, 62, 0.2);
+        .header-actions {
+            display: flex;
+            gap: 10px;
         }
         
-        /* Search */
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--light);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--dark);
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .action-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: rotate(15deg);
+        }
+        
+        /* Search Container */
         .search-container {
-            padding: 15px;
+            padding: 0 15px 15px;
             margin-top: 10px;
+            position: relative;
         }
         
         .search-box {
@@ -231,6 +244,23 @@
             font-size: 18px;
         }
         
+        .search-clear {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--light);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
         /* Marquee */
         .marquee {
             background: linear-gradient(90deg, var(--dark), #444);
@@ -255,90 +285,34 @@
             100% { transform: translateX(-100%); }
         }
         
-        /* Categories */
-        .categories {
-            padding: 20px 15px 10px;
+        /* Offers Grid */
+        .offers-section {
+            padding: 20px 15px;
         }
         
-        .section-title {
+        .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
-        .section-title h2 {
+        .section-title {
             font-size: 18px;
             font-weight: 700;
             color: var(--dark);
-        }
-        
-        .section-title a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .categories-container {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 5px 0 15px;
-            scrollbar-width: none;
-        }
-        
-        .categories-container::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .category-item {
-            flex: 0 0 auto;
-            width: 80px;
-            text-align: center;
-            cursor: pointer;
-        }
-        
-        .category-icon {
-            width: 65px;
-            height: 65px;
-            background: white;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .category-icon.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .category-icon i {
-            font-size: 24px;
-        }
-        
-        .category-name {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        /* Featured Offers */
-        .featured-offers {
-            padding: 0 15px;
         }
         
         .offers-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            margin-top: 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .offers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
         
         .offer-card {
@@ -420,35 +394,20 @@
             gap: 8px;
         }
         
-        .action-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            border: none;
-            background: var(--light);
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .action-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* Stories */
+        /* Stories Section */
         .stories-section {
-            padding: 20px 15px 10px;
+            padding: 20px 15px;
+            background: white;
+            margin: 20px 15px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
         
         .stories-container {
             display: flex;
             gap: 15px;
             overflow-x: auto;
-            padding: 10px 0 20px;
+            padding: 10px 0;
             scrollbar-width: none;
         }
         
@@ -503,7 +462,7 @@
             color: var(--dark);
         }
         
-        /* Story Modal (شبیه اینستاگرام) */
+        /* Story Modal */
         .story-modal {
             display: none;
             position: fixed;
@@ -588,74 +547,6 @@
         
         .story-next {
             left: 0;
-        }
-        
-        .story-info {
-            position: absolute;
-            bottom: 30px;
-            right: 20px;
-            left: 20px;
-            color: white;
-            z-index: 10002;
-        }
-        
-        .story-info h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        
-        .story-info p {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 15px;
-        }
-        
-        .story-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .story-action-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        /* Promotion Banner */
-        .promotion-banner {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            margin: 20px 15px;
-            padding: 25px 20px;
-            border-radius: var(--radius);
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(255, 62, 62, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .promotion-banner:hover {
-            transform: scale(1.02);
-        }
-        
-        .promotion-banner h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .promotion-banner p {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 20px;
         }
         
         /* Pricing Modal */
@@ -782,6 +673,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: 20px;
         }
         
         .contact-btn {
@@ -805,6 +697,33 @@
         .call-btn {
             background: var(--primary);
             color: white;
+        }
+        
+        /* Refresh Button */
+        .refresh-btn {
+            background: linear-gradient(135deg, var(--secondary), #74b9ff);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(116, 185, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(116, 185, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(116, 185, 255, 0); }
+        }
+        
+        .refresh-btn:active {
+            transform: rotate(180deg);
         }
         
         /* Loading */
@@ -861,13 +780,54 @@
             gap: 12px;
             border: none;
             font-family: inherit;
+            transition: transform 0.3s ease;
         }
         
-        /* Responsive */
-        @media (min-width: 768px) {
-            .offers-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .main-action:hover {
+            transform: translateX(-50%) scale(1.02);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 60px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 10003;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .notification.success {
+            border-right: 4px solid var(--success);
+        }
+        
+        .notification.error {
+            border-right: 4px solid var(--primary);
         }
     </style>
 </head>
@@ -876,13 +836,13 @@
     <div id="installBanner">
         <div class="banner-content">
             <div class="banner-text">
-                <h4>نصب اپلیکیشن</h4>
-                <p>برای تجربه بهتر، برنامه را نصب کنید</p>
+                <h4>📲 نصب اپلیکیشن</h4>
+                <p>برای دسترسی سریع‌تر و تجربه بهتر، برنامه را نصب کنید</p>
             </div>
         </div>
         <div class="banner-actions">
             <button id="installCancel" class="btn btn-outline">بعداً</button>
-            <button id="installConfirm" class="btn btn-primary">نصب</button>
+            <button id="installConfirm" class="btn btn-primary">نصب کنید</button>
         </div>
     </div>
 
@@ -891,6 +851,9 @@
         <div class="spinner"></div>
         <p>در حال بارگذاری...</p>
     </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
 
     <!-- Header -->
     <header class="header">
@@ -904,18 +867,26 @@
                     <p>بهترین پیشنهادها در شهر شما</p>
                 </div>
             </div>
-            <a href="#" id="installHeaderBtn" class="install-btn">
-                <i class="fas fa-download"></i>
-                نصب
-            </a>
+            <div class="header-actions">
+                <button class="refresh-btn" id="refreshBtn" title="بروزرسانی">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button class="action-icon" id="installBtn" title="نصب اپلیکیشن">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
         </div>
         
+        <!-- جستجو -->
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="جستجوی محصول، خدمات یا فروشگاه...">
+                <input type="text" id="searchInput" class="search-input" placeholder="جستجو در پیشنهادها و خدمات...">
                 <div class="search-icon">
                     <i class="fas fa-search"></i>
                 </div>
+                <button class="search-clear" id="searchClear">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -927,45 +898,26 @@
         </div>
     </div>
 
-    <!-- Categories -->
-    <section class="categories">
-        <div class="section-title">
-            <h2>دسته‌بندی‌ها</h2>
-            <a href="#" onclick="showAllOffers()">مشاهده همه</a>
-        </div>
-        <div class="categories-container" id="categoriesContainer">
-            <!-- Categories will be loaded here -->
-        </div>
-    </section>
-
-    <!-- Featured Offers -->
-    <section class="featured-offers">
-        <div class="section-title">
-            <h2>پیشنهادهای ویژه</h2>
-            <a href="#" onclick="showAllOffers()">مشاهده بیشتر</a>
-        </div>
-        <div class="offers-grid" id="offersGrid">
-            <!-- Offers will be loaded here -->
-        </div>
-    </section>
-
     <!-- Stories -->
-    <section class="stories-section">
-        <div class="section-title">
-            <h2>استوری‌های امروز</h2>
-            <a href="#" onclick="showAllStories()">همه استوری‌ها</a>
+    <section class="stories-section" id="storiesSection">
+        <div class="section-header">
+            <h2 class="section-title">استوری‌های امروز</h2>
         </div>
         <div class="stories-container" id="storiesContainer">
             <!-- Stories will be loaded here -->
         </div>
     </section>
 
-    <!-- Promotion Banner -->
-    <div class="promotion-banner" onclick="openPricingModal()">
-        <h3>🔥 کسب‌وکارت رو به کل شهر نشون بده!</h3>
-        <p>تبلیغات هدفمند با قیمت باورنکردنی</p>
-        <button class="btn btn-primary">مشاهده تعرفه‌ها</button>
-    </div>
+    <!-- Offers -->
+    <section class="offers-section">
+        <div class="section-header">
+            <h2 class="section-title">پیشنهادهای ویژه</h2>
+            <div class="offers-count" id="offersCount"></div>
+        </div>
+        <div class="offers-grid" id="offersGrid">
+            <!-- Offers will be loaded here -->
+        </div>
+    </section>
 
     <!-- Story Modal -->
     <div class="story-modal" id="storyModal">
@@ -977,10 +929,6 @@
         
         <div class="story-media" id="storyMedia">
             <!-- Story media will be loaded here -->
-        </div>
-        
-        <div class="story-info" id="storyInfo">
-            <!-- Story info will be loaded here -->
         </div>
     </div>
 
@@ -1042,7 +990,7 @@
                 </div>
             </div>
             
-            <div class="pricing-contact" style="margin-top: 25px;">
+            <div class="pricing-contact">
                 <button class="contact-btn whatsapp-btn" onclick="contactViaWhatsApp()">
                     <i class="fab fa-whatsapp"></i> رزرو از طریق واتس‌اپ
                 </button>
@@ -1068,45 +1016,78 @@
         let storyTimer = null;
         let storyProgressInterval = null;
         let currentVideo = null;
+        let isRefreshing = false;
         
-        // ثبت Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker ثبت شد:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('خطا در ثبت ServiceWorker:', error);
-                    });
-            });
+        // نمایش نوتیفیکیشن
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
         
-        // نمایش بنر نصب PWA
+        // ثبت Service Worker برای PWA
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register('sw.js');
+                    console.log('ServiceWorker ثبت شد:', registration.scope);
+                    
+                    // بررسی آپدیت
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                showNotification('نسخه جدید آماده است! صفحه را رفرش کنید.', 'success');
+                            }
+                        });
+                    });
+                    
+                    return registration;
+                } catch (error) {
+                    console.error('خطا در ثبت ServiceWorker:', error);
+                }
+            }
+            return null;
+        }
+        
+        // سیستم نصب PWA
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             
-            // نمایش بنر
+            // نمایش بنر نصب
             document.getElementById('installBanner').style.display = 'flex';
-            document.getElementById('installHeaderBtn').style.display = 'flex';
             
-            // ذخیره در localStorage برای نمایش بعدی
-            localStorage.setItem('pwaPromptShown', 'true');
+            // ذخیره در localStorage برای نمایش یک بار
+            if (!localStorage.getItem('pwaPromptShown')) {
+                localStorage.setItem('pwaPromptShown', 'true');
+            }
         });
         
         // رویدادهای دکمه نصب
         document.getElementById('installConfirm').addEventListener('click', async () => {
-            if (!deferredPrompt) return;
+            if (!deferredPrompt) {
+                showNotification('در حال حاضر امکان نصب وجود ندارد', 'error');
+                return;
+            }
             
             deferredPrompt.prompt();
             
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`کاربر ${outcome} را انتخاب کرد`);
             
             if (outcome === 'accepted') {
+                showNotification('اپلیکیشن با موفقیت نصب شد!', 'success');
                 document.getElementById('installBanner').style.display = 'none';
-                document.getElementById('installHeaderBtn').style.display = 'none';
+            } else {
+                showNotification('نصب لغو شد', 'error');
             }
             
             deferredPrompt = null;
@@ -1116,26 +1097,78 @@
             document.getElementById('installBanner').style.display = 'none';
         });
         
-        document.getElementById('installHeaderBtn').addEventListener('click', async (e) => {
-            e.preventDefault();
+        document.getElementById('installBtn').addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
+            } else {
+                showNotification('اپلیکیشن قبلاً نصب شده یا امکان نصب وجود ندارد', 'info');
             }
         });
         
-        // بارگذاری داده‌ها
-        async function loadAppData() {
+        // دکمه رفرش قوی
+        document.getElementById('refreshBtn').addEventListener('click', async () => {
+            if (isRefreshing) return;
+            
+            isRefreshing = true;
+            const refreshBtn = document.getElementById('refreshBtn');
+            refreshBtn.style.animation = 'spin 1s linear infinite';
+            
             try {
-                const response = await fetch('data.json?v=' + Date.now());
+                await loadAppData(true);
+                showNotification('داده‌ها با موفقیت بروزرسانی شدند', 'success');
+            } catch (error) {
+                showNotification('خطا در بروزرسانی داده‌ها', 'error');
+            } finally {
+                isRefreshing = false;
+                refreshBtn.style.animation = 'pulse 2s infinite';
+            }
+        });
+        
+        // پول دان برای رفرش
+        let pullStartY = 0;
+        let pullDistance = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            if (window.scrollY === 0) {
+                pullStartY = e.touches[0].clientY;
+            }
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (pullStartY && window.scrollY === 0) {
+                pullDistance = e.touches[0].clientY - pullStartY;
+                if (pullDistance > 0) {
+                    document.body.style.transform = `translateY(${pullDistance}px)`;
+                }
+            }
+        });
+        
+        document.addEventListener('touchend', async () => {
+            if (pullDistance > 100 && window.scrollY === 0) {
+                await loadAppData(true);
+                showNotification('داده‌ها با موفقیت بروزرسانی شدند', 'success');
+            }
+            pullStartY = 0;
+            pullDistance = 0;
+            document.body.style.transform = '';
+        });
+        
+        // بارگذاری داده‌ها
+        async function loadAppData(forceRefresh = false) {
+            try {
+                const cacheBuster = forceRefresh ? `?v=${Date.now()}` : '';
+                const response = await fetch(`data.json${cacheBuster}`);
+                
+                if (!response.ok) {
+                    throw new Error(`خطا در بارگذاری: ${response.status}`);
+                }
+                
                 appData = await response.json();
                 
                 // تنظیم مارکی
                 if (appData.marquee) {
                     document.getElementById('marqueeText').textContent = appData.marquee.text;
                 }
-                
-                // رندر دسته‌بندی‌ها
-                renderCategories();
                 
                 // رندر پیشنهادها
                 renderOffers();
@@ -1146,15 +1179,45 @@
                 // مخفی کردن loading
                 document.getElementById('loading').style.display = 'none';
                 
+                // نمایش زمان آخرین بروزرسانی
+                const lastUpdate = new Date().toLocaleTimeString('fa-IR');
+                document.getElementById('offersCount').innerHTML = `
+                    <span style="font-size: 12px; color: #666;">آخرین بروزرسانی: ${lastUpdate}</span>
+                `;
+                
+                // کش کردن داده‌ها
+                if (forceRefresh) {
+                    localStorage.setItem('cachedData', JSON.stringify(appData));
+                    localStorage.setItem('cacheTimestamp', Date.now());
+                }
+                
             } catch (error) {
                 console.error('خطا در بارگذاری:', error);
+                
+                // تلاش برای استفاده از داده‌های کش شده
+                const cachedData = localStorage.getItem('cachedData');
+                const cacheTimestamp = localStorage.getItem('cacheTimestamp');
+                
+                if (cachedData && cacheTimestamp) {
+                    const cacheAge = Date.now() - cacheTimestamp;
+                    if (cacheAge < 24 * 60 * 60 * 1000) { // کمتر از 24 ساعت
+                        appData = JSON.parse(cachedData);
+                        renderOffers();
+                        renderStories();
+                        document.getElementById('loading').style.display = 'none';
+                        showNotification('داده‌های آفلاین نمایش داده می‌شوند', 'info');
+                        return;
+                    }
+                }
+                
                 document.getElementById('loading').innerHTML = `
                     <div style="text-align: center; padding: 20px;">
                         <div style="font-size: 60px; color: var(--primary); margin-bottom: 20px;">
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
                         <h3 style="margin-bottom: 15px;">خطا در بارگذاری</h3>
-                        <button onclick="location.reload()" class="btn btn-primary">
+                        <p style="color: #666; margin-bottom: 25px;">لطفاً اتصال اینترنت خود را بررسی کنید</p>
+                        <button onclick="loadAppData(true)" class="btn btn-primary" style="margin: 5px;">
                             <i class="fas fa-redo"></i> تلاش مجدد
                         </button>
                     </div>
@@ -1162,57 +1225,31 @@
             }
         }
         
-        // رندر دسته‌بندی‌ها
-        function renderCategories() {
-            const container = document.getElementById('categoriesContainer');
-            container.innerHTML = '';
-            
-            const categories = ['همه', 'غذایی', 'پوشاک', 'الکترونیک', 'آرایشی', 'خانگی'];
-            const icons = ['fas fa-star', 'fas fa-utensils', 'fas fa-tshirt', 'fas fa-laptop', 'fas fa-spa', 'fas fa-home'];
-            
-            categories.forEach((category, index) => {
-                const div = document.createElement('div');
-                div.className = 'category-item';
-                div.onclick = () => filterByCategory(category);
-                
-                div.innerHTML = `
-                    <div class="category-icon ${category === 'همه' ? 'active' : ''}">
-                        <i class="${icons[index]}"></i>
-                    </div>
-                    <div class="category-name">${category}</div>
-                `;
-                
-                container.appendChild(div);
-            });
-        }
-        
-        // فیلتر بر اساس دسته‌بندی
-        function filterByCategory(category) {
-            // فعال کردن آیکون دسته‌بندی
-            document.querySelectorAll('.category-icon').forEach(icon => {
-                icon.classList.remove('active');
-            });
-            event.currentTarget.querySelector('.category-icon').classList.add('active');
-            
-            renderOffers(category === 'همه' ? null : category);
-        }
-        
-        // رندر پیشنهادها
-        function renderOffers(category = null) {
+        // رندر پیشنهادها با فیلتر جستجو
+        function renderOffers(searchTerm = '') {
             const container = document.getElementById('offersGrid');
-            container.innerHTML = '';
-            
             let offers = appData?.offers || [];
             
-            // فیلتر بر اساس دسته‌بندی
-            if (category) {
+            // فیلتر بر اساس جستجو
+            if (searchTerm) {
                 offers = offers.filter(offer => 
-                    offer.categories && offer.categories.includes(category)
+                    offer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (offer.description && offer.description.toLowerCase().includes(searchTerm.toLowerCase()))
                 );
             }
             
-            // محدود کردن تعداد
-            offers = offers.slice(0, 6);
+            if (offers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-search"></i>
+                        <h3>نتیجه‌ای یافت نشد</h3>
+                        <p>هیچ پیشنهادی با جستجوی "${searchTerm}" یافت نشد</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
             
             offers.forEach(offer => {
                 const div = document.createElement('div');
@@ -1246,9 +1283,15 @@
         // رندر استوری‌ها
         function renderStories() {
             const container = document.getElementById('storiesContainer');
-            container.innerHTML = '';
-            
             const stories = appData?.stories || [];
+            
+            if (stories.length === 0) {
+                document.getElementById('storiesSection').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('storiesSection').style.display = 'block';
+            container.innerHTML = '';
             
             stories.forEach(story => {
                 const div = document.createElement('div');
@@ -1269,7 +1312,7 @@
             currentStories = stories;
         }
         
-        // باز کردن استوری (شبیه اینستاگرام)
+        // باز کردن استوری
         function openStory(index) {
             if (!currentStories[index]) return;
             
@@ -1309,7 +1352,6 @@
                 mediaContainer.innerHTML = `
                     <video id="storyVideo" playsinline autoplay muted style="width: 100%; height: 100%;">
                         <source src="${story.videoUrl || story.image}" type="video/mp4">
-                        مرورگر شما از ویدیو پشتیبانی نمی‌کند.
                     </video>
                 `;
                 
@@ -1318,7 +1360,6 @@
                     startStoryTimer(currentVideo.duration * 1000, index);
                     currentVideo.muted = false;
                     currentVideo.play().catch(e => {
-                        console.log('خطا در پخش ویدیو:', e);
                         currentVideo.muted = true;
                         currentVideo.play();
                     });
@@ -1334,21 +1375,6 @@
                 `;
                 startStoryTimer(5000, index);
             }
-            
-            // نمایش اطلاعات
-            const infoContainer = document.getElementById('storyInfo');
-            infoContainer.innerHTML = `
-                <h3>${story.name}</h3>
-                <p>${story.description || ''}</p>
-                <div class="story-actions">
-                    ${story.phone ? `<button class="story-action-btn" onclick="callNumber('${story.phone}')">
-                        <i class="fas fa-phone"></i> تماس
-                    </button>` : ''}
-                    ${story.link ? `<button class="story-action-btn" onclick="window.open('${story.link}', '_blank')" style="background: ${story.link.includes('instagram') ? '#E1306C' : '#0984e3'}">
-                        <i class="fas fa-external-link-alt"></i> ${story.link.includes('instagram') ? 'اینستاگرام' : 'مشاهده'}
-                    </button>` : ''}
-                </div>
-            `;
             
             // پر کردن نوار پیشرفت قبلی
             for (let i = 0; i < index; i++) {
@@ -1426,18 +1452,8 @@
                 });
             } else {
                 navigator.clipboard.writeText(shareText);
-                alert('متن در کلیپ‌بورد کپی شد!');
+                showNotification('لینک در کلیپ‌بورد کپی شد', 'success');
             }
-        }
-        
-        // نمایش همه پیشنهادها
-        function showAllOffers() {
-            alert('همه پیشنهادها در دست توسعه است...');
-        }
-        
-        // نمایش همه استوری‌ها
-        function showAllStories() {
-            alert('همه استوری‌ها در دست توسعه است...');
         }
         
         // باز کردن پنل قیمت‌گذاری
@@ -1464,30 +1480,29 @@
             window.location.href = 'tel:09220730628';
         }
         
-        // تماس با شماره
-        function callNumber(phone) {
-            window.location.href = `tel:${phone}`;
-        }
-        
         // فرمت شماره تلفن
         function formatPhone(phone) {
             return phone.replace(/(\d{4})(\d{3})(\d{4})/, '$1 $2 $3');
         }
         
-        // جستجو
+        // مدیریت جستجو
         document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            renderOffers();
+            const searchTerm = e.target.value;
+            const searchClear = document.getElementById('searchClear');
             
-            // فیلتر بیشتر اگر جستجو وجود دارد
             if (searchTerm) {
-                const offers = document.querySelectorAll('.offer-card');
-                offers.forEach(offer => {
-                    const title = offer.querySelector('.offer-title').textContent.toLowerCase();
-                    const desc = offer.querySelector('.offer-description').textContent.toLowerCase();
-                    offer.style.display = title.includes(searchTerm) || desc.includes(searchTerm) ? '' : 'none';
-                });
+                searchClear.style.display = 'flex';
+                renderOffers(searchTerm);
+            } else {
+                searchClear.style.display = 'none';
+                renderOffers();
             }
+        });
+        
+        document.getElementById('searchClear').addEventListener('click', function() {
+            document.getElementById('searchInput').value = '';
+            this.style.display = 'none';
+            renderOffers();
         });
         
         // رویدادهای کیبورد
@@ -1495,6 +1510,10 @@
             if (e.key === 'Escape') {
                 closeStoryModal();
                 closePricingModal();
+            }
+            if (e.key === 'r' && e.ctrlKey) {
+                e.preventDefault();
+                document.getElementById('refreshBtn').click();
             }
         });
         
@@ -1511,8 +1530,31 @@
             }
         });
         
+        // بررسی اتصال اینترنت
+        window.addEventListener('online', () => {
+            showNotification('اتصال اینترنت برقرار شد', 'success');
+            loadAppData(true);
+        });
+        
+        window.addEventListener('offline', () => {
+            showNotification('اتصال اینترنت قطع شد', 'error');
+        });
+        
         // بارگذاری اولیه
-        window.addEventListener('DOMContentLoaded', loadAppData);
+        window.addEventListener('DOMContentLoaded', async () => {
+            // ثبت Service Worker
+            await registerServiceWorker();
+            
+            // بارگذاری داده‌ها
+            await loadAppData();
+            
+            // بررسی نسخه جدید
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.addEventListener('controllerchange', () => {
+                    showNotification('نسخه جدید بارگیری شد. صفحه را رفرش کنید.', 'success');
+                });
+            }
+        });
     </script>
 </body>
     </html>
