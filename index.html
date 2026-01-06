@@ -16,7 +16,7 @@
     
     <style>
         :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.95); }
-        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; user-select: none; }
 
         #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
         #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
@@ -53,16 +53,18 @@
         .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.3); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10002; cursor: pointer; }
         .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
         .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        /* اصلاح بخش تاچ برای تشخیص نگه‌داشتن */
         .touch-zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 9999; }
         .touch-prev { left: 0; }
         .touch-next { right: 0; }
-        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; }
+
+        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; transition: opacity 0.3s; }
         #st-name { font-size: 17px; margin: 0 0 5px 0; font-weight: bold; color: #000; }
         #st-desc { font-size: 13px; color: #222; line-height: 1.5; margin-bottom: 12px; font-weight: bold; }
         #st-btns { display: flex; gap: 6px; }
         .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
 
-        /* استایل پاپ آپ هوشمند */
         #ad-popup {
             position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%);
             width: 160px; height: 95px; background: #fff; border-radius: 15px;
@@ -109,13 +111,21 @@
         </div>
     </div>
 
-    <div id="storyModal">
+    <div id="storyModal" 
+         ontouchstart="pauseTimer()" 
+         ontouchend="resumeTimer()" 
+         onmousedown="pauseTimer()" 
+         onmouseup="resumeTimer()">
+         
         <div class="prog-container" id="prog-bars"></div>
-        <button class="close-modal" onclick="closeMe()">✕</button>
-        <div class="touch-zone touch-prev" onclick="changeSlide(-1)"></div>
-        <div class="touch-zone touch-next" onclick="changeSlide(1)"></div>
+        <button class="close-modal" onclick="event.stopPropagation(); closeMe()">✕</button>
+        
+        <div class="touch-zone touch-prev" onclick="event.stopPropagation(); changeSlide(-1)"></div>
+        <div class="touch-zone touch-next" onclick="event.stopPropagation(); changeSlide(1)"></div>
+        
         <div class="media-box" id="media-view"></div>
-        <div class="info-box">
+        
+        <div class="info-box" id="info-box">
             <h2 id="st-name"></h2>
             <div id="st-desc"></div>
             <div id="st-btns"></div>
@@ -126,7 +136,7 @@
         let allItems = [], swiperInstance, timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0;
         let deferredPrompt;
 
-        // --- منطق PWA ---
+        // PWA Logic
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -142,7 +152,6 @@
             }
         });
 
-        // --- استارت آپ ---
         async function startup() {
             try {
                 const t = `?v=${new Date().getTime()}`;
@@ -155,10 +164,9 @@
                 allItems = [...stor, ...off];
                 render(stor, off);
                 checkPopupAd(allItems);
-            } catch (e) { console.log("خطا در دریافت دیتا"); }
+            } catch (e) { console.log("Data error"); }
         }
 
-        // --- سیستم پاپ آپ خودکار ---
         function checkPopupAd(items) {
             const popupItem = items.find(i => i.isPopup === true);
             if (popupItem) {
@@ -174,7 +182,6 @@
         }
         function closeAd() { document.getElementById('ad-popup').classList.remove('show'); }
 
-        // --- رندر کردن لیست ---
         function render(stories, offers) {
             const sDiv = document.getElementById('story-render'), cDiv = document.getElementById('card-render');
             sDiv.innerHTML = ''; cDiv.innerHTML = '';
@@ -201,7 +208,6 @@
             swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
-        // --- باز کردن مودال (استوری/تبلیغ) ---
         function openMe(id) {
             currentItem = allItems.find(x => x.id === id);
             if(!currentItem) return;
@@ -210,7 +216,6 @@
             showSlide();
         }
 
-        // --- نمایش اسلاید (ویدیو با صدا + دکمه‌های پویا) ---
         function showSlide() {
             const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src];
             const src = slides[slideIndex];
@@ -221,35 +226,34 @@
 
             const view = document.getElementById('media-view');
             if (src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.mov')) {
-                // ویدیو بدون muted لود می‌شود
                 view.innerHTML = `<video id="st-video" autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
                 const v = document.getElementById('st-video');
                 v.onloadedmetadata = () => startTimer(v.duration * 1000);
-                v.play().catch(() => { v.muted = true; v.play(); }); // لایه امنیتی مرورگر
+                v.play().catch(() => { v.muted = true; v.play(); });
             } else {
                 view.innerHTML = `<img src="${src}">`;
                 startTimer(5000);
             }
 
-            // نمایش نام و تگ تخفیف در استوری
             document.getElementById('st-name').innerHTML = `
                 ${currentItem.name} 
                 ${currentItem.off ? `<span style="background:red; color:white; font-size:11px; padding:2px 7px; border-radius:8px; vertical-align:middle; margin-right:5px;">${currentItem.off}% OFF</span>` : ''}
             `;
             document.getElementById('st-desc').innerText = currentItem.desc || '';
             
-            // تولید دکمه‌ها بر اساس موجودیت در جیسون
-            let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444">📤 اشتراک</button>`;
-            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71">📞 تماس</a>`;
+            let btns = `<button onclick="event.stopPropagation(); shareApp('${currentItem.name}')" class="btn-link" style="background:#444">📤 اشتراک</button>`;
+            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" onclick="event.stopPropagation()" class="btn-link" style="background:#2ecc71">📞 تماس</a>`;
             if(currentItem.link) {
                 const isInsta = currentItem.link.includes('instagram');
-                btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main)">${isInsta ? '📸 اینستا' : '🔗 لینک'}</a>`;
+                btns += `<a href="${currentItem.link}" target="_blank" onclick="event.stopPropagation()" class="btn-link" style="background:var(--main)">${isInsta ? '📸 اینستا' : '🔗 لینک'}</a>`;
             }
             document.getElementById('st-btns').innerHTML = btns;
         }
 
         function startTimer(duration) {
             progress = 0; isPaused = false; clearInterval(timer);
+            // ذخیره طول مدت برای استفاده در زمان رزومه
+            currentItem._currentDuration = duration; 
             timer = setInterval(() => {
                 if (!isPaused) {
                     progress += (100 / (duration / 100));
@@ -268,10 +272,27 @@
             else showSlide();
         }
 
+        // --- توابع جدید توقف و ادامه ---
+        function pauseTimer() { 
+            isPaused = true; 
+            const v = document.getElementById('st-video'); 
+            if(v) v.pause(); 
+            // مخفی کردن دکمه‌ها و توضیحات برای دید بهتر محتوا هنگام نگه داشتن
+            document.getElementById('info-box').style.opacity = '0';
+        }
+
+        function resumeTimer() { 
+            isPaused = false; 
+            const v = document.getElementById('st-video'); 
+            if(v) v.play(); 
+            document.getElementById('info-box').style.opacity = '1';
+        }
+
         function closeMe() { 
             const v = document.getElementById('st-video'); if(v) v.pause(); 
             document.getElementById('storyModal').style.display = 'none'; 
             clearInterval(timer); 
+            isPaused = false;
         }
 
         async function shareApp(n) {
