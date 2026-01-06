@@ -10,706 +10,114 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#ff3e3e">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <meta name="apple-mobile-web-app-title" content="تخفیفات ایذه">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <style>
-        :root { 
-            --main: #ff3e3e; 
-            --bg: #f7f7f7; 
-            --yellow-box: rgba(255, 253, 208, 0.95); 
-        }
-        
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body { 
-            font-family: Tahoma, sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            padding: 0;
-            overflow-x: hidden; 
-            user-select: none; 
-            min-height: 100vh;
-            padding-bottom: 100px;
-        }
+        :root { --main: #ff3e3e; --bg: #f7f7f7; --yellow-box: rgba(255, 253, 208, 0.95); }
+        body { font-family: Tahoma, sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; user-select: none; }
 
-        #pwa-banner { 
-            display: none; 
-            background: linear-gradient(to left, #222, #444);
-            color: #fff; 
-            padding: 12px 20px; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 10002; 
-            border-bottom: 2px solid var(--main);
-            font-size: 14px;
-        }
-        
-        #pwa-banner span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        #pwa-banner button { 
-            background: var(--main); 
-            color: white; 
-            border: none; 
-            padding: 8px 18px; 
-            border-radius: 10px; 
-            font-weight: bold;
-            cursor: pointer;
-            font-family: inherit;
-        }
+        #pwa-banner { display: none; background: #222; color: #fff; padding: 12px 20px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10002; border-bottom: 2px solid var(--main); }
+        #pwa-banner button { background: var(--main); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
 
-        .marquee-container { 
-            background: #000; 
-            color: #fff; 
-            padding: 10px 0; 
-            overflow: hidden; 
-            border-bottom: 2px solid var(--main);
-            position: relative;
-        }
-        
-        .marquee-content { 
-            display: inline-block; 
-            white-space: nowrap; 
-            animation: marquee-scroll 25s linear infinite; 
-            font-weight: bold;
-            font-size: 14px;
-            padding-right: 20px;
-        }
-        
-        @keyframes marquee-scroll { 
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+        .marquee-container { background: #000; color: #fff; padding: 10px 0; overflow: hidden; border-bottom: 2px solid var(--main); }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee-scroll 25s linear infinite; font-weight: bold; }
+        @keyframes marquee-scroll { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
 
-        .top-nav { 
-            text-align: center; 
-            background: #fff; 
-            padding: 20px 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            position: relative;
-        }
+        .top-nav { text-align: center; background: #fff; padding: 20px 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .search-mini { width: 85%; padding: 12px; border-radius: 25px; border: 1.5px solid #ddd; outline: none; margin-top: 15px; text-align: center; }
         
-        .logo {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
+        .story-bar { display: flex; gap: 15px; padding: 20px; background: #fff; overflow-x: auto; scrollbar-width: none; }
+        .story-bar::-webkit-scrollbar { display: none; }
+        .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
+        .story-circle img { width: 66px; height: 66px; border-radius: 50%; border: 3px solid var(--main); padding: 2px; object-fit: cover; }
         
-        .top-nav h2 {
-            margin: 0; 
-            font-size: 18px; 
-            color: #333;
-        }
-        
-        .search-mini { 
-            width: 85%; 
-            max-width: 500px;
-            padding: 12px 20px; 
-            border-radius: 25px; 
-            border: 1.5px solid #ddd; 
-            outline: none; 
-            margin-top: 15px; 
-            text-align: center;
-            font-family: inherit;
-            font-size: 14px;
-            background: #f9f9f9;
-            transition: all 0.3s;
-        }
-        
-        .search-mini:focus {
-            border-color: var(--main);
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(255, 62, 62, 0.1);
-        }
-        
-        .story-bar { 
-            display: flex; 
-            gap: 15px; 
-            padding: 20px 15px; 
-            background: #fff; 
-            overflow-x: auto; 
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .story-bar::-webkit-scrollbar { 
-            display: none; 
-        }
-        
-        .story-circle { 
-            min-width: 75px; 
-            text-align: center; 
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        
-        .story-circle img { 
-            width: 66px; 
-            height: 66px; 
-            border-radius: 50%; 
-            border: 3px solid var(--main); 
-            padding: 2px; 
-            object-fit: cover;
-            transition: transform 0.3s;
-            background: #fff;
-        }
-        
-        .story-circle:hover img {
-            transform: scale(1.05);
-        }
-        
-        .story-circle span {
-            display: block;
-            font-size: 11px; 
-            font-weight: bold;
-            margin-top: 5px;
-            color: #333;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 70px;
-        }
+        .blink-banner { margin: 20px; padding: 18px; background: #fff; border: 2px dashed var(--main); border-radius: 15px; text-align: center; font-weight: bold; color: var(--main); animation: flash 1s infinite linear; }
+        @keyframes flash { 50% { opacity: 0.4; } }
 
-        .blink-banner { 
-            margin: 20px; 
-            padding: 18px; 
-            background: linear-gradient(45deg, #ff3e3e, #ff8e2d);
-            border: none;
-            border-radius: 15px; 
-            text-align: center; 
-            font-weight: bold; 
-            color: white; 
-            animation: flash 1.5s infinite ease-in-out;
-            box-shadow: 0 4px 12px rgba(255, 62, 62, 0.2);
-            font-size: 15px;
-        }
-        
-        @keyframes flash { 
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        .mySwiper {
-            padding: 0 15px;
-            margin-top: 10px;
-        }
-        
-        .swiper-slide {
-            width: auto !important;
-        }
-        
-        .card-container { 
-            background: #fff; 
-            border-radius: 15px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            cursor: pointer; 
-            height: 200px; 
-            position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
-            width: 160px;
-        }
-        
-        .card-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        
-        .card-container img { 
-            width: 100%; 
-            height: 140px; 
-            object-fit: cover;
-            display: block;
-        }
-        
-        .card-name { 
-            padding: 12px 8px; 
-            text-align: center; 
-            font-weight: bold; 
-            font-size: 13px;
-            color: #333;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.4;
-        }
+        .card-container { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer; height: 200px; position: relative; }
+        .card-container img { width: 100%; height: 140px; object-fit: cover; }
+        .card-name { padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
         
         .off-badge {
-            position: absolute; 
-            top: 10px; 
-            right: 10px; 
-            background: linear-gradient(45deg, var(--main), #ff6b6b); 
-            color: #fff;
-            padding: 5px 10px; 
-            border-radius: 8px; 
-            font-size: 12px; 
-            font-weight: bold;
-            z-index: 5; 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3); 
-            direction: ltr;
+            position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff;
+            padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: bold;
+            z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.3); direction: ltr;
         }
 
-        #storyModal { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: #000; 
-            z-index: 9999; 
-            color: #fff; 
-            overflow: hidden; 
-        }
+        #storyModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; color: #fff; overflow: hidden; }
+        .prog-container { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 10001; pointer-events: none; }
+        .p-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
+        .p-fill { height: 100%; background: #fff; width: 0%; }
+        .close-modal { position: absolute; top: 25px; left: 15px; font-size: 25px; color: #fff; background: rgba(0,0,0,0.3); border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10002; cursor: pointer; }
+        .media-box { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; z-index: 9998; }
+        .media-box video, .media-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        .prog-container { 
-            position: absolute; 
-            top: 10px; 
-            left: 10px; 
-            right: 10px; 
-            display: flex; 
-            gap: 4px; 
-            z-index: 10001; 
-            pointer-events: none; 
-        }
-        
-        .p-bar { 
-            flex: 1; 
-            height: 3px; 
-            background: rgba(255,255,255,0.3); 
-            border-radius: 2px; 
-            overflow: hidden; 
-        }
-        
-        .p-fill { 
-            height: 100%; 
-            background: #fff; 
-            width: 0%; 
-            transition: width 0.1s linear;
-        }
-        
-        .close-modal { 
-            position: absolute; 
-            top: 25px; 
-            left: 15px; 
-            font-size: 25px; 
-            color: #fff; 
-            background: rgba(0,0,0,0.5); 
-            border: none; 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50%; 
-            z-index: 10002; 
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-        
-        .close-modal:hover {
-            background: rgba(0,0,0,0.7);
-        }
-        
-        .media-box { 
-            height: 100%; 
-            width: 100%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 9998; 
-        }
-        
-        .media-box video, 
-        .media-box img { 
-            max-width: 100%; 
-            max-height: 100%; 
-            object-fit: contain; 
-        }
-        
-        .touch-zone { 
-            position: absolute; 
-            top: 0; 
-            bottom: 0; 
-            width: 50%; 
-            z-index: 9999; 
-            cursor: pointer;
-        }
-        
+        .touch-zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 9999; }
         .touch-prev { left: 0; }
         .touch-next { right: 0; }
 
-        .info-box { 
-            position: absolute; 
-            bottom: 25px; 
-            left: 5%; 
-            right: 5%; 
-            width: 90%; 
-            background: var(--yellow-box); 
-            backdrop-filter: blur(10px); 
-            padding: 15px; 
-            border-radius: 20px; 
-            box-sizing: border-box; 
-            z-index: 10001; 
-            text-align: center; 
-            transition: opacity 0.3s;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-        }
-        
-        #st-name { 
-            font-size: 17px; 
-            margin: 0 0 8px 0; 
-            font-weight: bold; 
-            color: #000; 
-            line-height: 1.4;
-        }
-        
-        #st-desc { 
-            font-size: 13px; 
-            color: #222; 
-            line-height: 1.6; 
-            margin-bottom: 15px;
-            max-height: 60px;
-            overflow-y: auto;
-            padding: 0 5px;
-        }
-        
-        #st-btns { 
-            display: flex; 
-            gap: 8px; 
-        }
-        
-        .btn-link { 
-            flex: 1; 
-            padding: 12px 5px; 
-            border-radius: 10px; 
-            color: #fff; 
-            font-weight: bold; 
-            text-decoration: none; 
-            font-size: 12px; 
-            border: none; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 5px;
-            transition: opacity 0.3s, transform 0.2s;
-            font-family: inherit;
-        }
-        
-        .btn-link:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
+        .info-box { position: absolute; bottom: 25px; left: 5%; right: 5%; width: 90%; background: var(--yellow-box); backdrop-filter: blur(10px); padding: 15px; border-radius: 20px; box-sizing: border-box; z-index: 10001; text-align: center; transition: opacity 0.3s; }
+        #st-name { font-size: 17px; margin: 0 0 5px 0; font-weight: bold; color: #000; }
+        #st-desc { font-size: 13px; color: #222; line-height: 1.5; margin-bottom: 12px; font-weight: bold; }
+        #st-btns { display: flex; gap: 6px; }
+        .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
 
         #ad-popup {
-            position: fixed; 
-            bottom: -150px; 
-            left: 50%; 
-            transform: translateX(-50%);
-            width: 180px; 
-            height: 110px; 
-            background: #fff; 
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25); 
-            z-index: 10005;
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden;
+            position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%);
+            width: 160px; height: 95px; background: #fff; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25); z-index: 10005;
+            display: flex; flex-direction: column; overflow: hidden;
             transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid var(--main); 
-            cursor: pointer;
+            border: 1.5px solid var(--main); cursor: pointer;
         }
-        
-        #ad-popup.show { 
-            bottom: 30px; 
-        }
-        
-        #ad-popup img { 
-            width: 100%; 
-            height: 75px; 
-            object-fit: cover; 
-            display: block;
-        }
-        
-        #ad-popup .ad-title { 
-            font-size: 12px; 
-            font-weight: bold; 
-            padding: 8px; 
-            text-align: center; 
-            color: #333; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        #ad-popup .close-ad { 
-            position: absolute; 
-            top: 5px; 
-            right: 5px; 
-            background: rgba(0,0,0,0.6); 
-            color: #fff; 
-            border: none; 
-            border-radius: 50%; 
-            width: 22px; 
-            height: 22px; 
-            font-size: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 10; 
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        #ad-popup .close-ad:hover {
-            background: rgba(0,0,0,0.8);
-        }
+        #ad-popup.show { bottom: 30px; }
+        #ad-popup img { width: 100%; height: 65px; object-fit: cover; }
+        #ad-popup .ad-title { font-size: 11px; font-weight: bold; padding: 6px; text-align: center; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #ad-popup .close-ad { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
 
+        /* --- استایل جدید دکمه تپنده و پنل مخفی --- */
         .pulse-btn {
-            position: fixed; 
-            bottom: 20px; 
-            left: 50%; 
-            transform: translateX(-50%);
-            background: linear-gradient(45deg, #27ae60, #2ecc71); 
-            color: #fff; 
-            padding: 15px 25px; 
-            border-radius: 30px;
-            font-weight: bold; 
-            font-size: 13px; 
-            border: none; 
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-            animation: pulse-animation 1.5s infinite; 
-            cursor: pointer;
-            width: 90%; 
-            max-width: 400px; 
-            text-align: center;
-            font-family: inherit;
-            transition: transform 0.3s;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #27ae60; color: #fff; padding: 12px 20px; border-radius: 30px;
+            font-weight: bold; font-size: 12px; border: none; z-index: 1000;
+            box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+            animation: pulse-animation 1.5s infinite; cursor: pointer;
+            width: 85%; max-width: 400px; text-align: center;
         }
-        
-        .pulse-btn:hover {
-            transform: translateX(-50%) scale(1.02);
-        }
-        
-        @keyframes pulse-animation { 
-            0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); } 
-            70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); } 
-            100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); } 
-        }
+        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); } 100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); } }
 
         #pricePanel {
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: rgba(0,0,0,0.95); 
-            z-index: 20000; 
-            color: #fff; 
-            padding: 30px 20px;
-            box-sizing: border-box; 
-            overflow-y: auto; 
-            text-align: right;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 20000; color: #fff; padding: 30px 20px;
+            box-sizing: border-box; overflow-y: auto; text-align: right;
         }
-        
-        .price-card { 
-            background: #222; 
-            border-radius: 15px; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            border-right: 4px solid var(--main);
-            position: relative;
-        }
-        
-        .price-card h3 { 
-            margin: 0 0 10px 0; 
-            font-size: 16px; 
-            color: var(--main); 
-        }
-        
-        .price-card p { 
-            font-size: 13px; 
-            margin: 8px 0; 
-            color: #ccc; 
-            line-height: 1.6; 
-        }
-        
-        .price-card .cost { 
-            font-weight: bold; 
-            color: #fff; 
-            background: #444; 
-            padding: 5px 12px; 
-            border-radius: 5px; 
-            float: left; 
-            font-size: 14px;
-        }
-        
-        .package { 
-            background: linear-gradient(45deg, #ff3e3e, #ff8e2d); 
-            border: none; 
-            text-align: center;
-            padding: 25px 20px;
-        }
-        
-        .package h2 { 
-            margin: 0 0 15px 0; 
-            font-size: 22px; 
-        }
+        .price-card { background: #222; border-radius: 15px; padding: 15px; margin-bottom: 10px; border-right: 4px solid var(--main); }
+        .price-card h3 { margin: 0; font-size: 16px; color: var(--main); }
+        .price-card p { font-size: 12px; margin: 8px 0; color: #ccc; line-height: 1.6; }
+        .price-card .cost { font-weight: bold; color: #fff; background: #444; padding: 2px 10px; border-radius: 5px; float: left; }
+        .package { background: linear-gradient(45deg, #ff3e3e, #ff8e2d); border: none; text-align: center; }
+        .package h2 { margin: 0; font-size: 20px; }
 
-        .contact-btns { 
-            display: flex; 
-            gap: 10px; 
-            margin-top: 30px; 
-        }
-        
-        .contact-btns a { 
-            flex: 1; 
-            text-align: center; 
-            padding: 15px; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            color: white; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px; 
-            font-size: 14px;
-            transition: transform 0.3s, opacity 0.3s;
-        }
-        
-        .contact-btns a:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-        
-        .btn-call { 
-            background: linear-gradient(45deg, #2980b9, #3498db); 
-        }
-        
-        .btn-wa { 
-            background: linear-gradient(45deg, #25d366, #1ebe57); 
-        }
-        
-        #loading { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: #fff; 
-            z-index: 99999; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            flex-direction: column;
-            font-size: 18px;
-            color: #333;
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--main);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 480px) {
-            .card-container {
-                height: 180px;
-                width: 145px;
-            }
-            
-            .card-container img {
-                height: 120px;
-            }
-            
-            .swiper-slide {
-                width: 150px !important;
-            }
-            
-            .blink-banner {
-                font-size: 14px;
-                padding: 15px;
-                margin: 15px;
-            }
-            
-            .story-circle {
-                min-width: 70px;
-            }
-            
-            .story-circle img {
-                width: 60px;
-                height: 60px;
-            }
-        }
-        
-        @media (max-width: 360px) {
-            .card-container {
-                height: 170px;
-                width: 135px;
-            }
-            
-            .card-name {
-                font-size: 12px;
-                padding: 10px 5px;
-            }
-            
-            .pulse-btn {
-                font-size: 12px;
-                padding: 12px 20px;
-            }
-        }
+        .contact-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .contact-btns a { flex: 1; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; color: white; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 14px; }
+        .btn-call { background: #2980b9; }
+        .btn-wa { background: #25d366; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- Loading Screen -->
-    <div id="loading">
-        <div class="spinner"></div>
-        <div>در حال بارگذاری...</div>
-    </div>
-
-    <!-- PWA Install Banner -->
     <div id="pwa-banner">
         <span>📲 نصب برنامه</span>
         <button id="install-pwa">نصب</button>
     </div>
 
-    <!-- Main Button -->
-    <button class="pulse-btn" onclick="openPrices()">کسب کار و محصولت رو به هزاران ایذه‌ای نشون بده</button>
+    <button class="pulse-btn" onclick="openPrices()">کسب کار و محصولت رو به هزااران ایذه ای نشون بده</button>
 
-    <!-- Pricing Panel -->
     <div id="pricePanel">
-        <button onclick="closePrices()" style="float: left; background: #444; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
-        <h2 style="text-align: center; margin-top: 10px; color: var(--main);">💎 تعرفه تبلیغات (۲۴ ساعته)</h2>
+        <button onclick="closePrices()" style="float: left; background: #444; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; cursor: pointer;">✕</button>
+        <h2 style="text-align: center; margin-top: 10px;">💎 تعرفه تبلیغات (۲۴ ساعته)</h2>
         <br>
         <div class="price-card">
             <span class="cost">۳۰,۰۰۰ ت</span>
@@ -734,7 +142,7 @@
         <div class="price-card package">
             <h2>🎁 پکیج کامل (VIP)</h2>
             <p>تمام موارد بالا به مدت ۲۴ ساعت با بیش از ۵۰٪ تخفیف</p>
-            <div style="font-size: 24px; font-weight: bold; margin-top: 10px;">فقط ۸۹,۰۰۰ تومان</div>
+            <div style="font-size: 22px; font-weight: bold;">فقط ۸۹,۰۰۰ تومان</div>
         </div>
 
         <div class="contact-btns">
@@ -743,39 +151,31 @@
         </div>
     </div>
 
-    <!-- Ad Popup -->
     <div id="ad-popup">
         <button class="close-ad" onclick="event.stopPropagation(); closeAd()">✕</button>
-        <img id="ad-img" src="" alt="تبلیغ" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRjNBM0EiLz48dGV4dCB4PSI1MCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+QURTPC90ZXh0Pjwvc3ZnPg=='">
+        <img id="ad-img" src="">
         <div class="ad-title" id="ad-title"></div>
     </div>
 
-    <!-- Marquee -->
     <div class="marquee-container">
         <div class="marquee-content" id="text-marq">درحال بارگذاری...</div>
     </div>
 
-    <!-- Top Navigation -->
     <div class="top-nav">
-        <div class="logo">🏷️</div>
-        <h2>تخفیفات ایذه</h2>
-        <input type="text" id="searchInput" class="search-mini" placeholder="جستجو در تخفیفات..." onkeyup="filterContent()">
+        <span style="font-size: 40px;">🏷️</span>
+        <h2 style="margin:0; font-size: 18px;">تخفیفات ایذه</h2>
+        <input type="text" id="searchInput" class="search-mini" placeholder="جستجو..." onkeyup="filterContent()">
     </div>
 
-    <!-- Stories -->
     <div class="story-bar" id="story-render"></div>
-    
-    <!-- Hot Offers Banner -->
     <div class="blink-banner">🔥 پیشنهادهای داغ امروز 🔥</div>
 
-    <!-- Cards Swiper -->
-    <div style="padding: 10px 0;">
+    <div style="padding: 10px;">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper" id="card-render"></div>
         </div>
     </div>
 
-    <!-- Story Modal -->
     <div id="storyModal" 
          ontouchstart="pauseTimer()" 
          ontouchend="resumeTimer()" 
@@ -798,29 +198,13 @@
     </div>
 
     <script>
-        // متغیرهای سراسری
-        let allItems = [];
-        let swiperInstance = null;
-        let timer = null;
-        let progress = 0;
-        let isPaused = false;
-        let currentItem = null;
-        let slideIndex = 0;
-        let deferredPrompt = null;
+        let allItems = [], swiperInstance, timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0;
+        let deferredPrompt;
 
-        // تابع باز کردن پنل قیمت‌ها
-        function openPrices() {
-            document.getElementById('pricePanel').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
+        function openPrices() { document.getElementById('pricePanel').style.display = 'block'; }
+        function closePrices() { document.getElementById('pricePanel').style.display = 'none'; }
 
-        // تابع بستن پنل قیمت‌ها
-        function closePrices() {
-            document.getElementById('pricePanel').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // PWA Installation
+        // PWA Logic
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -831,504 +215,160 @@
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('pwa-banner').style.display = 'none';
-                }
+                if (outcome === 'accepted') document.getElementById('pwa-banner').style.display = 'none';
                 deferredPrompt = null;
             }
         });
 
-        // ثبت Service Worker
-        if ('serviceWorker' in navigator) {
-            const swCode = `
-                self.addEventListener('install', event => {
-                    event.waitUntil(self.skipWaiting());
-                });
-                
-                self.addEventListener('activate', event => {
-                    event.waitUntil(self.clients.claim());
-                });
-                
-                self.addEventListener('fetch', event => {
-                    event.respondWith(fetch(event.request));
-                });
-            `;
-            
-            const blob = new Blob([swCode], { type: 'application/javascript' });
-            const swUrl = URL.createObjectURL(blob);
-            
-            navigator.serviceWorker.register(swUrl)
-                .then(registration => {
-                    console.log('Service Worker ثبت شد:', registration.scope);
-                })
-                .catch(error => {
-                    console.log('خطا در ثبت Service Worker:', error);
-                });
-        }
-
-        // تابع اصلی بارگذاری
         async function startup() {
             try {
-                // نمایش loading
-                document.getElementById('loading').style.display = 'flex';
-                
-                // جلوگیری از کش شدن
-                const cacheBuster = `?v=${new Date().getTime()}`;
-                
-                // بارگذاری همزمان فایل‌ها
-                const [config, stories, offers] = await Promise.all([
-                    fetch('config.json' + cacheBuster)
-                        .then(response => {
-                            if (!response.ok) throw new Error('خطا در بارگذاری تنظیمات');
-                            return response.json();
-                        }),
-                    fetch('stories.json' + cacheBuster)
-                        .then(response => {
-                            if (!response.ok) throw new Error('خطا در بارگذاری استوری‌ها');
-                            return response.json();
-                        }),
-                    fetch('offers.json' + cacheBuster)
-                        .then(response => {
-                            if (!response.ok) throw new Error('خطا در بارگذاری تخفیفات');
-                            return response.json();
-                        })
+                const t = `?v=${new Date().getTime()}`;
+                const [conf, stor, off] = await Promise.all([
+                    fetch('config.json' + t).then(r => r.json()),
+                    fetch('stories.json' + t).then(r => r.json()),
+                    fetch('offers.json' + t).then(r => r.json())
                 ]);
-                
-                // تنظیم متن مارکی
-                const marqueeText = document.getElementById('text-marq');
-                if (Array.isArray(config.marqueeText)) {
-                    marqueeText.innerText = config.marqueeText.join(" ⚡ ");
-                } else if (config.marqueeText) {
-                    marqueeText.innerText = config.marqueeText;
-                } else {
-                    marqueeText.innerText = "تخفیفات ویژه در ایذه ⚡ بهترین پیشنهادها";
-                }
-                
-                // ترکیب همه آیتم‌ها
-                allItems = [...stories, ...offers];
-                
-                // رندر کردن
-                render(stories, offers);
-                
-                // بررسی تبلیغ پاپ‌آپ
+                document.getElementById('text-marq').innerText = Array.isArray(conf.marqueeText) ? conf.marqueeText.join(" ⚡ ") : conf.marqueeText;
+                allItems = [...stor, ...off];
+                render(stor, off);
                 checkPopupAd(allItems);
-                
-                // مخفی کردن loading
-                setTimeout(() => {
-                    document.getElementById('loading').style.display = 'none';
-                }, 500);
-                
-            } catch (error) {
-                console.error("خطا در بارگذاری داده‌ها:", error);
-                document.getElementById('loading').innerHTML = 
-                    '<div style="text-align:center; padding:20px; color: red;">' +
-                    '<div style="font-size: 40px; margin-bottom: 10px;">⚠️</div>' +
-                    '<div>خطا در بارگذاری داده‌ها</div>' +
-                    '<button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: var(--main); color: white; border: none; border-radius: 10px; cursor: pointer;">تلاش مجدد</button>' +
-                    '</div>';
-            }
+            } catch (e) { console.log("Data error"); }
         }
 
-        // تابع بررسی تبلیغ پاپ‌آپ
         function checkPopupAd(items) {
-            // یافتن آیتمی که برای پاپ‌آپ علامت‌گذاری شده
-            const popupItem = items.find(item => item.isPopup === true);
-            
+            const popupItem = items.find(i => i.isPopup === true);
             if (popupItem) {
                 setTimeout(() => {
                     const adBox = document.getElementById('ad-popup');
                     const thumb = popupItem.src || (Array.isArray(popupItem.slides) ? popupItem.slides[0] : '');
-                    
-                    // تنظیم تصویر
-                    const adImg = document.getElementById('ad-img');
-                    adImg.src = thumb;
-                    adImg.alt = popupItem.name;
-                    
-                    // تنظیم عنوان
+                    document.getElementById('ad-img').src = thumb;
                     document.getElementById('ad-title').innerText = popupItem.name;
-                    
-                    // نمایش پاپ‌آپ
                     adBox.classList.add('show');
-                    
-                    // رویداد کلیک
-                    adBox.onclick = () => {
-                        closeAd();
-                        openMe(popupItem.id);
-                    };
+                    adBox.onclick = () => { closeAd(); openMe(popupItem.id); };
                 }, 3500);
             }
         }
+        function closeAd() { document.getElementById('ad-popup').classList.remove('show'); }
 
-        // تابع بستن تبلیغ
-        function closeAd() {
-            document.getElementById('ad-popup').classList.remove('show');
-        }
-
-        // تابع رندر کردن استوری‌ها و کارت‌ها
         function render(stories, offers) {
-            const storyContainer = document.getElementById('story-render');
-            const cardContainer = document.getElementById('card-render');
-            
-            // پاکسازی محتوا
-            storyContainer.innerHTML = '';
-            cardContainer.innerHTML = '';
-            
-            // رندر استوری‌ها
+            const sDiv = document.getElementById('story-render'), cDiv = document.getElementById('card-render');
+            sDiv.innerHTML = ''; cDiv.innerHTML = '';
+
             stories.forEach(item => {
                 const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
-                
-                const storyDiv = document.createElement('div');
-                storyDiv.className = 'story-circle';
-                storyDiv.onclick = () => openMe(item.id);
-                storyDiv.innerHTML = `
-                    <img src="${thumb}" alt="${item.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjYiIGhlaWdodD0iNjYiIHZpZXdCb3g9IjAgMCA2NiA2NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIzMyIgY3k9IjMzIiByPSIzMyIgZmlsbD0iI0ZGM0EzQSIvPjx0ZXh0IHg9IjMzIiB5PSIzOCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9IjAuM2VtIj5BREQ8L3RleHQ+PC9zdmc+';">
-                    <span>${item.name}</span>
-                `;
-                
-                storyContainer.appendChild(storyDiv);
+                sDiv.innerHTML += `<div class="story-circle" onclick="openMe(${item.id})"><img src="${thumb}"><br><span style="font-size:11px; font-weight:bold">${item.name}</span></div>`;
             });
-            
-            // رندر کارت‌ها
+
             offers.forEach(item => {
                 const offTag = item.off ? `<div class="off-badge">${item.off}% OFF</div>` : '';
                 const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
-                
-                const cardDiv = document.createElement('div');
-                cardDiv.className = 'swiper-slide';
-                cardDiv.innerHTML = `
-                    <div class="card-container" onclick="openMe(${item.id})">
-                        ${offTag}
-                        <img src="${thumb}" alt="${item.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE2MCAxNDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiNGRjNBM0EiLz48dGV4dCB4PSI4MCIgeT0iNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+SW1hZ2U8L3RleHQ+PC9zdmc+';">
-                        <div class="card-name">${item.name}</div>
-                    </div>
-                `;
-                
-                cardContainer.appendChild(cardDiv);
+                cDiv.innerHTML += `
+                    <div class="swiper-slide">
+                        <div class="card-container" onclick="openMe(${item.id})">
+                            ${offTag}
+                            <img src="${thumb}">
+                            <div class="card-name">${item.name}</div>
+                        </div>
+                    </div>`;
             });
-            
-            // راه‌اندازی Swiper
-            if (swiperInstance) {
-                swiperInstance.destroy();
-            }
-            
-            swiperInstance = new Swiper(".mySwiper", {
-                slidesPerView: "auto",
-                spaceBetween: 10,
-                freeMode: true,
-                mousewheel: true,
-                breakpoints: {
-                    320: {
-                        slidesPerView: "auto",
-                        spaceBetween: 8
-                    },
-                    480: {
-                        slidesPerView: "auto",
-                        spaceBetween: 10
-                    },
-                    768: {
-                        slidesPerView: "auto",
-                        spaceBetween: 15
-                    }
-                }
-            });
+
+            if (swiperInstance) swiperInstance.destroy();
+            swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
-        // تابع باز کردن مودال
         function openMe(id) {
-            currentItem = allItems.find(item => item.id === id);
-            if (!currentItem) return;
-            
+            currentItem = allItems.find(x => x.id === id);
+            if(!currentItem) return;
             slideIndex = 0;
             document.getElementById('storyModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
             showSlide();
         }
 
-        // تابع نمایش اسلاید فعلی
         function showSlide() {
-            if (!currentItem) return;
+            const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src];
+            const src = slides[slideIndex];
             
-            const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src || ''];
-            const currentSlide = slides[slideIndex];
-            
-            // نمایش نوارهای پیشرفت
-            const progBars = document.getElementById('prog-bars');
-            progBars.innerHTML = '';
-            
-            slides.forEach((_, index) => {
-                const barDiv = document.createElement('div');
-                barDiv.className = 'p-bar';
-                barDiv.innerHTML = `<div class="p-fill" id="fill-${index}" style="width:${index < slideIndex ? '100%' : '0%'}"></div>`;
-                progBars.appendChild(barDiv);
-            });
-            
-            // نمایش مدیا
-            const mediaView = document.getElementById('media-view');
-            
-            if (currentSlide.toLowerCase().endsWith('.mp4') || 
-                currentSlide.toLowerCase().endsWith('.mov') ||
-                currentSlide.toLowerCase().endsWith('.webm')) {
-                
-                mediaView.innerHTML = `
-                    <video id="st-video" playsinline muted autoplay>
-                        <source src="${currentSlide}" type="video/mp4">
-                        مرورگر شما از ویدیو پشتیبانی نمی‌کند.
-                    </video>
-                `;
-                
-                const video = document.getElementById('st-video');
-                
-                video.onloadedmetadata = () => {
-                    startTimer(video.duration * 1000);
-                    // تلاش برای پخش با صدا
-                    video.play().then(() => {
-                        video.muted = false;
-                    }).catch(() => {
-                        // اگر نشد، با صدا خاموش ادامه بده
-                        video.muted = true;
-                        video.play();
-                    });
-                };
-                
-                video.onerror = () => {
-                    // اگر ویدیو خطا داد، به اسلاید بعدی برو
-                    changeSlide(1);
-                };
-                
+            document.getElementById('prog-bars').innerHTML = slides.map((_, i) => `
+                <div class="p-bar"><div class="p-fill" id="fill-${i}" style="width:${i < slideIndex ? '100%' : '0%'}"></div></div>
+            `).join('');
+
+            const view = document.getElementById('media-view');
+            if (src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.mov')) {
+                view.innerHTML = `<video id="st-video" autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
+                const v = document.getElementById('st-video');
+                v.onloadedmetadata = () => startTimer(v.duration * 1000);
+                v.play().catch(() => { v.muted = true; v.play(); });
             } else {
-                mediaView.innerHTML = `<img src="${currentSlide}" alt="${currentItem.name}" onerror="changeSlide(1)">`;
+                view.innerHTML = `<img src="${src}">`;
                 startTimer(5000);
             }
-            
-            // نمایش اطلاعات
+
             document.getElementById('st-name').innerHTML = `
                 ${currentItem.name} 
-                ${currentItem.off ? `<span style="background:linear-gradient(45deg, #ff3e3e, #ff6b6b); color:white; font-size:12px; padding:3px 8px; border-radius:8px; vertical-align:middle; margin-right:5px; display: inline-block;">${currentItem.off}% OFF</span>` : ''}
+                ${currentItem.off ? `<span style="background:red; color:white; font-size:11px; padding:2px 7px; border-radius:8px; vertical-align:middle; margin-right:5px;">${currentItem.off}% OFF</span>` : ''}
             `;
-            
             document.getElementById('st-desc').innerText = currentItem.desc || '';
             
-            // دکمه‌ها
-            const btnsContainer = document.getElementById('st-btns');
-            let btnsHTML = `
-                <button onclick="event.stopPropagation(); shareItem('${currentItem.name}')" class="btn-link" style="background:#444">
-                    📤 اشتراک
-                </button>
-            `;
-            
-            if (currentItem.phone) {
-                btnsHTML += `
-                    <a href="tel:${currentItem.phone}" onclick="event.stopPropagation()" class="btn-link" style="background:linear-gradient(45deg, #2ecc71, #27ae60)">
-                        📞 تماس
-                    </a>
-                `;
-            }
-            
-            if (currentItem.link) {
+            let btns = `<button onclick="event.stopPropagation(); shareApp('${currentItem.name}')" class="btn-link" style="background:#444">📤 اشتراک</button>`;
+            if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" onclick="event.stopPropagation()" class="btn-link" style="background:#2ecc71">📞 تماس</a>`;
+            if(currentItem.link) {
                 const isInsta = currentItem.link.includes('instagram');
-                btnsHTML += `
-                    <a href="${currentItem.link}" target="_blank" onclick="event.stopPropagation()" class="btn-link" style="background:linear-gradient(45deg, var(--main), #ff6b6b)">
-                        ${isInsta ? '📸 اینستا' : '🔗 لینک'}
-                    </a>
-                `;
+                btns += `<a href="${currentItem.link}" target="_blank" onclick="event.stopPropagation()" class="btn-link" style="background:var(--main)">${isInsta ? '📸 اینستا' : '🔗 لینک'}</a>`;
             }
-            
-            btnsContainer.innerHTML = btnsHTML;
+            document.getElementById('st-btns').innerHTML = btns;
         }
 
-        // تابع شروع تایمر
         function startTimer(duration) {
-            progress = 0;
-            isPaused = false;
-            clearInterval(timer);
-            
+            progress = 0; isPaused = false; clearInterval(timer);
             timer = setInterval(() => {
                 if (!isPaused) {
                     progress += (100 / (duration / 100));
-                    const fillElement = document.getElementById(`fill-${slideIndex}`);
-                    
-                    if (fillElement) {
-                        fillElement.style.width = Math.min(progress, 100) + '%';
-                    }
-                    
-                    if (progress >= 100) {
-                        changeSlide(1);
-                    }
+                    let f = document.getElementById(`fill-${slideIndex}`);
+                    if(f) f.style.width = Math.min(progress, 100) + '%';
+                    if (progress >= 100) changeSlide(1);
                 }
             }, 100);
         }
 
-        // تابع تغییر اسلاید
-        function changeSlide(direction) {
-            if (!currentItem) return;
-            
-            const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src || ''];
-            
-            slideIndex += direction;
-            
-            if (slideIndex >= slides.length) {
-                closeMe();
-            } else if (slideIndex < 0) {
-                slideIndex = 0;
-            } else {
-                showSlide();
-            }
+        function changeSlide(dir) {
+            const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src];
+            slideIndex += dir;
+            if (slideIndex >= slides.length) closeMe();
+            else if (slideIndex < 0) slideIndex = 0;
+            else showSlide();
         }
 
-        // تابع مکث تایمر
-        function pauseTimer() {
-            isPaused = true;
-            const video = document.getElementById('st-video');
-            if (video) {
-                video.pause();
-            }
-            document.getElementById('info-box').style.opacity = '0.7';
+        function pauseTimer() { 
+            isPaused = true; 
+            const v = document.getElementById('st-video'); 
+            if(v) v.pause(); 
+            document.getElementById('info-box').style.opacity = '0';
         }
 
-        // تابع ادامه تایمر
-        function resumeTimer() {
-            isPaused = false;
-            const video = document.getElementById('st-video');
-            if (video) {
-                video.play();
-            }
+        function resumeTimer() { 
+            isPaused = false; 
+            const v = document.getElementById('st-video'); 
+            if(v) v.play(); 
             document.getElementById('info-box').style.opacity = '1';
         }
 
-        // تابع بستن مودال
-        function closeMe() {
-            const video = document.getElementById('st-video');
-            if (video) {
-                video.pause();
-            }
-            
-            document.getElementById('storyModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            clearInterval(timer);
+        function closeMe() { 
+            const v = document.getElementById('st-video'); if(v) v.pause(); 
+            document.getElementById('storyModal').style.display = 'none'; 
+            clearInterval(timer); 
             isPaused = false;
         }
 
-        // تابع اشتراک‌گذاری
-        async function shareItem(itemName) {
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: 'تخفیفات ایذه',
-                        text: `تخفیف ویژه "${itemName}" در تخفیفات ایذه`,
-                        url: window.location.href
-                    });
-                } catch (err) {
-                    console.log('خطا در اشتراک‌گذاری:', err);
-                    // کپی به کلیپ‌بورد
-                    copyToClipboard(window.location.href);
-                    alert('لینک در کلیپ‌بورد کپی شد');
-                }
-            } else {
-                // کپی به کلیپ‌بورد برای مرورگرهای قدیمی
-                copyToClipboard(window.location.href);
-                alert('لینک در کلیپ‌بورد کپی شد');
-            }
+        async function shareApp(n) {
+            try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ویژه ${n}`, url: window.location.href }); } catch (err) {}
         }
 
-        // تابع کپی به کلیپ‌بورد
-        function copyToClipboard(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-        }
-
-        // تابع فیلتر محتوا
         function filterContent() {
-            const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
-            
-            if (searchValue === '') {
-                // اگر جستجو خالی است، همه موارد را نمایش بده
-                const stories = allItems.filter(item => item.id < 200);
-                const offers = allItems.filter(item => item.id >= 200);
-                render(stories, offers);
-                return;
-            }
-            
-            // فیلتر کردن بر اساس نام و توضیحات
-            const filteredItems = allItems.filter(item => {
-                const nameMatch = item.name && item.name.toLowerCase().includes(searchValue);
-                const descMatch = item.desc && item.desc.toLowerCase().includes(searchValue);
-                return nameMatch || descMatch;
-            });
-            
-            // تقسیم به استوری و آفر
-            const filteredStories = filteredItems.filter(item => item.id < 200);
-            const filteredOffers = filteredItems.filter(item => item.id >= 200);
-            
-            // رندر کردن
-            render(filteredStories, filteredOffers);
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            render(allItems.filter(i => i.id < 200 && i.name.toLowerCase().includes(val)), allItems.filter(i => i.id >= 200 && i.name.toLowerCase().includes(val)));
         }
 
-        // رویداد کلیک خارج از پنل قیمت برای بستن
-        document.getElementById('pricePanel').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePrices();
-            }
-        });
-
-        // رویداد کلیک خارج از مودال برای بستن
-        document.getElementById('storyModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeMe();
-            }
-        });
-
-        // رویداد کلیک روی دکمه اشتراک
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('share-btn')) {
-                shareItem(currentItem ? currentItem.name : 'تخفیفات ایذه');
-            }
-        });
-
-        // رویداد بارگذاری صفحه
-        window.addEventListener('DOMContentLoaded', startup);
-
-        // رویدادهای کیبورد
-        document.addEventListener('keydown', function(e) {
-            // ESC برای بستن
-            if (e.key === 'Escape') {
-                if (document.getElementById('storyModal').style.display === 'block') {
-                    closeMe();
-                }
-                if (document.getElementById('pricePanel').style.display === 'block') {
-                    closePrices();
-                }
-                if (document.getElementById('ad-popup').classList.contains('show')) {
-                    closeAd();
-                }
-            }
-            
-            // فلش‌ها برای حرکت در مودال
-            if (document.getElementById('storyModal').style.display === 'block') {
-                if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    changeSlide(e.key === 'ArrowRight' ? 1 : -1);
-                }
-            }
-        });
-
-        // پیشگیری از زوم دوباره در iOS
-        document.addEventListener('touchmove', function(e) {
-            if (e.scale !== 1) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        // نمایش پیام خروج برای PWA
-        window.addEventListener('beforeunload', function(e) {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        });
+        window.onload = startup;
     </script>
 </body>
-                </html>
+</html>
