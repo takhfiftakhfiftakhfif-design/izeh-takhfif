@@ -1,22 +1,14 @@
 [
   {
     "id": 1,
-    "name": "استوری ۱",
-    "isPopup": false,
-    "desc": "توضیحات استوری اول",
-    "src": "https://picsum.photos/id/10/200/200",
+    "name": "پوشاک فوکس",
+    "isPopup": true,
+    "desc": "عرضه مستقیم جنس ترک",
+    "phone": "09370214819",
+    "link": "https://www.instagram.com/boutique.fox8?igsh=MWlvenlpbHBxNXRzag==",
+    "src": "https://uploadkon.ir/uploads/504b06_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
     "slides": [
-      "https://picsum.photos/id/10/800/1200"
-    ]
-  },
-  {
-    "id": 2,
-    "name": "استوری ویدیو",
-    "isPopup": false,
-    "desc": "تست ویدیوی دوم در استوری",
-    "src": "https://picsum.photos/id/20/200/200",
-    "slides": [
-      "https://www.w3schools.com/html/horse.ogv"
+      "https://uploadkon.ir/uploads/504b06_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg"
     ]
   }
 ]
