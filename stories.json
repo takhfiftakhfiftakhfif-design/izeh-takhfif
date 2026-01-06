@@ -1,41 +1,22 @@
 [
   {
     "id": 1,
-    "name": "افتتاحیه بزرگ",
+    "name": "استوری ۱",
     "isPopup": false,
-    "desc": "با حضور گرم شما عزیزان، افتتاحیه باشکوهی خواهیم داشت! منتظرتان هستیم.",
-    "phone": "09121112233",
-    "link": "https://instagram.com/grand_opening_event",
-    "src": "https://example.com/videos/opening-teaser.mp4",
+    "desc": "توضیحات استوری اول",
+    "src": "https://picsum.photos/id/10/200/200",
     "slides": [
-      "https://example.com/videos/opening-teaser.mp4",
-      "https://example.com/images/opening-invite.jpg"
+      "https://picsum.photos/id/10/800/1200"
     ]
   },
   {
     "id": 2,
-    "name": "نمایشگاه هنری شهر",
-    "isPopup": true,
-    "desc": "سفری به دنیای رنگ‌ها و فرم‌ها در نمایشگاه هنری این هفته.",
-    "phone": "09304445566",
-    "link": "https://instagram.com/city_art_exhibition",
-    "src": "https://example.com/images/art-exhibition.jpg",
-    "slides": [
-      "https://example.com/images/art-exhibition.jpg",
-      "https://example.com/images/art-piece1.jpg",
-      "https://example.com/images/art-piece2.jpg"
-    ]
-  },
-  {
-    "id": 3,
-    "name": "تور طبیعت‌گردی",
+    "name": "استوری ویدیو",
     "isPopup": false,
-    "desc": "همراه با ما به دل طبیعت بزنید و از زیبایی‌ها لذت ببرید.",
-    "phone": "09217778899",
-    "link": "https://instagram.com/nature_tours",
-    "src": "https://example.com/images/nature-tour.jpg",
+    "desc": "تست ویدیوی دوم در استوری",
+    "src": "https://picsum.photos/id/20/200/200",
     "slides": [
-      "https://example.com/images/nature-tour.jpg"
+      "https://www.w3schools.com/html/horse.ogv"
     ]
   }
 ]
