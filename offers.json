@@ -5,7 +5,7 @@
     "desc": "ساخت و نصب ویترین و پارتیشن، نجاری لوازم چوبی، ساخت و تعمیر درب چوبی، ساخت و تعمیر سرویس خواب، ساخت و تعمیر کابینت و کمد دیواری",
     "phone": "09360184284",
     "src": "https://uploadkon.ir/uploads/f19506_26811f6b52-af32-44f6-b007-f0520b511629.jpg",
-    "slides":[
+    "slides": [
       "https://uploadkon.ir/uploads/f19506_26811f6b52-af32-44f6-b007-f0520b511629.jpg",
       "https://uploadkon.ir/uploads/5ca106_26ada696b2-8673-4ec9-a98b-34cc31ca48a5.jpg"
     ]
@@ -26,14 +26,20 @@
     "off": 30,
     "desc": "تخفیف روی تمامی کار ارایش دائم تاتوی آرایشی صورت و بدن",
     "phone": "09231375726",
-   [ "src": "https://uploadkon.ir/uploads/f4b706_26Screenshot-۲۰۲۶۰۱۰۶-۱۸۰۴۰۶-Chrome.jpg"
+    "src": "https://uploadkon.ir/uploads/f4b706_26Screenshot-۲۰۲۶۰۱۰۶-۱۸۰۴۰۶-Chrome.jpg",
+    "slides": [
+      "https://uploadkon.ir/uploads/f4b706_26Screenshot-۲۰۲۶۰۱۰۶-۱۸۰۴۰۶-Chrome.jpg"
+    ]
   },
   {
-    "id": 200,
+    "id": 203,
     "name": "کارخانه ایزوگام نگین گستر ایذه",
     "off": 10,
     "desc": "ایزوگام نگین گستر ایذه تولیدشده با قیر پالایشگاهی 6070، با کیفیت بالا و ضخامت‌های متنوع: ۳.۵، ۴ و ۵ میلی‌متر  ✅ مناسب برای پروژه‌های ساختمانی، صنعتی و عمرانی ✅ آماده همکاری با پیمانکاران، دفاتر فروش و همشهریان عزیز در ایذه و سراسر استان ✅ اعطای نمایندگی فعال در استان خوزستان  آدرس کارخانه: شهرک صنعتی ایذه، خیابان صنعت ۷ مستقیم از تولیدکننده – قیمت رقابتی – کیفیت ماندگار  برای مشاوره و سفارش تماس بگیرید ارسال به سراسر خوزستان",
     "phone": "09129267505",
-    "src": "https://uploadkon.ir/uploads/8efb06_26bb81ff0c-cc89-4f3c-991d-519cb2ebecc9.jpg"
+    "src": "https://uploadkon.ir/uploads/8efb06_26bb81ff0c-cc89-4f3c-991d-519cb2ebecc9.jpg",
+    "slides": [
+      "https://uploadkon.ir/uploads/8efb06_26bb81ff0c-cc89-4f3c-991d-519cb2ebecc9.jpg"
+    ]
   }
 ]
