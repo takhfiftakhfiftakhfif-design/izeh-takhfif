@@ -1,28 +1,15 @@
 [
   {
     "id": 200,
-    "name": "پیشنهاد ویژه (ویدیو)",
-    "off": 30,
-    "isPopup": false,
-    "desc": "این یک ویدیوی تستی با صدا برای بررسی عملکرد پلیر است.",
-    "phone": "09160000000",
-    "link": "https://instagram.com/",
-    "src": "https://www.w3schools.com/html/mov_bbb.mp4",
-    "slides": [
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-    ]
-  },
-  {
-    "id": 201,
-    "name": "تخفیف پاپ‌آپ",
-    "off": 50,
+    "name": "لباس فوکس",
+    "off": 65,
     "isPopup": true,
-    "desc": "این تبلیغ باید ۳ ثانیه بعد از باز شدن سایت پاپ‌آپ شود.",
-    "phone": "09160000000",
-    "link": "https://instagram.com/",
-    "src": "https://picsum.photos/id/237/400/600",
+    "desc": "ترک",
+    "phone": "09370214819",
+    "link": "https://www.instagram.com/boutique.fox8?igsh=MWlvenlpbHBxNXRzag==",
+    "src": "https://uploadkon.ir/uploads/504b06_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
     "slides": [
-      "https://picsum.photos/id/237/400/600"
+      "https://uploadkon.ir/uploads/504b06_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg"
     ]
   }
 ]
