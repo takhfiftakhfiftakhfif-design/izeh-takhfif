@@ -1,41 +1,41 @@
 [
   {
     "id": 1,
-    "vip": true,
-    "name": "پوشاک فوکس",
-    "desc": "جدیدترین کالکشن لباس‌های ترک با کیفیت استثنایی 👔",
-    "phone": "09370214819",
-    "link": "https://www.instagram.com/boutique.fox8",
-    "src": "https://uploadkon.ir/uploads/f94405_26VID-20251227-172500-130.mp4"
+    "name": "افتتاحیه بزرگ",
+    "isPopup": false,
+    "desc": "با حضور گرم شما عزیزان، افتتاحیه باشکوهی خواهیم داشت! منتظرتان هستیم.",
+    "phone": "09121112233",
+    "link": "https://instagram.com/grand_opening_event",
+    "src": "https://example.com/videos/opening-teaser.mp4",
+    "slides": [
+      "https://example.com/videos/opening-teaser.mp4",
+      "https://example.com/images/opening-invite.jpg"
+    ]
   },
   {
     "id": 2,
-    "vip": true,
-    "name": "پیتزا استار ایذه",
-    "desc": "طعم واقعی پیتزا ایتالیایی در محیطی دنج 🍕 (ارسال رایگان)",
-    "phone": "06143520000",
-    "link": "https://www.instagram.com/star_pizza",
-    "src": "https://uploadkon.ir/uploads/a10725_26pizza-sample.jpg"
+    "name": "نمایشگاه هنری شهر",
+    "isPopup": true,
+    "desc": "سفری به دنیای رنگ‌ها و فرم‌ها در نمایشگاه هنری این هفته.",
+    "phone": "09304445566",
+    "link": "https://instagram.com/city_art_exhibition",
+    "src": "https://example.com/images/art-exhibition.jpg",
+    "slides": [
+      "https://example.com/images/art-exhibition.jpg",
+      "https://example.com/images/art-piece1.jpg",
+      "https://example.com/images/art-piece2.jpg"
+    ]
   },
   {
     "id": 3,
-    "vip": false,
-    "name": "گالری ساعت تیک‌تاک",
-    "desc": "فروش انواع ساعت‌های هوشمند و کلاسیک با گارانتی معتبر ⌚",
-    "phone": "09160000000",
-    "link": "https://www.instagram.com/tictoc_izeh",
-    "src": "https://uploadkon.ir/uploads/b33104_26watch-sample.jpg"
-  },
-  {
-    "id": 4,
-    "vip": true,
-    "name": "کافه لند",
-    "desc": "بهترین قهوه‌های عربیکا در قلب ایذه ☕️",
-    "phone": "09380000000",
-    "link": "https://www.instagram.com/cafe_land",
+    "name": "تور طبیعت‌گردی",
+    "isPopup": false,
+    "desc": "همراه با ما به دل طبیعت بزنید و از زیبایی‌ها لذت ببرید.",
+    "phone": "09217778899",
+    "link": "https://instagram.com/nature_tours",
+    "src": "https://example.com/images/nature-tour.jpg",
     "slides": [
-      "https://uploadkon.ir/uploads/c88210_26cafe1.jpg",
-      "https://uploadkon.ir/uploads/d99312_26cafe2.jpg"
+      "https://example.com/images/nature-tour.jpg"
     ]
   }
 ]
