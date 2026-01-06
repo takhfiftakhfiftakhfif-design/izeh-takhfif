@@ -42,7 +42,7 @@
         
         .off-badge {
             position: absolute; top: 10px; right: 10px; background: var(--main); color: #fff;
-            padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: bold;
+            padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: bold;
             z-index: 5; box-shadow: 0 2px 6px rgba(0,0,0,0.3); direction: ltr;
         }
 
@@ -62,19 +62,19 @@
         #st-btns { display: flex; gap: 6px; }
         .btn-link { flex: 1; padding: 10px 2px; border-radius: 10px; color: #fff; font-weight: bold; text-decoration: none; font-size: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 3px; }
 
-        /* پاپ آپ جدید */
+        /* استایل پاپ آپ هوشمند */
         #ad-popup {
             position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%);
-            width: 160px; height: 90px; background: #fff; border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 10005;
+            width: 160px; height: 95px; background: #fff; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25); z-index: 10005;
             display: flex; flex-direction: column; overflow: hidden;
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #eee; cursor: pointer;
+            transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1.5px solid var(--main); cursor: pointer;
         }
         #ad-popup.show { bottom: 30px; }
-        #ad-popup img { width: 100%; height: 60px; object-fit: cover; }
-        #ad-popup .ad-title { font-size: 10px; font-weight: bold; padding: 5px; text-align: center; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #ad-popup .close-ad { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.5); color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        #ad-popup img { width: 100%; height: 65px; object-fit: cover; }
+        #ad-popup .ad-title { font-size: 11px; font-weight: bold; padding: 6px; text-align: center; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #ad-popup .close-ad { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -87,7 +87,7 @@
     <div id="ad-popup">
         <button class="close-ad" onclick="event.stopPropagation(); closeAd()">✕</button>
         <img id="ad-img" src="">
-        <div class="ad-title" id="ad-title">تبلیغ ویژه</div>
+        <div class="ad-title" id="ad-title"></div>
     </div>
 
     <div class="marquee-container">
@@ -126,7 +126,7 @@
         let allItems = [], swiperInstance, timer, progress = 0, isPaused = false, currentItem = null, slideIndex = 0;
         let deferredPrompt;
 
-        // --- بخش سیستم نصب (PWA Logic) ---
+        // --- منطق PWA ---
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -137,20 +137,12 @@
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('pwa-banner').style.display = 'none';
-                }
+                if (outcome === 'accepted') document.getElementById('pwa-banner').style.display = 'none';
                 deferredPrompt = null;
             }
         });
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
-            });
-        }
-        // ---------------------------------
-
+        // --- استارت آپ ---
         async function startup() {
             try {
                 const t = `?v=${new Date().getTime()}`;
@@ -162,14 +154,13 @@
                 document.getElementById('text-marq').innerText = Array.isArray(conf.marqueeText) ? conf.marqueeText.join(" ⚡ ") : conf.marqueeText;
                 allItems = [...stor, ...off];
                 render(stor, off);
-                
-                // بررسی وجود تبلیغ پاپ آپ
                 checkPopupAd(allItems);
-            } catch (e) { console.log("خطا در دریافت فایل‌ها"); }
+            } catch (e) { console.log("خطا در دریافت دیتا"); }
         }
 
+        // --- سیستم پاپ آپ خودکار ---
         function checkPopupAd(items) {
-            const popupItem = items.find(item => item.isPopup === true);
+            const popupItem = items.find(i => i.isPopup === true);
             if (popupItem) {
                 setTimeout(() => {
                     const adBox = document.getElementById('ad-popup');
@@ -177,18 +168,13 @@
                     document.getElementById('ad-img').src = thumb;
                     document.getElementById('ad-title').innerText = popupItem.name;
                     adBox.classList.add('show');
-                    adBox.onclick = () => {
-                        closeAd();
-                        openMe(popupItem.id);
-                    };
-                }, 3000); // نمایش بعد از 3 ثانیه
+                    adBox.onclick = () => { closeAd(); openMe(popupItem.id); };
+                }, 3500);
             }
         }
+        function closeAd() { document.getElementById('ad-popup').classList.remove('show'); }
 
-        function closeAd() {
-            document.getElementById('ad-popup').classList.remove('show');
-        }
-
+        // --- رندر کردن لیست ---
         function render(stories, offers) {
             const sDiv = document.getElementById('story-render'), cDiv = document.getElementById('card-render');
             sDiv.innerHTML = ''; cDiv.innerHTML = '';
@@ -201,7 +187,6 @@
             offers.forEach(item => {
                 const offTag = item.off ? `<div class="off-badge">${item.off}% OFF</div>` : '';
                 const thumb = item.src || (Array.isArray(item.slides) ? item.slides[0] : '');
-                
                 cDiv.innerHTML += `
                     <div class="swiper-slide">
                         <div class="card-container" onclick="openMe(${item.id})">
@@ -216,6 +201,7 @@
             swiperInstance = new Swiper(".mySwiper", { slidesPerView: 2.2, spaceBetween: 10 });
         }
 
+        // --- باز کردن مودال (استوری/تبلیغ) ---
         function openMe(id) {
             currentItem = allItems.find(x => x.id === id);
             if(!currentItem) return;
@@ -224,6 +210,7 @@
             showSlide();
         }
 
+        // --- نمایش اسلاید (ویدیو با صدا + دکمه‌های پویا) ---
         function showSlide() {
             const slides = Array.isArray(currentItem.slides) ? currentItem.slides : [currentItem.src];
             const src = slides[slideIndex];
@@ -233,27 +220,31 @@
             `).join('');
 
             const view = document.getElementById('media-view');
-            if (src.toLowerCase().endsWith('.mp4')) {
-                // صفت muted حذف شد تا ویدیو صدا داشته باشد
+            if (src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.mov')) {
+                // ویدیو بدون muted لود می‌شود
                 view.innerHTML = `<video id="st-video" autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
                 const v = document.getElementById('st-video');
                 v.onloadedmetadata = () => startTimer(v.duration * 1000);
-                // رفع مشکل بلاک شدن پخش خودکار توسط مرورگر
-                v.play().catch(() => {
-                    v.muted = true; // اگر مرورگر اجازه نداد، بی صدا پخش کن تا حداقل ویدیو نمایش داده شود
-                    v.play();
-                });
+                v.play().catch(() => { v.muted = true; v.play(); }); // لایه امنیتی مرورگر
             } else {
                 view.innerHTML = `<img src="${src}">`;
                 startTimer(5000);
             }
 
-            document.getElementById('st-name').innerText = currentItem.name;
-            document.getElementById('st-desc').innerText = currentItem.desc;
+            // نمایش نام و تگ تخفیف در استوری
+            document.getElementById('st-name').innerHTML = `
+                ${currentItem.name} 
+                ${currentItem.off ? `<span style="background:red; color:white; font-size:11px; padding:2px 7px; border-radius:8px; vertical-align:middle; margin-right:5px;">${currentItem.off}% OFF</span>` : ''}
+            `;
+            document.getElementById('st-desc').innerText = currentItem.desc || '';
             
+            // تولید دکمه‌ها بر اساس موجودیت در جیسون
             let btns = `<button onclick="shareApp('${currentItem.name}')" class="btn-link" style="background:#444">📤 اشتراک</button>`;
             if(currentItem.phone) btns += `<a href="tel:${currentItem.phone}" class="btn-link" style="background:#2ecc71">📞 تماس</a>`;
-            if(currentItem.link) btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main)">📸 اینستا</a>`;
+            if(currentItem.link) {
+                const isInsta = currentItem.link.includes('instagram');
+                btns += `<a href="${currentItem.link}" target="_blank" class="btn-link" style="background:var(--main)">${isInsta ? '📸 اینستا' : '🔗 لینک'}</a>`;
+            }
             document.getElementById('st-btns').innerHTML = btns;
         }
 
@@ -277,9 +268,11 @@
             else showSlide();
         }
 
-        function pauseTimer() { isPaused = true; const v = document.getElementById('st-video'); if(v) v.pause(); }
-        function resumeTimer() { isPaused = false; const v = document.getElementById('st-video'); if(v) v.play(); }
-        function closeMe() { const v = document.getElementById('st-video'); if(v) v.pause(); document.getElementById('storyModal').style.display = 'none'; clearInterval(timer); }
+        function closeMe() { 
+            const v = document.getElementById('st-video'); if(v) v.pause(); 
+            document.getElementById('storyModal').style.display = 'none'; 
+            clearInterval(timer); 
+        }
 
         async function shareApp(n) {
             try { await navigator.share({ title: 'تخفیفات ایذه', text: `تخفیف ویژه ${n}`, url: window.location.href }); } catch (err) {}
