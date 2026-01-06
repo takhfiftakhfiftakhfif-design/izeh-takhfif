@@ -10,7 +10,6 @@
   "scope": "/",
   "lang": "fa",
   "dir": "rtl",
-  "categories": ["shopping", "business", "lifestyle"],
   
   "icons": [
     {
@@ -36,24 +35,11 @@
     }
   ],
   
-  "screenshots": [
-    {
-      "src": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80",
-      "sizes": "1080x1920",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "صفحه اصلی"
-    }
-  ],
-  
-  "related_applications": [],
-  "prefer_related_applications": false,
-  
   "shortcuts": [
     {
-      "name": "پیشنهادهای ویژه",
+      "name": "مشاهده پیشنهادها",
       "short_name": "پیشنهادها",
-      "description": "مشاهده پیشنهادهای ویژه امروز",
+      "description": "پیشنهادهای ویژه امروز",
       "url": "/#offers"
     },
     {
