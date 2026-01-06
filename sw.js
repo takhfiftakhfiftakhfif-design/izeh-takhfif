@@ -1,47 +1,76 @@
-// نام حافظه کش برای ذخیره فایل‌ها
-const CACHE_NAME = 'izeh-takhfif-v1';
-
-// لیست فایل‌هایی که می‌خواهیم برای سرعت بیشتر ذخیره شوند
+// Service Worker برای PWA
+const CACHE_NAME = 'takhfifat-izhe-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json',
-  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
-  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js'
+  '/',
+  '/index.html',
+  '/data.json',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap',
+  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css'
 ];
 
-// نصب سرویس ورکر
+// نصب
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         return cache.addAll(urlsToCache);
       })
+      .then(() => self.skipWaiting())
   );
 });
 
-// مدیریت درخواست‌ها (برای کارکرد سریع‌تر و آفلاین)
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // اگر فایل در کش بود آن را برگردان، در غیر از شبکه بگیر
-        return response || fetch(event.request);
-      })
-  );
-});
-
-// فعال‌سازی و پاکسازی کش‌های قدیمی
+// فعال‌سازی
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
+});
+
+// دریافت
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response;
+        }
+        
+        return fetch(event.request).then(response => {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          
+          const responseToCache = response.clone();
+          
+          caches.open(CACHE_NAME)
+            .then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+            
+          return response;
+        });
+      })
+      .catch(() => {
+        // برگرداندن آفلاین
+        if (event.request.mode === 'navigate') {
+          return caches.match('/index.html');
+        }
+      })
+  );
+});
+
+// دریافت پیام‌ها
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
