@@ -1,17 +1,44 @@
 [
   {
     "id": 200,
-    "name": "لباس ارزون",
-    "off": 50,
-    "desc": "تاپایان هفته",
-    "phone": "09370214819",
-    "link": "https://www.instagram.com/boutique.fox8?igsh=MWlvenlpbHBxNXRzag==",
+    "name": "رستوران باما",
+    "off": 25,
+    "isPopup": false,
+    "desc": "۲۵٪ تخفیف ویژه بر روی تمام غذاها! امتحان کنید.",
+    "phone": "09161234567",
+    "link": "https://instagram.com/bama_restaurant",
+    "src": "https://example.com/videos/bama-promo.mp4",
     "slides": [
-      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
-      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
-      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
-      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg",
-      "https://uploadkon.ir/uploads/3b0605_26Screenshot-۲۰۲۶۰۱۰۲-۰۸۴۳۴۵-Instagram.jpg"
+      "https://example.com/videos/bama-promo.mp4",
+      "https://example.com/images/bama-food1.jpg",
+      "https://example.com/images/bama-food2.jpg"
+    ]
+  },
+  {
+    "id": 201,
+    "name": "فروشگاه لباس شیک‌پوش",
+    "off": 15,
+    "isPopup": true, 
+    "desc": "جدیدترین کالکشن تابستانه با ۱۵٪ تخفیف برای اولین خرید!",
+    "phone": "09359876543",
+    "link": "https://instagram.com/shikpoosh_boutique",
+    "src": "https://example.com/images/shikpoosh-summer.jpg",
+    "slides": [
+      "https://example.com/images/shikpoosh-summer.jpg",
+      "https://example.com/images/shikpoosh-dress1.jpg"
+    ]
+  },
+  {
+    "id": 202,
+    "name": "کافی‌شاپ دنج",
+    "off": 10,
+    "isPopup": false,
+    "desc": "لذت یک فنجان قهوه عالی با دوستانتان.",
+    "phone": "09163456789",
+    "link": "https://instagram.com/denj_cafe",
+    "src": "https://example.com/images/denj-cafe.jpg",
+    "slides": [
+      "https://example.com/images/denj-cafe.jpg"
     ]
   }
 ]
